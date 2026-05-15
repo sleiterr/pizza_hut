@@ -1,0 +1,11 @@
+# macOS
+.DS_Store
+
+# npm lockfiles (project uses pnpm)
+package-lock.json
+
+# pnpm debug
+.pnpm-debug.log*
+
+# node_modules
+node_modules/
