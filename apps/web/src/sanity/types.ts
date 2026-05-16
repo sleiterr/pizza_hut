@@ -186,21 +186,25 @@ export type AllSanitySchemaTypes =
   | Geopoint
   | Slug;
 
-// Source: ../web/src/app/events/[slug]/page.tsx
-// Variable: EVENT_QUERY
-// Query: *[    _type == "event" &&    slug.current == $slug  ][0]{  ...,  "date": coalesce(date, now()),  "doorsOpen": coalesce(doorsOpen, 0),  headline->{..., photo{asset}},  venue->}
-export type EVENT_QUERY_RESULT = null;
-
-// Source: ../web/src/app/page.tsx
-// Variable: EVENTS_QUERY
-// Query: *[  _type == "event"  && defined(slug.current)  && date > now()]|order(  defined(coalesce(headline->photo.asset, headliner->photo.asset)) desc,  date asc){  _id,  name,  slug,  date,  "hasArtistPhoto": defined(coalesce(headline->photo.asset, headliner->photo.asset))}
-export type EVENTS_QUERY_RESULT = Array<never>;
+// Source: ../web/src/sanity/queries.ts
+// Variable: HOME_PAGE_QUERY
+// Query: *[_type == "homePage"][0]{  heroTitle,  heroSubtitle,  heroImage { asset->{ url } },  heroButtonText,  heroButtonLink}
+export type HOME_PAGE_QUERY_RESULT = {
+  heroTitle: string | null;
+  heroSubtitle: string | null;
+  heroImage: {
+    asset: {
+      url: string | null;
+    } | null;
+  } | null;
+  heroButtonText: string | null;
+  heroButtonLink: string | null;
+} | null;
 
 // Query TypeMap
 import "@sanity/client";
 declare module "@sanity/client" {
   interface SanityQueries {
-    '*[\n    _type == "event" &&\n    slug.current == $slug\n  ][0]{\n  ...,\n  "date": coalesce(date, now()),\n  "doorsOpen": coalesce(doorsOpen, 0),\n  headline->{..., photo{asset}},\n  venue->\n}': EVENT_QUERY_RESULT;
-    '*[\n  _type == "event"\n  && defined(slug.current)\n  && date > now()\n]|order(\n  defined(coalesce(headline->photo.asset, headliner->photo.asset)) desc,\n  date asc\n){\n  _id,\n  name,\n  slug,\n  date,\n  "hasArtistPhoto": defined(coalesce(headline->photo.asset, headliner->photo.asset))\n}': EVENTS_QUERY_RESULT;
+    '*[_type == "homePage"][0]{\n  heroTitle,\n  heroSubtitle,\n  heroImage { asset->{ url } },\n  heroButtonText,\n  heroButtonLink\n}': HOME_PAGE_QUERY_RESULT;
   }
 }
