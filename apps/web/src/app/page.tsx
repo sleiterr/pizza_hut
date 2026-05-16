@@ -1,25 +1,15 @@
-// Template reference — GROQ query example:
-// import { defineQuery } from "next-sanity";
-// const EVENTS_QUERY = defineQuery(`*[
-//   _type == "event"
-//   && defined(slug.current)
-//   && date > now()
-// ]|order(
-//   defined(coalesce(headline->photo.asset, headliner->photo.asset)) desc,
-//   date asc
-// ){
-//   _id,
-//   name,
-//   slug,
-//   date,
-//   "hasArtistPhoto": defined(coalesce(headline->photo.asset, headliner->photo.asset))
-// }`);
-// coalesce() returns the first defined value — useful for fallback fields
+import { sanityFetch } from "@/sanity/live";
+import { HeroSection } from "@/components/HeroSection/HeroSection";
+import { HOME_PAGE_QUERY } from "@/sanity/queries";
+import type { HOME_PAGE_QUERY_RESULT } from "@/sanity/types";
 
 export default async function HomePage() {
+  const { data } = await sanityFetch({ query: HOME_PAGE_QUERY });
+  const homePage = data as HOME_PAGE_QUERY_RESULT;
+
   return (
     <main>
-      <p>Home Page — coming soon</p>
+      <HeroSection data={homePage} />
     </main>
   );
 }
