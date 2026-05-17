@@ -23,7 +23,8 @@ export const homePageType = defineType({
     defineField({
       name: 'heroSubtitle',
       title: 'Hero Subtitle',
-      type: 'string',
+      type: 'text',
+      rows: 3,
       group: 'hero',
     }),
     defineField({
