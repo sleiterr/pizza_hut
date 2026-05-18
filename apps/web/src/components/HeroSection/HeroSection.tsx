@@ -1,7 +1,9 @@
 import Image from "next/image";
 import CtaPrimary from "@/components/Button/CtaPrimary";
+import WeeklySpecial from "@/components/HeroSection/WeeklySpecial";
+import { HeroSectionProps } from "@/sanity/types";
 
-export function HeroSection({ data }: HeroSectionProps) {
+export function HeroSection({ data, weeklySpecial }: HeroSectionProps) {
   const imageUrl = data?.heroImage?.asset?.url;
 
   return (
@@ -31,17 +33,10 @@ export function HeroSection({ data }: HeroSectionProps) {
             )}
           </div>
         </div>
+        <div className="right-52 absolute -bottom-14 transform -translate-y-1/2">
+          <WeeklySpecial data={weeklySpecial} />
+        </div>
       </div>
     </section>
   );
 }
-
-type HeroSectionProps = {
-  data: {
-    heroTitle?: string | null;
-    heroSubtitle?: string | null;
-    heroButtonText?: string | null;
-    heroButtonLink?: string | null;
-    heroImage?: { asset?: { url?: string | null } | null } | null;
-  } | null;
-};
