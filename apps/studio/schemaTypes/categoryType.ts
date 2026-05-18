@@ -1,13 +1,23 @@
-import {defineType} from 'sanity'
+import {defineField, defineType} from 'sanity'
 
+// Schema definition for the "category" document type, which represents product categories in the Sanity Studio.
 export const categoryType = defineType({
   name: 'category',
   title: 'Category',
   type: 'document',
   fields: [
-    {
-      name: 'myField', // field name is required and must be unique
-      type: 'string', // field type is required
-    },
+    defineField({
+      name: 'title',
+      title: 'Title',
+      type: 'string',
+      validation: (Rule) => Rule.required(),
+    }),
+    defineField({
+      name: 'slug',
+      title: 'Slug',
+      type: 'slug',
+      options: {source: 'title'},
+      validation: (Rule) => Rule.required(),
+    }),
   ],
 })
