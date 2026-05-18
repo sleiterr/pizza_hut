@@ -1,5 +1,5 @@
 import {structureTool} from 'sanity/structure'
-import {HomeIcon, TagIcon, DocumentsIcon} from '@sanity/icons'
+import {HomeIcon, TagIcon, DocumentsIcon, BasketIcon, ThListIcon} from '@sanity/icons'
 
 const singletonTypes = new Set(['homePage'])
 const catalogTypes = new Set(['product', 'category'])
@@ -34,8 +34,8 @@ export const structure = structureTool({
             S.list()
               .title('Catalog')
               .items([
-                S.documentTypeListItem('product').title('Products').icon(TagIcon),
-                S.documentTypeListItem('category').title('Categories').icon(TagIcon),
+                S.documentTypeListItem('product').title('Products').icon(BasketIcon),
+                S.documentTypeListItem('category').title('Categories').icon(ThListIcon),
               ]),
           ),
       ]),
