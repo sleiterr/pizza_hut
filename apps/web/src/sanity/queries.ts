@@ -16,3 +16,4 @@ export const WEEKLY_SPECIAL_QUERY =
   productImage { asset->{ url } },
   tags,
 }`);
+

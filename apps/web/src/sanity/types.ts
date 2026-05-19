@@ -122,6 +122,13 @@ export type HomePage = {
   seoDescription?: string;
 };
 
+// Source: ../web/src/components/Section/SectionPage.tsx
+export type SectionPageProps = {
+  children: React.ReactNode;
+  className?: string;
+  id?: string;
+};
+
 export type HeroSectionProps = {
   data: {
     heroTitle?: string | null;
@@ -228,6 +235,21 @@ export type Geopoint = {
   lat?: number;
   lng?: number;
   alt?: number;
+};
+
+// Cta Component Props
+export type CtaProps = {
+  children: React.ReactNode;
+  className?: string;
+  style?: React.CSSProperties;
+};
+
+// Button Component Props
+export type ButtonProps = {
+  children: React.ReactNode;
+  href: string;
+  className?: string;
+  style?: React.CSSProperties;
 };
 
 export type AllSanitySchemaTypes =

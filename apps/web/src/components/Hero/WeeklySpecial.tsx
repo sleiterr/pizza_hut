@@ -1,8 +1,8 @@
 import React from "react";
 import clsx from "clsx";
 import Image from "next/image";
-import WeeklyCard from "@/components/HeroSection/WeeklyCard";
-import Rating from "@/components/HeroSection/Rating";
+import WeeklyCard from "@/components/Hero/WeeklyCard";
+import Rating from "@/components/Hero/Rating";
 import { ProductType } from "@/sanity/types";
 
 type WeeklySpecialProps = {
