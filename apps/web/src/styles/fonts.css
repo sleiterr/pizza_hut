@@ -1,0 +1,10 @@
+.font-fugaz {
+    font-family: var(--font-fugaz), "Fugaz One", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+}
+
+.font-oswald {
+    font-family: var(--font-oswald), "Oswald", sans-serif;
+    font-style: normal;
+}

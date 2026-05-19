@@ -1,10 +1,11 @@
 import type { Metadata } from "next";
 import { draftMode } from "next/headers";
-import { Fredoka, Epilogue } from "next/font/google";
+import { Fredoka, Epilogue, Fugaz_One, Oswald } from "next/font/google";
 import { VisualEditing } from "next-sanity/visual-editing";
+import Header from "@/components/Header/Header";
 import { SanityLive } from "@/sanity/live";
 import { DisableDraftMode } from "@/components/DisableDraftMode/disable-draft-mode";
-import "./globals.css";
+import "../styles/globals.css";
 
 const fredoka = Fredoka({
   variable: "--font-fredoka",
@@ -18,32 +19,40 @@ const epilogue = Epilogue({
   weight: ["200", "300", "400", "500", "600", "700"],
 });
 
+const fugaz = Fugaz_One({
+  variable: "--font-fugaz",
+  subsets: ["latin"],
+  weight: ["400"],
+});
+
+const oswald = Oswald({
+  variable: "--font-oswald",
+  subsets: ["latin"],
+  weight: ["200", "300", "400", "500", "600", "700"],
+});
+
 export const metadata: Metadata = {
   title: "Pizza Hut",
   description: "Order pizza online",
 };
 
-export default async function RootLayout({
+export default function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const { isEnabled } = await draftMode();
-
+  // draftMode не можна використовувати як await у функціональному компоненті, тому прибираємо цю логіку для клієнтського рендеру
   return (
     <html
       lang="en"
-      className={`${fredoka.variable} ${epilogue.variable} h-full antialiased`}
+      className={`${fredoka.variable} ${epilogue.variable} ${oswald.variable} ${fugaz.variable} h-full antialiased`}
     >
       <body suppressHydrationWarning className="min-h-full flex flex-col">
+        <Header />
         {children}
         <SanityLive />
-        {isEnabled ? (
-          <>
-            <VisualEditing />
-            <DisableDraftMode />
-          </>
-        ) : null}
+        <VisualEditing />
+        <DisableDraftMode />
       </body>
     </html>
   );
