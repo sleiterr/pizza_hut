@@ -1,4 +1,5 @@
 @import "tailwindcss";
+@import "../styles/fonts.css";
 
 :root {
   --background: #ffffff;
@@ -8,6 +9,8 @@
 @theme inline {
   --font-body: var(--font-epilogue);
   --font-heading: var(--font-fredoka);
+  --font-logo: var(--font-fugaz);
+  --font-oswald: var(--font-oswald);
   --color-background: var(--background);
 
   --color-primary: var(--text-primary);
@@ -17,6 +20,7 @@
 
   --color-logo: #EE3A43;
   --color-nav-link: #212121;
+  --color-nav-link-hover: #EE3A43;
   --color-card: #00A149;
 
   --color-cta-primary: #F3274C;
