@@ -2,12 +2,11 @@
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-// import logo from "../../../public/logo/logo_pizza.svg";
-// import cart_green from "../../../public/icons/cart.svg";
 import { useCart } from "@/hooks/useCart";
 import clsx from "clsx";
 import BurgerMenu from "./Burger";
 import NavMenu from "./NavMenu";
+import CartAndActions from "./CartAndActions";
 
 const Header = () => {
   // State to track if the page is scrolled
@@ -117,15 +116,10 @@ const Header = () => {
             />
           </div>
         )}
-        <div className="flex items-center">
-          <Link href="/" className="relative flex items-center pl-4">
-            <img src="/icons/cart.svg" alt="Cart" className="w-8 h-8" />
-            {cartCount > 0 && (
-              <span className="absolute -top-2 -right-2 min-w-[18px] h-[18px] flex items-center justify-center bg-red-500 text-white text-xs font-bold rounded-full px-1">
-                {cartCount}
-              </span>
-            )}
-          </Link>
+
+        {/* Cart and Actions */}
+        <div className="flex items-center justify-center gap-4">
+          <CartAndActions cartCount={cartCount} />
         </div>
       </header>
     </>

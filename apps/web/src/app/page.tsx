@@ -1,5 +1,5 @@
 import { sanityFetch } from "@/sanity/live";
-import { HeroSection } from "@/components/HeroSection/HeroSection";
+import { Hero } from "@/components/Hero/Hero";
 import { HOME_PAGE_QUERY, WEEKLY_SPECIAL_QUERY } from "@/sanity/queries";
 import type { HOME_PAGE_QUERY_RESULT, ProductType } from "@/sanity/types";
 
@@ -12,7 +12,7 @@ export default async function HomePage() {
 
   return (
     <main>
-      <HeroSection
+      <Hero
         data={homePage}
         weeklySpecial={weeklySpecialData as ProductType | null}
       />

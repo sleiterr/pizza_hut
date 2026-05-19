@@ -8,12 +8,12 @@ export const homePageType = defineType({
   icon: HomeIcon,
   groups: [
     {name: 'hero', title: 'Hero'},
-    {name: 'featured', title: 'Featured Menu'},
+    {name: 'featured', title: 'Featured About'},
     {name: 'promo', title: 'Promo'},
     {name: 'seo', title: 'SEO'},
   ],
   fields: [
-    // Hero section
+    //! Hero section
     defineField({
       name: 'heroTitle',
       title: 'Hero Title',
@@ -47,15 +47,87 @@ export const homePageType = defineType({
       group: 'hero',
     }),
 
-    // Featured Menu section
+    //! Featured About Section
     defineField({
-      name: 'featuredTitle',
-      title: 'Featured Section Title',
+      name: 'aboutTitle',
+      title: 'About Title',
+      type: 'string',
+      group: 'featured',
+      validation: (Rule) => Rule.required(),
+    }),
+
+    defineField({
+      name: 'aboutSubtitle',
+      title: 'About Subtitle',
+      type: 'string',
+      group: 'featured',
+      validation: (Rule) => Rule.required(),
+    }),
+
+    defineField({
+      name: 'aboutText',
+      title: 'About Text',
+      type: 'text',
+      group: 'featured',
+      rows: 4,
+    }),
+
+    defineField({
+      name: 'testimonialAvatar',
+      title: 'Testimonial Avatar',
+      type: 'image',
+      group: 'featured',
+      options: {hotspot: true},
+    }),
+
+    defineField({
+      name: 'authorName',
+      title: 'Author Name',
       type: 'string',
       group: 'featured',
     }),
 
-    // Promo section
+    defineField({
+      name: 'position',
+      title: 'Position',
+      type: 'string',
+      group: 'featured',
+    }),
+
+    defineField({
+      name: 'testimonialText',
+      title: 'Testimonial Text',
+      type: 'text',
+      group: 'featured',
+      rows: 4,
+    }),
+
+    defineField({
+      name: 'aboutImages',
+      title: 'About Images',
+      type: 'array',
+      group: 'featured',
+      of: [
+        {
+          type: 'object',
+          fields: [
+            {
+              name: 'image',
+              title: 'Image',
+              type: 'image',
+              options: {hotspot: true},
+            },
+            {
+              name: 'title',
+              title: 'Title',
+              type: 'string',
+            },
+          ],
+        },
+      ],
+    }),
+
+    //! Promo section
     defineField({
       name: 'promoTitle',
       title: 'Promo Title',
@@ -70,7 +142,7 @@ export const homePageType = defineType({
       options: {hotspot: true},
     }),
 
-    // SEO
+    //! SEO
     defineField({
       name: 'seoTitle',
       title: 'SEO Title',

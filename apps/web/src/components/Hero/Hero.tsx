@@ -1,9 +1,9 @@
 import Image from "next/image";
 import CtaPrimary from "@/components/Button/CtaPrimary";
-import WeeklySpecial from "@/components/HeroSection/WeeklySpecial";
+import WeeklySpecial from "@/components/Hero/WeeklySpecial";
 import { HeroSectionProps } from "@/sanity/types";
 
-export function HeroSection({ data, weeklySpecial }: HeroSectionProps) {
+export function Hero({ data, weeklySpecial }: HeroSectionProps) {
   const imageUrl = data?.heroImage?.asset?.url;
 
   return (
@@ -25,7 +25,16 @@ export function HeroSection({ data, weeklySpecial }: HeroSectionProps) {
           <p className="font-body font-normal text-xl text-quaternary mt-4">
             {data?.heroSubtitle}
           </p>
-          <div className="relative inline-block mt-14">
+          <div className="relative mt-14">
+            <span
+              className="absolute border-[3px] border-cta-primary rounded-xl pointer-events-none"
+              style={{
+                width: "190px",
+                height: "70px",
+                bottom: "-5px",
+                left: "18px",
+              }}
+            />
             {data?.heroButtonText && (
               <CtaPrimary href={data.heroButtonLink ?? "#"}>
                 {data.heroButtonText}
