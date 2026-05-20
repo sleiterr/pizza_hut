@@ -1,8 +1,8 @@
 import clsx from "clsx";
-import { ProductType } from "@/sanity/types";
+import type { Product } from "@/sanity/types";
 import { FaStar } from "react-icons/fa6";
 
-const Rating = ({ rating }: { rating?: ProductType["rating"] }) => {
+const Rating = ({ rating }: { rating?: Product["rating"] }) => {
   if (rating == null) return null;
 
   const stars = Array(5).fill(0);

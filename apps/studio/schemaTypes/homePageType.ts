@@ -59,7 +59,7 @@ export const homePageType = defineType({
     defineField({
       name: 'aboutSubtitle',
       title: 'About Subtitle',
-      type: 'string',
+      type: 'string',  
       group: 'featured',
       validation: (Rule) => Rule.required(),
     }),
@@ -102,6 +102,7 @@ export const homePageType = defineType({
       rows: 4,
     }),
 
+    // Array of about images
     defineField({
       name: 'aboutImages',
       title: 'About Images',

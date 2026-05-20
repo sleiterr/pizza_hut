@@ -8,6 +8,20 @@ export const HOME_PAGE_QUERY = defineQuery(`*[_type == "homePage"][0]{
   heroButtonLink
 }`);
 
+export const FEATURED_ABOUT_QUERY = defineQuery(`*[_type == "homePage"][0]{
+  aboutTitle,
+  aboutSubtitle,
+  aboutText,
+  testimonialAvatar { asset->{ url } },
+  authorName,
+  position,
+  testimonialText,
+  aboutImages[] {
+    image { asset->{ url } },
+    title
+  }
+}`);
+
 export const WEEKLY_SPECIAL_QUERY =
   defineQuery(`*[_type == "product" && "weekly-special" in tags][0]{
   name,
@@ -16,4 +30,3 @@ export const WEEKLY_SPECIAL_QUERY =
   productImage { asset->{ url } },
   tags,
 }`);
-

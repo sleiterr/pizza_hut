@@ -1,7 +1,7 @@
 import Image from "next/image";
 import CtaPrimary from "@/components/Button/CtaPrimary";
 import WeeklySpecial from "@/components/Hero/WeeklySpecial";
-import { HeroSectionProps } from "@/sanity/types";
+import type { HeroSectionProps } from "@/sanity/types";
 
 export function Hero({ data, weeklySpecial }: HeroSectionProps) {
   const imageUrl = data?.heroImage?.asset?.url;
