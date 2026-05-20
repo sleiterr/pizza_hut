@@ -1,21 +1,20 @@
-import { sanityFetch } from "@/sanity/live";
 import { Hero } from "@/components/Hero/Hero";
-import { HOME_PAGE_QUERY, WEEKLY_SPECIAL_QUERY } from "@/sanity/queries";
-import type { HOME_PAGE_QUERY_RESULT, ProductType } from "@/sanity/types";
+import FeaturedAbout from "@/components/FeaturedAbout/FeaturedAbout";
+import {
+  getHomePageData,
+  getWeeklySpecialData,
+  getFeaturedAboutData,
+} from "@/sanity/fetchers";
 
 export default async function HomePage() {
-  const { data: homePageData } = await sanityFetch({ query: HOME_PAGE_QUERY });
-  const { data: weeklySpecialData } = await sanityFetch({
-    query: WEEKLY_SPECIAL_QUERY,
-  });
-  const homePage = homePageData as HOME_PAGE_QUERY_RESULT;
+  const homePage = await getHomePageData();
+  const weeklySpecial = await getWeeklySpecialData();
+  const aboutPage = await getFeaturedAboutData();
 
   return (
     <main>
-      <Hero
-        data={homePage}
-        weeklySpecial={weeklySpecialData as ProductType | null}
-      />
+      <Hero data={homePage} weeklySpecial={weeklySpecial} />
+      <FeaturedAbout data={aboutPage} />
     </main>
   );
 }

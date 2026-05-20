@@ -3,12 +3,11 @@ import clsx from "clsx";
 import Image from "next/image";
 import WeeklyCard from "@/components/Hero/WeeklyCard";
 import Rating from "@/components/Hero/Rating";
-import { ProductType } from "@/sanity/types";
+import type { WEEKLY_SPECIAL_QUERY_RESULT } from "@/sanity/types";
 
 type WeeklySpecialProps = {
-  data?: ProductType | null;
+  data?: WEEKLY_SPECIAL_QUERY_RESULT;
 };
-
 const WeeklySpecial = ({ data }: WeeklySpecialProps) => {
   return (
     <WeeklyCard>
@@ -30,7 +29,7 @@ const WeeklySpecial = ({ data }: WeeklySpecialProps) => {
               {data.name}
             </h4>
           )}
-          <Rating rating={data?.rating} />
+          <Rating rating={data?.rating ?? undefined} />
         </div>
         <div className="flex items-center justify-center">
           {data?.productImage?.asset?.url && (

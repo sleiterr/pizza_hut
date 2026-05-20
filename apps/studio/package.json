@@ -19,10 +19,10 @@
   "dependencies": {
     "@sanity/client": "^7.22.0",
     "@sanity/icons": "^3.7.4",
-    "@sanity/vision": "^5.25.1",
+    "@sanity/vision": "^5.26.0",
     "react": "^19.2.4",
     "react-dom": "^19.2.4",
-    "sanity": "^5.25.1",
+    "sanity": "^5.26.0",
     "styled-components": "^6.1.18"
   },
   "devDependencies": {
