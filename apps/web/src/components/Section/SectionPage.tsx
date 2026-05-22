@@ -1,6 +1,5 @@
 import React from "react";
 import clsx from "clsx";
-import { SectionPageProps } from "@/sanity/types";
 
 const SectionPage = ({ children, className = "", id }: SectionPageProps) => {
   return (
@@ -22,3 +21,8 @@ const SectionPage = ({ children, className = "", id }: SectionPageProps) => {
 };
 
 export default SectionPage;
+
+type SectionPageProps = React.PropsWithChildren<{
+  className?: string;
+  id?: string;
+}>;

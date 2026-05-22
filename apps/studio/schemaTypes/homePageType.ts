@@ -9,7 +9,7 @@ export const homePageType = defineType({
   groups: [
     {name: 'hero', title: 'Hero'},
     {name: 'featured', title: 'Featured About'},
-    {name: 'promo', title: 'Promo'},
+    {name: 'menu', title: 'Menu'},
     {name: 'seo', title: 'SEO'},
   ],
   fields: [
@@ -59,7 +59,7 @@ export const homePageType = defineType({
     defineField({
       name: 'aboutSubtitle',
       title: 'About Subtitle',
-      type: 'string',  
+      type: 'string',
       group: 'featured',
       validation: (Rule) => Rule.required(),
     }),
@@ -128,19 +128,21 @@ export const homePageType = defineType({
       ],
     }),
 
-    //! Promo section
+    //! Menu section
+
+    // Menu Categories: array of references to category documents
     defineField({
-      name: 'promoTitle',
-      title: 'Promo Title',
-      type: 'string',
-      group: 'promo',
-    }),
-    defineField({
-      name: 'promoImage',
-      title: 'Promo Image',
-      type: 'image',
-      group: 'promo',
-      options: {hotspot: true},
+      name: 'menuCategories',
+      title: 'Menu Categories',
+      type: 'array',
+      group: 'menu',
+      of: [
+        {
+          type: 'reference',
+          to: [{type: 'category'}],
+        },
+      ],
+      description: 'Select categories to feature in the promo section',
     }),
 
     //! SEO

@@ -19,5 +19,13 @@ export const categoryType = defineType({
       options: {source: 'title'},
       validation: (Rule) => Rule.required(),
     }),
+    // Reference to menu
+    defineField({
+      name: 'menu',
+      title: 'Menu',
+      type: 'reference',
+      to: [{type: 'menuCategories'}],
+      description: 'Select the menu category this product category belongs to',
+    }),
   ],
 })

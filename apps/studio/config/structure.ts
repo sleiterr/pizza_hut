@@ -3,6 +3,7 @@ import {HomeIcon, TagIcon, DocumentsIcon, BasketIcon, ThListIcon} from '@sanity/
 
 const singletonTypes = new Set(['homePage'])
 const catalogTypes = new Set(['product', 'category'])
+const menuTypes = new Set(['menuCategories', 'Menu Categories'])
 
 export const structure = structureTool({
   structure: (S) =>
@@ -38,7 +39,22 @@ export const structure = structureTool({
                 S.documentTypeListItem('category').title('Categories').icon(ThListIcon),
               ]),
           ),
+
+        S.divider(),
+
+        // Menu group (example, adjust as needed)
+        S.listItem()
+          .title('Menu')
+          .icon(TagIcon)
+          .child(
+            S.list()
+              .title('Menu Categories')
+              .items([
+                S.documentTypeListItem('menuCategories').title('Menu Categories').icon(ThListIcon),
+                // Add more menu-related document types here if needed
+              ]),
+          ),
       ]),
 })
 
-export {singletonTypes, catalogTypes}
+export {singletonTypes, catalogTypes, menuTypes}
