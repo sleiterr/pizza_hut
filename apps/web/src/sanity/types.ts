@@ -1,17 +1,7 @@
-   // Тип для пропсів Hero
+// Тип для HeroSectionProps (ручне додавання, бо не генерується автоматично)
 export type HeroSectionProps = {
   data: HOME_PAGE_QUERY_RESULT;
   weeklySpecial: WEEKLY_SPECIAL_QUERY_RESULT;
-};
-// Тип для aboutImages[] (Featured About section)
-export type AboutImageType = {
-  image: {
-    asset: {
-      url: string | null;
-    } | null;
-  } | null;
-  title: string | null;
-  _key?: string;
 };
 /**
  * ---------------------------------------------------------------------------------
@@ -35,6 +25,47 @@ export type SanityImageAssetReference = {
   _type: "reference";
   _weak?: boolean;
   [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+};
+
+export type Menu = {
+  _id: string;
+  _type: "menu";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  title?: string;
+  description?: string;
+  image?: {
+    asset?: SanityImageAssetReference;
+    media?: unknown;
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    _type: "image";
+  };
+  items?: Array<{
+    name?: string;
+    description?: string;
+    price?: string;
+    isNew?: boolean;
+    _type: "item";
+    _key: string;
+  }>;
+};
+
+export type SanityImageCrop = {
+  _type: "sanity.imageCrop";
+  top?: number;
+  bottom?: number;
+  left?: number;
+  right?: number;
+};
+
+export type SanityImageHotspot = {
+  _type: "sanity.imageHotspot";
+  x?: number;
+  y?: number;
+  height?: number;
+  width?: number;
 };
 
 export type CategoryReference = {
@@ -81,22 +112,6 @@ export type Slug = {
   _type: "slug";
   current?: string;
   source?: string;
-};
-
-export type SanityImageCrop = {
-  _type: "sanity.imageCrop";
-  top?: number;
-  bottom?: number;
-  left?: number;
-  right?: number;
-};
-
-export type SanityImageHotspot = {
-  _type: "sanity.imageHotspot";
-  x?: number;
-  y?: number;
-  height?: number;
-  width?: number;
 };
 
 export type HomePage = {
@@ -251,12 +266,13 @@ export type Geopoint = {
 
 export type AllSanitySchemaTypes =
   | SanityImageAssetReference
+  | Menu
+  | SanityImageCrop
+  | SanityImageHotspot
   | CategoryReference
   | Product
   | Category
   | Slug
-  | SanityImageCrop
-  | SanityImageHotspot
   | HomePage
   | SanityImagePaletteSwatch
   | SanityImagePalette

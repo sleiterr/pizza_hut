@@ -2,12 +2,16 @@ import React from "react";
 import clsx from "clsx";
 import Image from "next/image";
 
-import type { AboutImageType } from "@/sanity/types";
-
 type FeaturedImagesProps = {
-  idx?: number;
-  key?: string;
-  images?: AboutImageType[];
+  images?: Array<{
+    image?: {
+      asset?: {
+        url?: string;
+      };
+    };
+    title?: string;
+    _key?: string;
+  }>;
 };
 
 const FeaturedImages = ({ images = [] }: FeaturedImagesProps) => {
@@ -15,7 +19,7 @@ const FeaturedImages = ({ images = [] }: FeaturedImagesProps) => {
     <>
       <ul className="flex items-center gap-8">
         {images.map((image, idx) => (
-          <li key={image._key || idx}>
+          <li key={image._key ?? idx}>
             {image.image?.asset?.url && (
               <div
                 className={clsx(

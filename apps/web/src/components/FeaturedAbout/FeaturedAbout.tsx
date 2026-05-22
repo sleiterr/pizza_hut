@@ -1,9 +1,6 @@
 import React from "react";
 import Image from "next/image";
-import type {
-  AboutImageType,
-  FEATURED_ABOUT_QUERY_RESULT,
-} from "@/sanity/types";
+import type { FEATURED_ABOUT_QUERY_RESULT } from "@/sanity/types";
 import FeaturedImages from "@/components/FeaturedAbout/FeaturedImages";
 import SectionPage from "@/components/Section/SectionPage";
 
@@ -48,9 +45,7 @@ const FeaturedAbout = ({ data }: FeaturedAboutProps) => {
         </div>
       </div>
       <div className="flex items-center justify-center mt-12">
-        <FeaturedImages
-          images={(data?.aboutImages as AboutImageType[]) ?? []}
-        />
+        <FeaturedImages images={(data?.aboutImages as any[]) ?? []} />
       </div>
     </SectionPage>
   );
