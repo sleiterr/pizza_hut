@@ -10,7 +10,7 @@ type FeaturedAboutProps = {
 
 const FeaturedAbout = ({ data }: FeaturedAboutProps) => {
   return (
-    <SectionPage>
+    <SectionPage className="py-0! pt-24! pb-0!">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
         <div className="w-122.5">
           <p className="font-heading font-medium text-xl text-tertiary uppercase leading-7.5">

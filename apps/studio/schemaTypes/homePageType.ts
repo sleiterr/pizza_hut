@@ -145,6 +145,15 @@ export const homePageType = defineType({
       description: 'Select categories to feature in the promo section',
     }),
 
+    defineField({
+      name: 'menu',
+      title: 'Menu',
+      type: 'reference',
+      to: [{type: 'menuCategories'}],
+      group: 'menu',
+      description: 'Select the menu document to display on the home page',
+    }),
+
     //! SEO
     defineField({
       name: 'seoTitle',
