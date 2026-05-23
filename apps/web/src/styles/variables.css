@@ -1,0 +1,27 @@
+/* hover for CTA primary */
+.hover\:cta-primary:hover {
+    background-color: var(--color-cta-primary-hover) !important;
+}
+
+/* hover for li with CTA primary */
+.hover-cta-primary:hover .hover-cta-text {
+    color: var(--color-quaternary) !important;
+}
+
+/* icon hover effect */
+.icon {
+    transition: color 0.2s;
+}
+
+.icon:hover {
+    color: var(--color-quaternary);
+}
+
+/* change color of icon when li is hovered */
+.hover-cta-primary:hover .icon {
+    color: var(--color-quaternary) !important;
+}
+
+.cta-primary {
+    color: var(--color-cta-primary);
+}

@@ -7,7 +7,7 @@ const CartAndActions = ({ cartCount }: { cartCount: number }) => {
   return (
     <>
       <Link href="/cart" className="relative flex items-center justify-center">
-        <img src="/icons/cart.svg" alt="Cart" className="w-8 h-10" />
+        <img src="/icons/cart/cart.svg" alt="Cart" className="w-8 h-10" />
         {cartCount > 0 ? (
           cartCount
         ) : (

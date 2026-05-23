@@ -4,11 +4,15 @@ import {
   HOME_PAGE_QUERY,
   WEEKLY_SPECIAL_QUERY,
   FEATURED_ABOUT_QUERY,
+  MENU_CATEGORY_QUERY,
+  MENU_QUERY,
 } from "@/sanity/queries";
 import type {
   HOME_PAGE_QUERY_RESULT,
   WEEKLY_SPECIAL_QUERY_RESULT,
   FEATURED_ABOUT_QUERY_RESULT,
+  MENU_CATEGORY_QUERY_RESULT,
+  MENU_QUERY_RESULT,
 } from "@/sanity/types";
 
 export async function getHomePageData() {
@@ -28,4 +32,18 @@ export async function getFeaturedAboutData() {
     query: FEATURED_ABOUT_QUERY,
   });
   return aboutPageData as FEATURED_ABOUT_QUERY_RESULT;
+}
+
+export async function getMenuCategoryData() {
+  const { data: menuCategoryData } = await sanityFetch({
+    query: MENU_CATEGORY_QUERY,
+  });
+  return menuCategoryData as MENU_CATEGORY_QUERY_RESULT;
+}
+
+export async function getMenuData() {
+  const { data: menuData } = await sanityFetch({
+    query: MENU_QUERY,
+  });
+  return menuData as MENU_QUERY_RESULT;
 }
