@@ -70,29 +70,10 @@ export type Category = {
   menu?: MenuCategoriesReference;
 };
 
-export type MenuCategories = {
-  _id: string;
-  _type: "menuCategories";
-  _createdAt: string;
-  _updatedAt: string;
-  _rev: string;
-  title?: string;
-  subtitle?: string;
-  image?: {
-    asset?: SanityImageAssetReference;
-    media?: unknown;
-    hotspot?: SanityImageHotspot;
-    crop?: SanityImageCrop;
-    _type: "image";
-  };
-  items?: Array<{
-    name?: string;
-    description?: string;
-    price?: string;
-    isNew?: boolean;
-    _type: "item";
-    _key: string;
-  }>;
+export type Slug = {
+  _type: "slug";
+  current?: string;
+  source?: string;
 };
 
 export type SanityImageCrop = {
@@ -109,12 +90,6 @@ export type SanityImageHotspot = {
   y?: number;
   height?: number;
   width?: number;
-};
-
-export type Slug = {
-  _type: "slug";
-  current?: string;
-  source?: string;
 };
 
 export type HomePage = {
@@ -163,8 +138,35 @@ export type HomePage = {
       _key: string;
     } & CategoryReference
   >;
+  menu?: MenuCategoriesReference;
   seoTitle?: string;
   seoDescription?: string;
+};
+
+export type MenuCategories = {
+  _id: string;
+  _type: "menuCategories";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  title?: string;
+  subtitle?: string;
+  slug?: Slug;
+  image?: {
+    asset?: SanityImageAssetReference;
+    media?: unknown;
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    _type: "image";
+  };
+  items?: Array<{
+    name?: string;
+    description?: string;
+    price?: string;
+    isNew?: boolean;
+    _type: "item";
+    _key: string;
+  }>;
 };
 
 export type SanityImagePaletteSwatch = {
@@ -270,11 +272,11 @@ export type AllSanitySchemaTypes =
   | Product
   | MenuCategoriesReference
   | Category
-  | MenuCategories
+  | Slug
   | SanityImageCrop
   | SanityImageHotspot
-  | Slug
   | HomePage
+  | MenuCategories
   | SanityImagePaletteSwatch
   | SanityImagePalette
   | SanityImageDimensions
@@ -353,6 +355,9 @@ export type MENU_CATEGORY_QUERY_RESULT = {
   }> | null;
 } | null;
 
+// Source: ../web/src/sanity/queries.ts
+// Variable: MENU_QUERY
+// Query: *[_type == "menuCategories"]{  _id,  title,  subtitle,  "slug": slug.current,  image { asset->{url} },  items[]{  _key,    name,    description,    price,    isNew  }}
 export type MENU_QUERY_RESULT = Array<{
   _id: string;
   title: string | null;
@@ -364,11 +369,11 @@ export type MENU_QUERY_RESULT = Array<{
     } | null;
   } | null;
   items: Array<{
+    _key: string;
     name: string | null;
     description: string | null;
     price: string | null;
-    isNew?: boolean | null;
-    _key: string;
+    isNew: boolean | null;
   }> | null;
 }>;
 
@@ -380,5 +385,6 @@ declare module "@sanity/client" {
     '*[_type == "product" && "weekly-special" in tags][0]{\n  name,\n  rating,\n  price,\n  productImage { asset->{ url } },\n  tags,\n}': WEEKLY_SPECIAL_QUERY_RESULT;
     '*[_type == "homePage"][0]{\n  aboutTitle,\n  aboutSubtitle,\n  aboutText,\n  testimonialAvatar { asset->{ url } },\n  authorName,\n  position,\n  testimonialText,\n  aboutImages[] {\n    image { asset->{ url } },\n    title\n  }\n}': FEATURED_ABOUT_QUERY_RESULT;
     '*[_type == "homePage"][0]{\n  menuCategories[]->{\n    _id,\n    title,\n    description,\n    "slug": slug.current,\n    image { asset->{ url } },\n    products[]->{\n      _id,\n      name,\n      price,\n      rating,\n      productImage { asset->{ url } },\n      tags\n    }\n  }\n}': MENU_CATEGORY_QUERY_RESULT;
+    '*[_type == "menuCategories"]{\n  _id,\n  title,\n  subtitle,\n  "slug": slug.current,\n  image { asset->{url} },\n  items[]{\n  _key,\n    name,\n    description,\n    price,\n    isNew\n  }\n}': MENU_QUERY_RESULT;
   }
 }

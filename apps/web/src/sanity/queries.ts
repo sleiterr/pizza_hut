@@ -56,6 +56,7 @@ export const MENU_QUERY = defineQuery(`*[_type == "menuCategories"]{
   "slug": slug.current,
   image { asset->{url} },
   items[]{
+  _key,
     name,
     description,
     price,
