@@ -10,7 +10,7 @@ const MenuCard = ({ menuData }: MenuCardProps) => {
   return (
     <>
       {menuData?.map((category, idx) => (
-        <div key={category._id || idx}>
+        <div key={category._id || idx} className="pb-24 pt-25 pr-25">
           <h3 className="font-semibold font-heading text-4xl pb-7">
             {category.title}
           </h3>

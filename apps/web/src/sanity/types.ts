@@ -377,6 +377,15 @@ export type MENU_QUERY_RESULT = Array<{
   }> | null;
 }>;
 
+export type DISCOVER_MENU_QUERY_RESULT = Array<{
+  discoverMenu: {
+    title: string;
+    description: string;
+    price: number;
+    image: { asset: { url: string | null } | null } | null;
+  };
+}>;
+
 // Query TypeMap
 import "@sanity/client";
 declare module "@sanity/client" {
