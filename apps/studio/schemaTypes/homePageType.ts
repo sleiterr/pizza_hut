@@ -10,7 +10,7 @@ export const homePageType = defineType({
     {name: 'hero', title: 'Hero'},
     {name: 'featured', title: 'Featured About'},
     {name: 'menu', title: 'Menu'},
-    {name: 'seo', title: 'SEO'},
+    {name: 'discoverMenu', title: 'Discover Menu'},
   ],
   fields: [
     //! Hero section
@@ -154,19 +154,41 @@ export const homePageType = defineType({
       description: 'Select the menu document to display on the home page',
     }),
 
-    //! SEO
+    //! Discover Menu
     defineField({
-      name: 'seoTitle',
-      title: 'SEO Title',
-      type: 'string',
-      group: 'seo',
-    }),
-    defineField({
-      name: 'seoDescription',
-      title: 'SEO Description',
-      type: 'text',
-      rows: 3,
-      group: 'seo',
+      name: 'discoverMenu',
+      title: 'Discover Menu',
+      type: 'array',
+      of: [
+        {
+          type: 'object',
+          fields: [
+            {
+              name: 'title',
+              title: 'Title',
+              type: 'string',
+            },
+            {
+              name: 'description',
+              title: 'Description',
+              type: 'text',
+              rows: 3,
+            },
+            {
+              name: 'price',
+              title: 'Price',
+              type: 'number',
+            },
+            {
+              name: 'image',
+              title: 'Image',
+              type: 'image',
+              options: {hotspot: true},
+            },
+          ],
+        },
+      ],
+      group: 'discoverMenu',
     }),
   ],
 })

@@ -63,3 +63,12 @@ export const MENU_QUERY = defineQuery(`*[_type == "menuCategories"]{
     isNew
   }
 }`);
+
+export const DISCOVER_MENU_QUERY = defineQuery(`*[_type == "homePage"][0]{
+  discoverMenu[]{
+    title,
+    description,
+    price,
+    image { asset->{url} }
+  }
+}`);

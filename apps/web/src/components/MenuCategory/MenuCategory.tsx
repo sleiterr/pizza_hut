@@ -58,7 +58,7 @@ const MenuCategory = ({ data, menuData }: MenuCategoryProps) => {
         className={clsx(
           "grid grid-cols-2",
           "mt-14 bg-primary-section",
-          "pb-15 pt-25 pr-25 w-240.5 h-147.5 rounded-4xl",
+          "w-240.5 h-auto rounded-4xl",
         )}
       >
         <div className="relative w-[850px] h-[538px]">

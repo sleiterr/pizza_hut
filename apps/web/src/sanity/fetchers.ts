@@ -6,6 +6,7 @@ import {
   FEATURED_ABOUT_QUERY,
   MENU_CATEGORY_QUERY,
   MENU_QUERY,
+  DISCOVER_MENU_QUERY,
 } from "@/sanity/queries";
 import type {
   HOME_PAGE_QUERY_RESULT,
@@ -13,6 +14,7 @@ import type {
   FEATURED_ABOUT_QUERY_RESULT,
   MENU_CATEGORY_QUERY_RESULT,
   MENU_QUERY_RESULT,
+  DISCOVER_MENU_QUERY_RESULT,
 } from "@/sanity/types";
 
 export async function getHomePageData() {
@@ -46,4 +48,11 @@ export async function getMenuData() {
     query: MENU_QUERY,
   });
   return menuData as MENU_QUERY_RESULT;
+}
+
+export async function getDiscoverMenuData() {
+  const { data: discoverMenuData } = await sanityFetch({
+    query: DISCOVER_MENU_QUERY,
+  });
+  return discoverMenuData as DISCOVER_MENU_QUERY_RESULT;
 }

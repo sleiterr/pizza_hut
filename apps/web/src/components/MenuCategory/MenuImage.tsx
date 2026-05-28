@@ -11,7 +11,7 @@ const MenuImage = ({ image }: MenuImageProps) => {
         alt="Menu"
         width={520}
         height={540}
-        className="object-cover absolute -top-12 left-5 -translate-x-1/2 "
+        className="object-cover absolute top-18 left-5 -translate-x-1/2 "
       />
     </>
   );
