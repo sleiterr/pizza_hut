@@ -1,6 +1,6 @@
 import React from "react";
 import clsx from "clsx";
-import { CtaProps } from "@/sanity/types";
+// import { CtaProps } from "@/sanity/types";
 
 const CtaModal = ({ children, className, ...rest }: CtaProps) => {
   return (
@@ -19,3 +19,8 @@ const CtaModal = ({ children, className, ...rest }: CtaProps) => {
 };
 
 export default CtaModal;
+
+type CtaProps = {
+  children: React.ReactNode;
+  className?: string;
+};
