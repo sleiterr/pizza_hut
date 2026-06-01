@@ -139,8 +139,19 @@ export type HomePage = {
     } & CategoryReference
   >;
   menu?: MenuCategoriesReference;
-  seoTitle?: string;
-  seoDescription?: string;
+  discoverMenu?: Array<{
+    title?: string;
+    description?: string;
+    price?: number;
+    image?: {
+      asset?: SanityImageAssetReference;
+      media?: unknown;
+      hotspot?: SanityImageHotspot;
+      crop?: SanityImageCrop;
+      _type: "image";
+    };
+    _key: string;
+  }>;
 };
 
 export type MenuCategories = {
@@ -377,14 +388,22 @@ export type MENU_QUERY_RESULT = Array<{
   }> | null;
 }>;
 
-export type DISCOVER_MENU_QUERY_RESULT = Array<{
-  discoverMenu: {
-    title: string;
-    description: string;
-    price: number;
-    image: { asset: { url: string | null } | null } | null;
-  };
-}>;
+// Source: ../web/src/sanity/queries.ts
+// Variable: DISCOVER_MENU_QUERY
+// Query: *[_type == "homePage"][0]{  discoverMenu[]{    _key,    title,    description,    price,    image { asset->{url} }  }}
+export type DISCOVER_MENU_QUERY_RESULT = {
+  discoverMenu: Array<{
+    _key: string;
+    title: string | null;
+    description: string | null;
+    price: number | null;
+    image: {
+      asset: {
+        url: string | null;
+      } | null;
+    } | null;
+  }> | null;
+} | null;
 
 // Query TypeMap
 import "@sanity/client";
@@ -395,5 +414,6 @@ declare module "@sanity/client" {
     '*[_type == "homePage"][0]{\n  aboutTitle,\n  aboutSubtitle,\n  aboutText,\n  testimonialAvatar { asset->{ url } },\n  authorName,\n  position,\n  testimonialText,\n  aboutImages[] {\n    image { asset->{ url } },\n    title\n  }\n}': FEATURED_ABOUT_QUERY_RESULT;
     '*[_type == "homePage"][0]{\n  menuCategories[]->{\n    _id,\n    title,\n    description,\n    "slug": slug.current,\n    image { asset->{ url } },\n    products[]->{\n      _id,\n      name,\n      price,\n      rating,\n      productImage { asset->{ url } },\n      tags\n    }\n  }\n}': MENU_CATEGORY_QUERY_RESULT;
     '*[_type == "menuCategories"]{\n  _id,\n  title,\n  subtitle,\n  "slug": slug.current,\n  image { asset->{url} },\n  items[]{\n  _key,\n    name,\n    description,\n    price,\n    isNew\n  }\n}': MENU_QUERY_RESULT;
+    '*[_type == "homePage"][0]{\n  discoverMenu[]{\n    _key,\n    title,\n    description,\n    price,\n    image { asset->{url} }\n  }\n}': DISCOVER_MENU_QUERY_RESULT;
   }
 }

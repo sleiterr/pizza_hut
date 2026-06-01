@@ -66,9 +66,25 @@ export const MENU_QUERY = defineQuery(`*[_type == "menuCategories"]{
 
 export const DISCOVER_MENU_QUERY = defineQuery(`*[_type == "homePage"][0]{
   discoverMenu[]{
+    _key,
     title,
     description,
     price,
     image { asset->{url} }
   }
 }`);
+
+export const RESERVATIONS_QUERY =
+  defineQuery(`*[_type == "reservations"] | order(_createdAt desc){
+  _id,
+  guestCount,
+  name,
+  date,
+  time,
+  phone,
+  status,
+  createdAt,
+  _createdAt
+}`);
+
+// _createdAt for sorting, createdAt for display

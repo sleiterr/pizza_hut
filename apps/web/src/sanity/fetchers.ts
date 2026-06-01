@@ -54,5 +54,6 @@ export async function getDiscoverMenuData() {
   const { data: discoverMenuData } = await sanityFetch({
     query: DISCOVER_MENU_QUERY,
   });
+  console.log("discoverMenuData", discoverMenuData);
   return discoverMenuData as DISCOVER_MENU_QUERY_RESULT;
 }
