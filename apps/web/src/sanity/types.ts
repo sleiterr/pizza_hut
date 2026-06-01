@@ -15,6 +15,21 @@
 export declare const internalGroqTypeReferenceTo: unique symbol;
 
 // Source: schema.json
+export type Reservations = {
+  _id: string;
+  _type: "reservations";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  guestCount?: number;
+  name?: string;
+  date?: string;
+  time?: string;
+  phone?: string;
+  createdAt?: string;
+  status?: "pending" | "confirmed" | "cancelled" | "completed";
+};
+
 export type SanityImageAssetReference = {
   _ref: string;
   _type: "reference";
@@ -278,6 +293,7 @@ export type Geopoint = {
 };
 
 export type AllSanitySchemaTypes =
+  | Reservations
   | SanityImageAssetReference
   | CategoryReference
   | Product
@@ -405,6 +421,21 @@ export type DISCOVER_MENU_QUERY_RESULT = {
   }> | null;
 } | null;
 
+// Source: ../web/src/sanity/queries.ts
+// Variable: RESERVATIONS_QUERY
+// Query: *[_type == "reservations"] | order(_createdAt desc){  _id,  guestCount,  name,  date,  time,  phone,  status,  createdAt,  _createdAt}
+export type RESERVATIONS_QUERY_RESULT = Array<{
+  _id: string;
+  guestCount: number | null;
+  name: string | null;
+  date: string | null;
+  time: string | null;
+  phone: string | null;
+  status: "cancelled" | "completed" | "confirmed" | "pending" | null;
+  createdAt: string | null;
+  _createdAt: string;
+}>;
+
 // Query TypeMap
 import "@sanity/client";
 declare module "@sanity/client" {
@@ -415,5 +446,6 @@ declare module "@sanity/client" {
     '*[_type == "homePage"][0]{\n  menuCategories[]->{\n    _id,\n    title,\n    description,\n    "slug": slug.current,\n    image { asset->{ url } },\n    products[]->{\n      _id,\n      name,\n      price,\n      rating,\n      productImage { asset->{ url } },\n      tags\n    }\n  }\n}': MENU_CATEGORY_QUERY_RESULT;
     '*[_type == "menuCategories"]{\n  _id,\n  title,\n  subtitle,\n  "slug": slug.current,\n  image { asset->{url} },\n  items[]{\n  _key,\n    name,\n    description,\n    price,\n    isNew\n  }\n}': MENU_QUERY_RESULT;
     '*[_type == "homePage"][0]{\n  discoverMenu[]{\n    _key,\n    title,\n    description,\n    price,\n    image { asset->{url} }\n  }\n}': DISCOVER_MENU_QUERY_RESULT;
+    '*[_type == "reservations"] | order(_createdAt desc){\n  _id,\n  guestCount,\n  name,\n  date,\n  time,\n  phone,\n  status,\n  createdAt,\n  _createdAt\n}': RESERVATIONS_QUERY_RESULT;
   }
 }

@@ -1,6 +1,5 @@
 import React from "react";
 import Link from "next/link";
-import { ButtonProps } from "@/sanity/types";
 import clsx from "clsx";
 
 const CtaPrimary = ({ children, href, className, ...rest }: ButtonProps) => {
@@ -27,3 +26,9 @@ const CtaPrimary = ({ children, href, className, ...rest }: ButtonProps) => {
 };
 
 export default CtaPrimary;
+
+type ButtonProps = {
+  children: React.ReactNode;
+  href: string;
+  className?: string;
+};

@@ -2,6 +2,8 @@ import { Hero } from "@/components/Hero/Hero";
 import FeaturedAbout from "@/components/FeaturedAbout/FeaturedAbout";
 import MenuCategory from "@/components/MenuCategory/MenuCategory";
 import DiscoverMenu from "@/components/DiscoverMenu/DiscoverMenu";
+import Booking from "@/components/Booking/Booking";
+
 import {
   getHomePageData,
   getWeeklySpecialData,
@@ -25,6 +27,7 @@ export default async function HomePage() {
       <FeaturedAbout data={aboutPage} />
       <MenuCategory data={menuCategory} menuData={menuData} />
       <DiscoverMenu data={discoverMenuData} />
+      <Booking />
     </main>
   );
 }
