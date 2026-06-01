@@ -1,16 +1,25 @@
 import {structureTool} from 'sanity/structure'
-import {HomeIcon, TagIcon, DocumentsIcon, BasketIcon, ThListIcon} from '@sanity/icons'
+import {
+  HomeIcon,
+  TagIcon,
+  MenuIcon,
+  DocumentsIcon,
+  BasketIcon,
+  ThListIcon,
+  ListIcon,
+} from '@sanity/icons'
 
 const singletonTypes = new Set(['homePage'])
 const catalogTypes = new Set(['product', 'category'])
 const menuTypes = new Set(['menuCategories', 'Menu Categories'])
+const reservationTypes = new Set(['reservations', 'Reservations'])
 
 export const structure = structureTool({
   structure: (S) =>
     S.list()
       .title('Content')
       .items([
-        // Pages — сінглтони
+        // Singleton pages
         S.listItem()
           .title('Pages')
           .icon(DocumentsIcon)
@@ -45,7 +54,7 @@ export const structure = structureTool({
         // Menu group (example, adjust as needed)
         S.listItem()
           .title('Menu')
-          .icon(TagIcon)
+          .icon(MenuIcon)
           .child(
             S.list()
               .title('Menu Categories')
@@ -54,7 +63,21 @@ export const structure = structureTool({
                 // Add more menu-related document types here if needed
               ]),
           ),
+
+        S.divider(),
+
+        S.listItem()
+          .title('Reservations')
+          .icon(ListIcon)
+          .child(
+            S.list()
+              .title('Reservations')
+              .items([
+                S.documentTypeListItem('reservations').title('Reservations').icon(ThListIcon),
+                // Add more reservations-related document types here if needed
+              ]),
+          ),
       ]),
 })
 
-export {singletonTypes, catalogTypes, menuTypes}
+export {singletonTypes, catalogTypes, menuTypes, reservationTypes}
