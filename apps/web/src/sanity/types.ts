@@ -436,6 +436,27 @@ export type RESERVATIONS_QUERY_RESULT = Array<{
   _createdAt: string;
 }>;
 
+// Source: ../web/src/sanity/queries.ts
+// Variable: FEATURED_DISHES_QUERY
+// Query: *[_type == "product" && "featured" in tags] | order(_createdAt desc, _id desc)[$start...$end]{    _id,  name,  rating,  price,  productImage { asset->{ url } },  tags,}
+export type FEATURED_DISHES_QUERY_RESULT = Array<{
+  _id: string;
+  name: string | null;
+  rating: number | null;
+  price: number | null;
+  productImage: {
+    asset: {
+      url: string | null;
+    } | null;
+  } | null;
+  tags: Array<string> | null;
+}>;
+
+// Source: ../web/src/sanity/queries.ts
+// Variable: FEATURED_DISHES_COUNT_QUERY
+// Query: count(*[_type == "product" && "featured" in tags])
+export type FEATURED_DISHES_COUNT_QUERY_RESULT = number;
+
 // Query TypeMap
 import "@sanity/client";
 declare module "@sanity/client" {
@@ -447,5 +468,7 @@ declare module "@sanity/client" {
     '*[_type == "menuCategories"]{\n  _id,\n  title,\n  subtitle,\n  "slug": slug.current,\n  image { asset->{url} },\n  items[]{\n  _key,\n    name,\n    description,\n    price,\n    isNew\n  }\n}': MENU_QUERY_RESULT;
     '*[_type == "homePage"][0]{\n  discoverMenu[]{\n    _key,\n    title,\n    description,\n    price,\n    image { asset->{url} }\n  }\n}': DISCOVER_MENU_QUERY_RESULT;
     '*[_type == "reservations"] | order(_createdAt desc){\n  _id,\n  guestCount,\n  name,\n  date,\n  time,\n  phone,\n  status,\n  createdAt,\n  _createdAt\n}': RESERVATIONS_QUERY_RESULT;
+    '*[_type == "product" && "featured" in tags] | order(_createdAt desc, _id desc)[$start...$end]{\n    _id,\n  name,\n  rating,\n  price,\n  productImage { asset->{ url } },\n  tags,\n}': FEATURED_DISHES_QUERY_RESULT;
+    'count(*[_type == "product" && "featured" in tags])': FEATURED_DISHES_COUNT_QUERY_RESULT;
   }
 }

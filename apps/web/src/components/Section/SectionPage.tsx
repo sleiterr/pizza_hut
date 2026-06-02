@@ -1,10 +1,19 @@
 import React from "react";
 import clsx from "clsx";
 
-const SectionPage = ({ children, className = "", id }: SectionPageProps) => {
+const SectionPage = ({
+  children,
+  className,
+  classSection,
+  id,
+}: SectionPageProps) => {
   return (
     <section
-      className={clsx("flex items-center justify-center", "relative")}
+      className={clsx(
+        "flex items-center justify-center",
+        "relative",
+        classSection,
+      )}
       id={id}
     >
       <div
@@ -23,6 +32,7 @@ const SectionPage = ({ children, className = "", id }: SectionPageProps) => {
 export default SectionPage;
 
 type SectionPageProps = React.PropsWithChildren<{
+  classSection?: string;
   className?: string;
   id?: string;
 }>;

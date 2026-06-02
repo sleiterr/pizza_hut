@@ -7,6 +7,8 @@ import {
   MENU_CATEGORY_QUERY,
   MENU_QUERY,
   DISCOVER_MENU_QUERY,
+  FEATURED_DISHES_QUERY,
+  FEATURED_DISHES_COUNT_QUERY,
 } from "@/sanity/queries";
 import type {
   HOME_PAGE_QUERY_RESULT,
@@ -15,6 +17,8 @@ import type {
   MENU_CATEGORY_QUERY_RESULT,
   MENU_QUERY_RESULT,
   DISCOVER_MENU_QUERY_RESULT,
+  FEATURED_DISHES_QUERY_RESULT,
+  FEATURED_DISHES_COUNT_QUERY_RESULT,
 } from "@/sanity/types";
 
 export async function getHomePageData() {
@@ -56,4 +60,20 @@ export async function getDiscoverMenuData() {
   });
   console.log("discoverMenuData", discoverMenuData);
   return discoverMenuData as DISCOVER_MENU_QUERY_RESULT;
+}
+
+//! Fetch featured dishes with pagination
+export async function getFeaturedDishesData(start: number, end: number) {
+  const { data: featuredDishesData } = await sanityFetch({
+    query: FEATURED_DISHES_QUERY,
+    params: { start, end },
+  });
+  return featuredDishesData as FEATURED_DISHES_QUERY_RESULT;
+}
+//! Fetch total count of featured dishes for pagination
+export async function getFeaturedDishesCount() {
+  const { data: featuredDishesCount } = await sanityFetch({
+    query: FEATURED_DISHES_COUNT_QUERY,
+  });
+  return featuredDishesCount as FEATURED_DISHES_COUNT_QUERY_RESULT;
 }

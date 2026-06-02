@@ -65,7 +65,7 @@ export const productType = defineType({
       type: 'reference',
       // reference to the category document type, allowing products to be associated with a category.
       to: [{type: 'category'}],
-      validation: (Rule) => Rule.required(),
+      // validation: (Rule) => Rule.required(),
     }),
     // tags field is an array of strings that allows categorizing products with predefined tags.
     defineField({
@@ -74,9 +74,9 @@ export const productType = defineType({
       type: 'array',
       of: [{type: 'string'}],
       options: {
-        // list of predefined tags that can be selected for each product, such as "Featured", "Popular", "New", etc.
+        // list of predefined tags that can be selected for each product, such as "Featured Dishes", "Popular", "New", etc.
         list: [
-          {title: 'Featured', value: 'featured'},
+          {title: 'Featured Dishes', value: 'featured'},
           {title: 'Popular', value: 'popular'},
           {title: 'Trending', value: 'trending'},
           {title: 'Flash Sale', value: 'flash-sale'},
