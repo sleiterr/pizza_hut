@@ -87,4 +87,21 @@ export const RESERVATIONS_QUERY =
   _createdAt
 }`);
 
+// use for fetching featured dishes with pagination
+// $start- $end use for pagination, for example $start = 0, $end = 4 to fetch first 4 featured dishes
+export const FEATURED_DISHES_QUERY =
+  defineQuery(`*[_type == "product" && "featured" in tags] | order(_createdAt desc, _id desc)[$start...$end]{
+    _id,
+  name,
+  rating,
+  price,
+  productImage { asset->{ url } },
+  tags,
+}`);
+
+// use for counting total number of featured dishes for pagination
+export const FEATURED_DISHES_COUNT_QUERY = defineQuery(
+  `count(*[_type == "product" && "featured" in tags])`,
+);
+
 // _createdAt for sorting, createdAt for display

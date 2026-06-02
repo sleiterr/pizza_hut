@@ -1,7 +1,15 @@
 import Image from "next/image";
 import CtaPrimary from "@/components/Button/CtaPrimary";
 import WeeklySpecial from "@/components/Hero/WeeklySpecial";
-import type { HeroSectionProps } from "@/sanity/types";
+import type {
+  HOME_PAGE_QUERY_RESULT,
+  WEEKLY_SPECIAL_QUERY_RESULT,
+} from "@/sanity/types";
+
+export type HeroSectionProps = {
+  data: HOME_PAGE_QUERY_RESULT;
+  weeklySpecial: WEEKLY_SPECIAL_QUERY_RESULT;
+};
 
 export function Hero({ data, weeklySpecial }: HeroSectionProps) {
   const imageUrl = data?.heroImage?.asset?.url;
