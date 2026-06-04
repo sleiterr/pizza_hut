@@ -34,7 +34,7 @@ const FeaturedDishesPagination = ({
   };
 
   return (
-    <div className="mt-12 flex justify-center gap-2">
+    <div className="mt-16 flex justify-center gap-5">
       {Array.from({ length: totalPage }).map((_, index) => {
         const page = index + 1;
         const isActive = currentPage === page;

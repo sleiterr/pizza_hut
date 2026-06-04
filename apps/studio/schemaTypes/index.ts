@@ -4,4 +4,4 @@ import {categoryType} from './categoryType'
 import {menuType} from './menuType'
 import {reservationsType} from './reservationsType'
 
-export const schemaTypes = [homePageType, productType, categoryType, menuType, reservationsType]
+export const schemaTypes = [homePageType, productType, categoryType, menuType, reservationsType, ]

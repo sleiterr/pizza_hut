@@ -11,6 +11,7 @@ export const homePageType = defineType({
     {name: 'featured', title: 'Featured About'},
     {name: 'menu', title: 'Menu'},
     {name: 'discoverMenu', title: 'Discover Menu'},
+    {name: 'feedbacks', title: 'Feedbacks'},
   ],
   fields: [
     //! Hero section
@@ -189,6 +190,45 @@ export const homePageType = defineType({
         },
       ],
       group: 'discoverMenu',
+    }),
+
+    //! Feedbacks
+    defineField({
+      name: 'feedbacksTitle',
+      title: 'Feedbacks Title',
+      type: 'string',
+      group: 'feedbacks',
+    }),
+    defineField({
+      name: 'feedbacksSubtitle',
+      title: 'Feedbacks Subtitle',
+      type: 'string',
+      group: 'feedbacks',
+    }),
+
+    defineField({
+      name: 'feedbacks',
+      title: 'Feedbacks',
+      type: 'array',
+      of: [
+        {
+          type: 'object',
+          fields: [
+            {
+              name: 'feedbackText',
+              title: 'Feedback Text',
+              type: 'text',
+              rows: 3,
+            },
+            {
+              name: 'reviewAuthor',
+              title: 'Review Author',
+              type: 'string',
+            },
+          ],
+        },
+      ],
+      group: 'feedbacks',
     }),
   ],
 })
