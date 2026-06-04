@@ -93,7 +93,7 @@ export const FEATURED_DISHES_QUERY =
   defineQuery(`*[_type == "product" && "featured" in tags] | order(_createdAt desc, _id desc)[$start...$end]{
     _id,
   name,
-  rating,
+  discountPrice,
   price,
   productImage { asset->{ url } },
   tags,
@@ -105,3 +105,13 @@ export const FEATURED_DISHES_COUNT_QUERY = defineQuery(
 );
 
 // _createdAt for sorting, createdAt for display
+
+export const FEEDBACK_QUERY = defineQuery(`*[_type == "homePage"][0]{
+  feedbacksTitle,
+  feedbacksSubtitle,
+  feedbacks[]{
+    _key,
+    feedbackText,
+    reviewAuthor,
+  }
+}`);

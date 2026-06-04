@@ -1,5 +1,8 @@
 import React from "react";
+import clsx from "clsx";
 import Image from "next/image";
+import { FaShoppingBag } from "react-icons/fa";
+import CardFeatured from "./CardFeatured";
 
 import type { FEATURED_DISHES_QUERY_RESULT } from "@/sanity/types";
 
@@ -9,43 +12,67 @@ type FeaturedCardProps = {
 
 const FeaturedCard = ({ items }: FeaturedCardProps) => {
   return (
-    <div className="mt-16 grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
+    <ul className="mt-4 grid items-stretch gap-8 sm:grid-cols-2 lg:grid-cols-3">
       {items?.map((item) => (
-        <article
-          key={item._id}
-          className="overflow-hidden rounded-[20px] bg-white shadow-[0_10px_30px_rgba(0,0,0,0.08)]"
-        >
-          <div className="flex h-full flex-col p-6">
-            {item.productImage?.asset?.url && (
-              <div className="mt-6 flex flex-1 items-center justify-center">
-                <Image
-                  src={item.productImage.asset.url}
-                  alt={item.name || "Featured dish"}
-                  width={240}
-                  height={240}
-                  className="h-auto w-full max-w-60 object-contain"
-                />
+        <li key={item._id} className="flex h-full justify-center">
+          <CardFeatured>
+            <div className="relative flex h-full w-full flex-col justify-between">
+              <span
+                className={clsx(
+                  "absolute -left-8 -top-3 z-10 flex h-17.5 w-17.5 rounded-full bg-discount-price items-center justify-center",
+                  "font-heading text-lg font-semibold uppercase leading-none text-black",
+                )}
+              >
+                sale
+              </span>
+              <div className="relative mt-6 flex h-72.5 items-center justify-center">
+                <span className="absolute h-37.25 w-83.25 rounded-full bg-cta-primary-hover" />
+                {item.productImage?.asset?.url && (
+                  <Image
+                    src={item.productImage.asset.url}
+                    alt={item.name || "Featured dish"}
+                    width={330}
+                    height={290}
+                    className="relative h-72.5 w-82.5 object-contain"
+                  />
+                )}
               </div>
-            )}
-            <div className="flex items-start justify-between gap-4">
-              <div>
-                {item.name && (
-                  <h3 className="mt-2 font-heading text-2xl font-semibold text-primary">
-                    {item.name}
-                  </h3>
-                )}
-                {item.price != null && (
-                  <span className="font-heading text-3xl font-bold text-primary">
-                    <span className="text-tertiary">$</span>
-                    {item.price}
-                  </span>
-                )}
+              <div className="mb-4 flex items-center justify-between">
+                <div className="flex flex-col items-start">
+                  {item.name && (
+                    <h3 className="mt-2  font-heading text-2xl font-semibold text-primary">
+                      {item.name}
+                    </h3>
+                  )}
+                  {item.price != null && (
+                    <div className="flex items-baseline justify-center gap-2">
+                      <span
+                        className={clsx(
+                          "font-heading text-lg font-bold text-secondary",
+                          "line-through decoration-2 decoration-secondary/80",
+                        )}
+                      >
+                        <span className="text-secondary">$</span>
+                        {item.price}
+                      </span>
+                      <span className="font-heading text-3xl font-bold text-secondary">
+                        <span className="text-tertiary">$</span>
+                        {item.discountPrice != null && item.discountPrice}
+                      </span>
+                    </div>
+                  )}
+                </div>
+              </div>
+              <div className="absolute bottom-0 right-0 z-10 translate-x-1/2 translate-y-[8px]">
+                <button className="flex items-center justify-center bg-discount-price rounded-[7px] w-12.5 h-12.5">
+                  <FaShoppingBag className="w-4 h-4.75" />
+                </button>
               </div>
             </div>
-          </div>
-        </article>
+          </CardFeatured>
+        </li>
       ))}
-    </div>
+    </ul>
   );
 };
 
