@@ -127,3 +127,14 @@ export const KITCHEN_TEAM_QUERY = defineQuery(`*[_type == "homePage"][0]{
    signatureImage { asset->{url} },
   }
 }`);
+
+export const APP_SECTION_QUERY = defineQuery(`*[_type == "homePage"][0]{
+  appSectionSubtitle,
+  appSectionTitle,
+  appSection[] {
+    _key,
+    benefit,
+    googlePlayLink,
+    appStoreLink
+  }
+}`);

@@ -194,6 +194,14 @@ export type HomePage = {
     };
     _key: string;
   }>;
+  appSectionSubtitle?: string;
+  appSectionTitle?: string;
+  appSection?: Array<{
+    benefit?: Array<string>;
+    googlePlayLink?: string;
+    appStoreLink?: string;
+    _key: string;
+  }>;
 };
 
 export type MenuCategories = {
@@ -522,6 +530,20 @@ export type KITCHEN_TEAM_QUERY_RESULT = {
   }> | null;
 } | null;
 
+// Source: ../web/src/sanity/queries.ts
+// Variable: APP_SECTION_QUERY
+// Query: *[_type == "homePage"][0]{  appSectionSubtitle,  appSectionTitle,  appSection[] {    _key,    benefit,    googlePlayLink,    appStoreLink  }}
+export type APP_SECTION_QUERY_RESULT = {
+  appSectionSubtitle: string | null;
+  appSectionTitle: string | null;
+  appSection: Array<{
+    _key: string;
+    benefit: Array<string> | null;
+    googlePlayLink: string | null;
+    appStoreLink: string | null;
+  }> | null;
+} | null;
+
 // Query TypeMap
 import "@sanity/client";
 declare module "@sanity/client" {
@@ -537,5 +559,6 @@ declare module "@sanity/client" {
     'count(*[_type == "product" && "featured" in tags])': FEATURED_DISHES_COUNT_QUERY_RESULT;
     '*[_type == "homePage"][0]{\n  feedbacksTitle,\n  feedbacksSubtitle,\n  "feedbacksCount": count(coalesce(feedbacks, [])),\n  "feedbacks":coalesce(feedbacks, [])[$start...$end]{\n    _key,\n    feedbackText,\n    reviewAuthor,\n  }\n}': FEEDBACK_QUERY_RESULT;
     '*[_type == "homePage"][0]{\n  ourTeam,\n  ourTeamMembers [] {\n    _key,\n   image { asset->{url} },\n   role,\n   fullName,\n   signatureImage { asset->{url} },\n  }\n}': KITCHEN_TEAM_QUERY_RESULT;
+    '*[_type == "homePage"][0]{\n  appSectionSubtitle,\n  appSectionTitle,\n  appSection[] {\n    _key,\n    benefit,\n    googlePlayLink,\n    appStoreLink\n  }\n}': APP_SECTION_QUERY_RESULT;
   }
 }
