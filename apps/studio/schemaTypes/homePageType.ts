@@ -1,18 +1,24 @@
 import {defineField, defineType} from 'sanity'
 import {HomeIcon} from '@sanity/icons'
 
+/// This is the schema definition for the home page document type in Sanity CMS.
+const sectionGrups = [
+  ['hero', 'Hero'],
+  ['featured', 'Featured About'],
+  ['menu', 'Menu'],
+  ['discoverMenu', 'Discover Menu'],
+  ['feedbacks', 'Feedbacks'],
+  ['ourTeam', 'Our Team'],
+]
+
+const groups = sectionGrups.map(([name, title]) => ({name, title}))
+
 export const homePageType = defineType({
   name: 'homePage',
   title: 'Home Page',
   type: 'document',
   icon: HomeIcon,
-  groups: [
-    {name: 'hero', title: 'Hero'},
-    {name: 'featured', title: 'Featured About'},
-    {name: 'menu', title: 'Menu'},
-    {name: 'discoverMenu', title: 'Discover Menu'},
-    {name: 'feedbacks', title: 'Feedbacks'},
-  ],
+  groups,
   fields: [
     //! Hero section
     defineField({
@@ -199,6 +205,7 @@ export const homePageType = defineType({
       type: 'string',
       group: 'feedbacks',
     }),
+
     defineField({
       name: 'feedbacksSubtitle',
       title: 'Feedbacks Subtitle',
@@ -229,6 +236,50 @@ export const homePageType = defineType({
         },
       ],
       group: 'feedbacks',
+    }),
+
+    //! Our Team
+    defineField({
+      name: 'ourTeam',
+      title: 'Our Team Title',
+      type: 'string',
+      group: 'ourTeam',
+    }),
+
+    defineField({
+      name: 'ourTeamMembers',
+      title: 'Our Team Members',
+      type: 'array',
+      of: [
+        {
+          type: 'object',
+          fields: [
+            {
+              name: 'image',
+              title: 'Image',
+              type: 'image',
+              options: {hotspot: true},
+            },
+            {
+              name: 'role',
+              title: 'Role',
+              type: 'string',
+            },
+            {
+              name: 'fullName',
+              title: 'Full Name',
+              type: 'string',
+            },
+            {
+              name: 'signatureImage',
+              title: 'Signature Image',
+              type: 'image',
+              options: {hotspot: true},
+            },
+          ],
+        },
+      ],
+      group: 'ourTeam',
     }),
   ],
 })

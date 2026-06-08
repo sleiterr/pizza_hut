@@ -9,6 +9,8 @@ import {
   DISCOVER_MENU_QUERY,
   FEATURED_DISHES_QUERY,
   FEATURED_DISHES_COUNT_QUERY,
+  FEEDBACK_QUERY,
+  KITCHEN_TEAM_QUERY,
 } from "@/sanity/queries";
 import type {
   HOME_PAGE_QUERY_RESULT,
@@ -19,6 +21,8 @@ import type {
   DISCOVER_MENU_QUERY_RESULT,
   FEATURED_DISHES_QUERY_RESULT,
   FEATURED_DISHES_COUNT_QUERY_RESULT,
+  FEEDBACK_QUERY_RESULT,
+  KITCHEN_TEAM_QUERY_RESULT,
 } from "@/sanity/types";
 
 export async function getHomePageData() {
@@ -76,4 +80,22 @@ export async function getFeaturedDishesCount() {
     query: FEATURED_DISHES_COUNT_QUERY,
   });
   return featuredDishesCount as FEATURED_DISHES_COUNT_QUERY_RESULT;
+}
+
+// Fetch feedback data for the feedback section
+export async function getFeedbackData(start: number, end: number) {
+  const { data: feedbackData } = await sanityFetch({
+    query: FEEDBACK_QUERY,
+    params: { start, end },
+  });
+  return feedbackData as FEEDBACK_QUERY_RESULT;
+}
+
+// Fetch kitchen team data for the home page section
+export async function getKitchenTeamData() {
+  const { data: kitchenTeamData } = await sanityFetch({
+    query: KITCHEN_TEAM_QUERY,
+  });
+
+  return kitchenTeamData as KITCHEN_TEAM_QUERY_RESULT;
 }
