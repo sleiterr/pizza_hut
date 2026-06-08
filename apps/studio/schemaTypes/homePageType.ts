@@ -9,6 +9,7 @@ const sectionGrups = [
   ['discoverMenu', 'Discover Menu'],
   ['feedbacks', 'Feedbacks'],
   ['ourTeam', 'Our Team'],
+  ['appSection', 'App Section'],
 ]
 
 const groups = sectionGrups.map(([name, title]) => ({name, title}))
@@ -280,6 +281,50 @@ export const homePageType = defineType({
         },
       ],
       group: 'ourTeam',
+    }),
+
+    //! App Section
+
+    defineField({
+      name: 'appSectionSubtitle',
+      title: 'App Section Subtitle',
+      type: 'string',
+      group: 'appSection',
+    }),
+
+    defineField({
+      name: 'appSectionTitle',
+      title: 'App Section Title',
+      type: 'string',
+      group: 'appSection',
+    }),
+
+    defineField({
+      name: 'appSection',
+      title: 'App Section',
+      type: 'array',
+      of: [
+        {
+          type: 'object',
+          fields: [
+            //? benefits for using the app, for example "Order on the go", "Exclusive deals", "Faster checkout"
+            {
+              name: 'benefit',
+              type: 'array',
+              of: [{type: 'string'}],
+            },
+            {
+              name: 'googlePlayLink',
+              type: 'url',
+            },
+            {
+              name: 'appStoreLink',
+              type: 'url',
+            },
+          ],
+        },
+      ],
+      group: 'appSection',
     }),
   ],
 })
