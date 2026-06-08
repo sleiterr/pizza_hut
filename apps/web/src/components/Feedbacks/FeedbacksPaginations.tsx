@@ -1,18 +1,18 @@
 "use client";
-
+import React from "react";
 import PaginationDot from "../Pagination/PaginationDot";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 
-type FeaturedDishesPaginationProps = {
+type FeedbacksPaginationsProps = {
   currentPage: number;
   totalPage: number;
 };
 
-const FeaturedDishesPagination = ({
+const FeedbacksPaginations = ({
   currentPage,
   totalPage,
-}: FeaturedDishesPaginationProps) => {
-  const pageParam = "dishesPage";
+}: FeedbacksPaginationsProps) => {
+  const pageParam = "feedbackPage";
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
@@ -38,7 +38,7 @@ const FeaturedDishesPagination = ({
   };
 
   return (
-    <div className="mt-16 flex justify-center gap-5">
+    <div className="mt-16 flex justify-start gap-5">
       {Array.from({ length: totalPage }).map((_, index) => {
         const page = index + 1;
         const isActive = currentPage === page;
@@ -56,4 +56,4 @@ const FeaturedDishesPagination = ({
   );
 };
 
-export default FeaturedDishesPagination;
+export default FeedbacksPaginations;

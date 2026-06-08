@@ -167,6 +167,13 @@ export type HomePage = {
     };
     _key: string;
   }>;
+  feedbacksTitle?: string;
+  feedbacksSubtitle?: string;
+  feedbacks?: Array<{
+    feedbackText?: string;
+    reviewAuthor?: string;
+    _key: string;
+  }>;
 };
 
 export type MenuCategories = {
@@ -457,6 +464,41 @@ export type FEATURED_DISHES_QUERY_RESULT = Array<{
 // Query: count(*[_type == "product" && "featured" in tags])
 export type FEATURED_DISHES_COUNT_QUERY_RESULT = number;
 
+// Source: ../web/src/sanity/queries.ts
+// Variable: FEEDBACK_QUERY
+// Query: *[_type == "homePage"][0]{  feedbacksTitle,  feedbacksSubtitle,  "feedbacksCount": count(coalesce(feedbacks, [])),  "feedbacks":coalesce(feedbacks, [])[$start...$end]{    _key,    feedbackText,    reviewAuthor,  }}
+export type FEEDBACK_QUERY_RESULT = {
+  feedbacksTitle: string | null;
+  feedbacksSubtitle: string | null;
+  feedbacksCount: number;
+  feedbacks:
+    | Array<{
+        _key: string;
+        feedbackText: string | null;
+        reviewAuthor: string | null;
+      }>
+    | Array<never>;
+} | null;
+
+export type KITCHEN_TEAM_QUERY_RESULT = {
+  ourTeam: string | null;
+  ourTeamMembers: Array<{
+    _key: string;
+    image: {
+      asset: {
+        url: string | null;
+      } | null;
+    } | null;
+    role: string | null;
+    fullName: string | null;
+    signatureImage: {
+      asset: {
+        url: string | null;
+      } | null;
+    } | null;
+  }> | null;
+};
+
 // Query TypeMap
 import "@sanity/client";
 declare module "@sanity/client" {
@@ -470,5 +512,6 @@ declare module "@sanity/client" {
     '*[_type == "reservations"] | order(_createdAt desc){\n  _id,\n  guestCount,\n  name,\n  date,\n  time,\n  phone,\n  status,\n  createdAt,\n  _createdAt\n}': RESERVATIONS_QUERY_RESULT;
     '*[_type == "product" && "featured" in tags] | order(_createdAt desc, _id desc)[$start...$end]{\n    _id,\n  name,\n  discountPrice,\n  price,\n  productImage { asset->{ url } },\n  tags,\n}': FEATURED_DISHES_QUERY_RESULT;
     'count(*[_type == "product" && "featured" in tags])': FEATURED_DISHES_COUNT_QUERY_RESULT;
+    '*[_type == "homePage"][0]{\n  feedbacksTitle,\n  feedbacksSubtitle,\n  "feedbacksCount": count(coalesce(feedbacks, [])),\n  "feedbacks":coalesce(feedbacks, [])[$start...$end]{\n    _key,\n    feedbackText,\n    reviewAuthor,\n  }\n}': FEEDBACK_QUERY_RESULT;
   }
 }

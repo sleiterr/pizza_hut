@@ -105,13 +105,25 @@ export const FEATURED_DISHES_COUNT_QUERY = defineQuery(
 );
 
 // _createdAt for sorting, createdAt for display
-
+// coalesce is means if feedbacks is null or undefined, it will return empty array to avoid error when counting and fetching feedbacks
 export const FEEDBACK_QUERY = defineQuery(`*[_type == "homePage"][0]{
   feedbacksTitle,
   feedbacksSubtitle,
-  feedbacks[]{
+  "feedbacksCount": count(coalesce(feedbacks, [])),
+  "feedbacks":coalesce(feedbacks, [])[$start...$end]{
     _key,
     feedbackText,
     reviewAuthor,
+  }
+}`);
+
+export const KITCHEN_TEAM_QUERY = defineQuery(`*[_type == "homePage"][0]{
+  ourTeam,
+  ourTeamMembers [] {
+    _key,
+   image { asset->{url} },
+   role,
+   fullName,
+   signatureImage { asset->{url} },
   }
 }`);
