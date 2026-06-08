@@ -4,6 +4,7 @@ import MenuCategory from "@/components/MenuCategory/MenuCategory";
 import DiscoverMenu from "@/components/DiscoverMenu/DiscoverMenu";
 import FeaturedDishes from "../components/FeaturedDishes/FeaturedDishes";
 import FeedbacksSection from "../components/Feedbacks/FeedbacksSection";
+import OurTeam from "@/components/OurTeam/OurTeam";
 
 import {
   getHomePageData,
@@ -15,6 +16,7 @@ import {
   getFeaturedDishesData,
   getFeaturedDishesCount,
   getFeedbackData,
+  getKitchenTeamData,
 } from "@/sanity/fetchers";
 
 type HomePageProps = {
@@ -67,6 +69,7 @@ export default async function HomePage({ searchParams }: HomePageProps) {
     discoverMenuData,
     featuredDishesCount,
     feedbackMeta,
+    kitchenTeamData,
   ] = await Promise.all([
     getHomePageData(),
     getWeeklySpecialData(),
@@ -76,6 +79,7 @@ export default async function HomePage({ searchParams }: HomePageProps) {
     getDiscoverMenuData(),
     getFeaturedDishesCount(),
     getFeedbackData(0, 0),
+    getKitchenTeamData(),
   ]);
 
   // Calculate pagination for both featured dishes and feedbacks independently
@@ -114,6 +118,7 @@ export default async function HomePage({ searchParams }: HomePageProps) {
         currentPage={feedbackPagination.currentPage}
         totalPage={feedbackPagination.totalPage}
       />
+      <OurTeam data={kitchenTeamData} />
     </main>
   );
 }

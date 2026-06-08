@@ -240,7 +240,7 @@ export const homePageType = defineType({
 
     //! Our Team
     defineField({
-      name: 'ourTeam',
+      name: 'ourTeamTitle',
       title: 'Our Team Title',
       type: 'string',
       group: 'ourTeam',
