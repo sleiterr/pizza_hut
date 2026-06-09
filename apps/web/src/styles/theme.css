@@ -17,15 +17,18 @@
     --color-overlay-img: rgba(243, 39, 76, 0.70);
 
     --color-cta-primary: #F3274C;
-    --color-cta-primary-hover: #d41e3c;
     --color-cta-secondary: #FFC222;
+    --color-cta-tertiary: #000;
+    --color-cta-submit: #FFD40D;
+
+    --color-cta-primary-hover: #d41e3c;
+    --color-cta-secondary-hover: #E6AE00;
+    --color-cta-tertiary-hover: #222222;
 
     --color-dot-active: #F3274C;
     --color-dot-inactive: #B5B5B5;
 
-    --color-cta-submit: #FFD40D;
 
-    --color-cta-secondary-hover: #E6AE00;
     --color-discount-price: #FFD40D;
     --color-count: #212121;
 
@@ -37,4 +40,5 @@
     --color-border-menu: #000;
 
     --color-primary-section: #F5F8FD;
+    --color-app-section: #F3274C;
 }

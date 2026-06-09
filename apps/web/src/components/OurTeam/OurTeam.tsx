@@ -11,8 +11,8 @@ const OurTeam = ({ data }: OurTeamProps) => {
   return (
     <SectionPage>
       <div>
-        <h2 className="font-heading font-semibold text-6xl text-center">
-          {data?.ourTeam}
+        <h2 className="font-heading font-semibold text-6xl text-primary text-center">
+          {data?.ourTeamTitle}
         </h2>
         <span className="block w-67.5 border-t-10 rounded-[30px] border-border-card mx-auto mt-4" />
       </div>

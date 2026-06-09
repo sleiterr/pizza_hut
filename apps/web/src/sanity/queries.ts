@@ -118,7 +118,7 @@ export const FEEDBACK_QUERY = defineQuery(`*[_type == "homePage"][0]{
 }`);
 
 export const KITCHEN_TEAM_QUERY = defineQuery(`*[_type == "homePage"][0]{
-  ourTeam,
+  ourTeamTitle,
   ourTeamMembers [] {
     _key,
    image { asset->{url} },
