@@ -6,6 +6,7 @@ import FeaturedDishes from "../components/FeaturedDishes/FeaturedDishes";
 import FeedbacksSection from "../components/Feedbacks/FeedbacksSection";
 import OurTeam from "@/components/OurTeam/OurTeam";
 import AppSection from "@/components/AppSection/AppSection";
+import News from "@/components/News/News";
 
 import {
   getHomePageData,
@@ -124,6 +125,7 @@ export default async function HomePage({ searchParams }: HomePageProps) {
       />
       <OurTeam data={kitchenTeamData} />
       <AppSection data={appSectionData} />
+      <News />
     </main>
   );
 }
