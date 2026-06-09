@@ -10,6 +10,7 @@ const sectionGrups = [
   ['feedbacks', 'Feedbacks'],
   ['ourTeam', 'Our Team'],
   ['appSection', 'App Section'],
+  ['recentNews', 'Recent News'],
 ]
 
 const groups = sectionGrups.map(([name, title]) => ({name, title}))
@@ -325,6 +326,57 @@ export const homePageType = defineType({
         },
       ],
       group: 'appSection',
+    }),
+
+    //! Recent News
+    defineField({
+      name: 'recentNewsTitle',
+      title: 'Recent News Title',
+      type: 'string',
+      group: 'recentNews',
+      validation: (Rule) => Rule.required(),
+    }),
+
+    defineField({
+      name: 'recentNewsItems',
+      title: 'Recent News Items',
+      type: 'array',
+      of: [
+        {
+          type: 'object',
+          fields: [
+            {
+              name: 'publishedAt',
+              title: 'Published At',
+              type: 'date',
+            },
+            {
+              name: 'image',
+              title: 'Image',
+              type: 'image',
+              options: {hotspot: true},
+            },
+            {
+              name: 'authorTitle',
+              title: 'Author Title',
+              type: 'string',
+            },
+            {
+              name: 'authorName',
+              title: 'Author Name',
+              type: 'string',
+            },
+            {
+              name: 'authorAvatar',
+              title: 'Author Avatar',
+              type: 'image',
+              options: {hotspot: true},
+            },
+          ],
+        },
+      ],
+
+      group: 'recentNews',
     }),
   ],
 })
