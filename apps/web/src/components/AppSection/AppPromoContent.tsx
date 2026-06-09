@@ -1,39 +1,64 @@
 import React from "react";
+import clsx from "clsx";
+import { FaCircleDot, FaGooglePlay, FaApple } from "react-icons/fa6";
+
 import { APP_SECTION_QUERY_RESULT } from "@/sanity/types";
+import CtaLinkButton from "../Button/CtaLinkButton";
 
 const AppPromoContent = ({ data }: AppSectionProps) => {
   return (
     <div>
-      <div className="">
-        <h4>{data?.appSectionSubtitle}</h4>
-        <h2>{data?.appSectionTitle}</h2>
+      <div className="mb-4">
+        <h4 className="font-heading font-semibold text-lg text-tertiary uppercase mb-2">
+          {data?.appSectionSubtitle}
+        </h4>
+        <h2 className="font-heading font-semibold text-5xl text-primary">
+          {data?.appSectionTitle}
+        </h2>
       </div>
       <ul>
         {data?.appSection?.map((item) => (
           <li key={item._key} className="mt-4">
-            <div className="flex flex-col gap-4">
+            <div className="flex flex-col gap-2">
               {(item.benefit ?? []).map((line, index) => (
-                <p key={`${item._key}-${index}`}>{line}</p>
+                <div
+                  className="flex items-center gap-3"
+                  key={`${item._key}-${index}`}
+                >
+                  <FaCircleDot className="text-border-card text-lg" />
+                  <p
+                    key={`${item._key}-${index}`}
+                    className="font-normal text-lg text-secondary"
+                  >
+                    {line}
+                  </p>
+                </div>
               ))}
             </div>
-            <div className="">
+            <div className="flex items-center gap-5 mt-10">
               {item.googlePlayLink && (
-                <a
+                <CtaLinkButton
                   href={item.googlePlayLink}
-                  target="_blank"
-                  rel="noopener noreferrer"
+                  className={clsx(
+                    "flex items-center gap-2",
+                    "bg-cta-primary hover:bg-cta-primary-hover",
+                  )}
                 >
+                  <FaGooglePlay className="text-quaternary text-lg" />
                   Google Play
-                </a>
+                </CtaLinkButton>
               )}
               {item.appStoreLink && (
-                <a
+                <CtaLinkButton
                   href={item.appStoreLink}
-                  target="_blank"
-                  rel="noopener noreferrer"
+                  className={clsx(
+                    "flex items-center gap-2", 
+                    "bg-cta-tertiary hover:bg-cta-tertiary-hover",
+                  )}
                 >
+                  <FaApple className="text-quaternary text-xl" />
                   App Store
-                </a>
+                </CtaLinkButton>
               )}
             </div>
           </li>

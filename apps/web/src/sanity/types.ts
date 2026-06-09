@@ -510,9 +510,9 @@ export type FEEDBACK_QUERY_RESULT = {
 
 // Source: ../web/src/sanity/queries.ts
 // Variable: KITCHEN_TEAM_QUERY
-// Query: *[_type == "homePage"][0]{  ourTeam,  ourTeamMembers [] {    _key,   image { asset->{url} },   role,   fullName,   signatureImage { asset->{url} },  }}
+// Query: *[_type == "homePage"][0]{  ourTeamTitle,  ourTeamMembers [] {    _key,   image { asset->{url} },   role,   fullName,   signatureImage { asset->{url} },  }}
 export type KITCHEN_TEAM_QUERY_RESULT = {
-  ourTeam: null;
+  ourTeamTitle: string | null;
   ourTeamMembers: Array<{
     _key: string;
     image: {
@@ -558,7 +558,7 @@ declare module "@sanity/client" {
     '*[_type == "product" && "featured" in tags] | order(_createdAt desc, _id desc)[$start...$end]{\n    _id,\n  name,\n  discountPrice,\n  price,\n  productImage { asset->{ url } },\n  tags,\n}': FEATURED_DISHES_QUERY_RESULT;
     'count(*[_type == "product" && "featured" in tags])': FEATURED_DISHES_COUNT_QUERY_RESULT;
     '*[_type == "homePage"][0]{\n  feedbacksTitle,\n  feedbacksSubtitle,\n  "feedbacksCount": count(coalesce(feedbacks, [])),\n  "feedbacks":coalesce(feedbacks, [])[$start...$end]{\n    _key,\n    feedbackText,\n    reviewAuthor,\n  }\n}': FEEDBACK_QUERY_RESULT;
-    '*[_type == "homePage"][0]{\n  ourTeam,\n  ourTeamMembers [] {\n    _key,\n   image { asset->{url} },\n   role,\n   fullName,\n   signatureImage { asset->{url} },\n  }\n}': KITCHEN_TEAM_QUERY_RESULT;
+    '*[_type == "homePage"][0]{\n  ourTeamTitle,\n  ourTeamMembers [] {\n    _key,\n   image { asset->{url} },\n   role,\n   fullName,\n   signatureImage { asset->{url} },\n  }\n}': KITCHEN_TEAM_QUERY_RESULT;
     '*[_type == "homePage"][0]{\n  appSectionSubtitle,\n  appSectionTitle,\n  appSection[] {\n    _key,\n    benefit,\n    googlePlayLink,\n    appStoreLink\n  }\n}': APP_SECTION_QUERY_RESULT;
   }
 }
