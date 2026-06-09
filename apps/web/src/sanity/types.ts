@@ -202,6 +202,27 @@ export type HomePage = {
     appStoreLink?: string;
     _key: string;
   }>;
+  recentNewsTitle?: string;
+  recentNewsItems?: Array<{
+    publishedAt?: string;
+    image?: {
+      asset?: SanityImageAssetReference;
+      media?: unknown;
+      hotspot?: SanityImageHotspot;
+      crop?: SanityImageCrop;
+      _type: "image";
+    };
+    authorTitle?: string;
+    authorName?: string;
+    authorAvatar?: {
+      asset?: SanityImageAssetReference;
+      media?: unknown;
+      hotspot?: SanityImageHotspot;
+      crop?: SanityImageCrop;
+      _type: "image";
+    };
+    _key: string;
+  }>;
 };
 
 export type MenuCategories = {
@@ -544,6 +565,31 @@ export type APP_SECTION_QUERY_RESULT = {
   }> | null;
 } | null;
 
+// Source: ../web/src/sanity/queries.ts
+// Variable: RECENT_NEWS_QUERY
+// Query: *[_type == "homePage"][0]{  recentNewsTitle,  "recentNewsItems": coalesce(recentNewsItems, []) | order(publishedAt desc){    _key,    publishedAt,    image { asset->{url} },    authorTitle,    authorName,    authorAvatar { asset->{url} }  }}
+export type RECENT_NEWS_QUERY_RESULT = {
+  recentNewsTitle: string | null;
+  recentNewsItems:
+    | Array<{
+        _key: string;
+        publishedAt: string | null;
+        image: {
+          asset: {
+            url: string | null;
+          } | null;
+        } | null;
+        authorTitle: string | null;
+        authorName: string | null;
+        authorAvatar: {
+          asset: {
+            url: string | null;
+          } | null;
+        } | null;
+      }>
+    | Array<never>;
+} | null;
+
 // Query TypeMap
 import "@sanity/client";
 declare module "@sanity/client" {
@@ -560,5 +606,6 @@ declare module "@sanity/client" {
     '*[_type == "homePage"][0]{\n  feedbacksTitle,\n  feedbacksSubtitle,\n  "feedbacksCount": count(coalesce(feedbacks, [])),\n  "feedbacks":coalesce(feedbacks, [])[$start...$end]{\n    _key,\n    feedbackText,\n    reviewAuthor,\n  }\n}': FEEDBACK_QUERY_RESULT;
     '*[_type == "homePage"][0]{\n  ourTeamTitle,\n  ourTeamMembers [] {\n    _key,\n   image { asset->{url} },\n   role,\n   fullName,\n   signatureImage { asset->{url} },\n  }\n}': KITCHEN_TEAM_QUERY_RESULT;
     '*[_type == "homePage"][0]{\n  appSectionSubtitle,\n  appSectionTitle,\n  appSection[] {\n    _key,\n    benefit,\n    googlePlayLink,\n    appStoreLink\n  }\n}': APP_SECTION_QUERY_RESULT;
+    '*[_type == "homePage"][0]{\n  recentNewsTitle,\n  "recentNewsItems": coalesce(recentNewsItems, []) | order(publishedAt desc){\n    _key,\n    publishedAt,\n    image { asset->{url} },\n    authorTitle,\n    authorName,\n    authorAvatar { asset->{url} }\n  }\n}': RECENT_NEWS_QUERY_RESULT;
   }
 }

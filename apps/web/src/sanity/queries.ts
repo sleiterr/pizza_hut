@@ -138,3 +138,15 @@ export const APP_SECTION_QUERY = defineQuery(`*[_type == "homePage"][0]{
     appStoreLink
   }
 }`);
+
+export const RECENT_NEWS_QUERY = defineQuery(`*[_type == "homePage"][0]{
+  recentNewsTitle,
+  "recentNewsItems": coalesce(recentNewsItems, []) | order(publishedAt desc){
+    _key,
+    publishedAt,
+    image { asset->{url} },
+    authorTitle,
+    authorName,
+    authorAvatar { asset->{url} }
+  }
+}`);

@@ -20,6 +20,7 @@ import {
   getFeedbackData,
   getKitchenTeamData,
   getAppSectionData,
+  getRecentNewsData,
 } from "@/sanity/fetchers";
 
 type HomePageProps = {
@@ -63,6 +64,7 @@ export default async function HomePage({ searchParams }: HomePageProps) {
     feedbacks: 1,
   } as const;
 
+  // Fetch all non-paginated data in parallel
   const [
     homePage,
     weeklySpecial,
@@ -74,6 +76,7 @@ export default async function HomePage({ searchParams }: HomePageProps) {
     feedbackMeta,
     kitchenTeamData,
     appSectionData,
+    recentNewsData,
   ] = await Promise.all([
     getHomePageData(),
     getWeeklySpecialData(),
@@ -85,6 +88,7 @@ export default async function HomePage({ searchParams }: HomePageProps) {
     getFeedbackData(0, 0),
     getKitchenTeamData(),
     getAppSectionData(),
+    getRecentNewsData(),
   ]);
 
   // Calculate pagination for both featured dishes and feedbacks independently
@@ -125,7 +129,7 @@ export default async function HomePage({ searchParams }: HomePageProps) {
       />
       <OurTeam data={kitchenTeamData} />
       <AppSection data={appSectionData} />
-      <News />
+      <News data={recentNewsData} />
     </main>
   );
 }
