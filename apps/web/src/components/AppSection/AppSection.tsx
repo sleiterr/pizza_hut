@@ -9,7 +9,7 @@ const AppSection = ({ data }: AppSectionProps) => {
   return (
     <SectionPage
       classSection="relative bg-primary-section"
-      className="grid grid-cols-2 items-center"
+      className="grid grid-cols-2 items-center py-28!"
     >
       <AppPromoContent data={data} />
       <AppVisualBox />
