@@ -7,6 +7,7 @@ import FeedbacksSection from "../components/Feedbacks/FeedbacksSection";
 import OurTeam from "@/components/OurTeam/OurTeam";
 import AppSection from "@/components/AppSection/AppSection";
 import News from "@/components/News/News";
+import HeroGallery from "@/components/HeroGallery/HeroGallery";
 
 import {
   getHomePageData,
@@ -130,6 +131,7 @@ export default async function HomePage({ searchParams }: HomePageProps) {
       <OurTeam data={kitchenTeamData} />
       <AppSection data={appSectionData} />
       <News data={recentNewsData} />
+      <HeroGallery />
     </main>
   );
 }
