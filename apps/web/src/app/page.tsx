@@ -8,6 +8,7 @@ import OurTeam from "@/components/OurTeam/OurTeam";
 import AppSection from "@/components/AppSection/AppSection";
 import News from "@/components/News/News";
 import HeroGallery from "@/components/HeroGallery/HeroGallery";
+import Footer from "@/components/Footer/Footer";
 
 import {
   getHomePageData,
@@ -113,25 +114,28 @@ export default async function HomePage({ searchParams }: HomePageProps) {
   ]);
 
   return (
-    <main>
-      <Hero data={homePage} weeklySpecial={weeklySpecial} />
-      <FeaturedAbout data={aboutPage} />
-      <MenuCategory data={menuCategory} menuData={menuData} />
-      <DiscoverMenu data={discoverMenuData} />
-      <FeaturedDishes
-        items={featuredDishes}
-        currentPage={featuredPagination.currentPage}
-        totalPage={featuredPagination.totalPage}
-      />
-      <FeedbacksSection
-        data={feedbackData}
-        currentPage={feedbackPagination.currentPage}
-        totalPage={feedbackPagination.totalPage}
-      />
-      <OurTeam data={kitchenTeamData} />
-      <AppSection data={appSectionData} />
-      <News data={recentNewsData} />
-      <HeroGallery />
-    </main>
+    <>
+      <main>
+        <Hero data={homePage} weeklySpecial={weeklySpecial} />
+        <FeaturedAbout data={aboutPage} />
+        <MenuCategory data={menuCategory} menuData={menuData} />
+        <DiscoverMenu data={discoverMenuData} />
+        <FeaturedDishes
+          items={featuredDishes}
+          currentPage={featuredPagination.currentPage}
+          totalPage={featuredPagination.totalPage}
+        />
+        <FeedbacksSection
+          data={feedbackData}
+          currentPage={feedbackPagination.currentPage}
+          totalPage={feedbackPagination.totalPage}
+        />
+        <OurTeam data={kitchenTeamData} />
+        <AppSection data={appSectionData} />
+        <News data={recentNewsData} />
+        <HeroGallery />
+      </main>
+      <Footer />
+    </>
   );
 }
