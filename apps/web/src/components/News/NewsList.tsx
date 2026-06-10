@@ -7,7 +7,7 @@ import type { RECENT_NEWS_QUERY_RESULT } from "@/sanity/types";
 const NewsList = ({ data }: NewsListProps) => {
   return (
     <>
-      <ul className="grid grid-cols-2 gap-6">
+      <ul className="grid grid-cols-2 gap-8">
         {data?.recentNewsItems.map((item) => (
           <li key={item._key}>
             <NewsCard>
@@ -25,7 +25,7 @@ const NewsList = ({ data }: NewsListProps) => {
                   <time
                     dateTime={item.publishedAt}
                     className={clsx(
-                      "font-heading font-semibold text-sm text-primary bg-discount-price px-2 py-1 rounded-lg",
+                      "font-heading font-semibold text-sm text-primary bg-discount-price px-3 py-1 rounded-lg",
                     )}
                   >
                     {new Date(item.publishedAt).toLocaleDateString(undefined, {
