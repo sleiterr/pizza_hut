@@ -1,7 +1,7 @@
 import React from "react";
 import clsx from "clsx";
 
-const wrapperData = [
+const wrapperData: LinkWrapper[] = [
   {
     id: 1,
     title: "Facebook",
@@ -44,3 +44,10 @@ const LinkWrapper = () => {
 };
 
 export default LinkWrapper;
+
+type LinkWrapper = {
+  id: number;
+  title: string;
+  href: string;
+  className: string;
+};

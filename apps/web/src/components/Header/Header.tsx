@@ -10,7 +10,7 @@ import CartAndActions from "./CartAndActions";
 
 const Header = () => {
   // State to track if the page is scrolled
-  const [scrolled, setScrolled] = useState(undefined);
+  const [scrolled, setScrolled] = useState<boolean>(false);
   // State to track if the mobile menu is open
   const [menuOpen, setMenuOpen] = useState(false);
 

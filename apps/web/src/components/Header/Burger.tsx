@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 
-const Burger = ({ isOpen, toggleMenu, scrolled }) => {
+const Burger = ({ isOpen, toggleMenu, scrolled }: BurgerProps) => {
   return (
     <StyledWrapper $isOpen={isOpen} $scrolled={scrolled}>
       <label className="burger" htmlFor="burger">
@@ -19,7 +19,7 @@ const Burger = ({ isOpen, toggleMenu, scrolled }) => {
   );
 };
 
-const StyledWrapper = styled.div`
+const StyledWrapper = styled.div<{ $isOpen: boolean; $scrolled: boolean }>`
   .burger {
     position: relative;
     width: 45px;
@@ -84,3 +84,9 @@ const StyledWrapper = styled.div`
 `;
 
 export default Burger;
+
+type BurgerProps = {
+  isOpen: boolean;
+  toggleMenu: () => void;
+  scrolled: boolean;
+};

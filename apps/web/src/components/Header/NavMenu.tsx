@@ -2,15 +2,13 @@ import React from "react";
 import Link from "next/link";
 import clsx from "clsx";
 
-const NavMenu = ({ handleLinkClick }) => {
+const NavMenu = ({ handleLinkClick }: NavMenuProps) => {
   return (
     <div className="mt-12 ml-4 md:mt-0 md:ml-0">
       <ul className="flex flex-col md:flex-row md:flex-wrap items-start md:items-center gap-6 md:gap-8 w-30 md:w-auto">
         <li>
           <a
             href="/"
-            smooth={true.toString()}
-            duration={800}
             className={clsx(
               "relative cursor-pointer",
               "font-medium font-oswald text-nav-link text-2xl md:text-xl xl:text-2xl tracking-wide",
@@ -24,9 +22,6 @@ const NavMenu = ({ handleLinkClick }) => {
         <li>
           <a
             href="#aboutus"
-            smooth={true.toString()}
-            duration={800}
-            offset={-100}
             className={clsx(
               "relative cursor-pointer",
               "font-medium font-oswald text-nav-link text-2xl md:text-xl xl:text-2xl tracking-wide",
@@ -40,9 +35,6 @@ const NavMenu = ({ handleLinkClick }) => {
         <li className="hidden md:block">
           <a
             href="#shop"
-            smooth={true.toString()}
-            duration={800}
-            offset={-100}
             className={clsx(
               "relative cursor-pointer",
               "font-medium font-oswald text-nav-link text-2xl md:text-xl xl:text-2xl tracking-wide",
@@ -56,9 +48,6 @@ const NavMenu = ({ handleLinkClick }) => {
         <li>
           <a
             href="#blog"
-            smooth={true.toString()}
-            duration={800}
-            offset={-100}
             className={clsx(
               "relative cursor-pointer",
               "font-medium font-oswald text-nav-link text-2xl md:text-xl xl:text-2xl tracking-wide",
@@ -72,9 +61,6 @@ const NavMenu = ({ handleLinkClick }) => {
         <li>
           <a
             href="#pages"
-            smooth={true.toString()}
-            duration={800}
-            offset={-100}
             className={clsx(
               "relative cursor-pointer",
               "font-medium font-oswald text-nav-link text-2xl md:text-xl xl:text-2xl tracking-wide",
@@ -88,9 +74,6 @@ const NavMenu = ({ handleLinkClick }) => {
         <li>
           <Link
             href="/"
-            smooth={true.toString()}
-            duration={800}
-            offset={-100}
             className={clsx(
               "relative cursor-pointer ",
               "font-medium font-oswald text-nav-link text-2xl md:text-xl xl:text-2xl tracking-wide",
@@ -109,3 +92,7 @@ const NavMenu = ({ handleLinkClick }) => {
 };
 
 export default NavMenu;
+
+type NavMenuProps = {
+  handleLinkClick: () => void;
+};

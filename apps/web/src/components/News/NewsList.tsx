@@ -4,6 +4,13 @@ import clsx from "clsx";
 import NewsCard from "./NewsCard";
 import type { RECENT_NEWS_QUERY_RESULT } from "@/sanity/types";
 
+const publishedDateFormatter = new Intl.DateTimeFormat("en-US", {
+  month: "long",
+  day: "numeric",
+  year: "numeric",
+  timeZone: "UTC",
+});
+
 const NewsList = ({ data }: NewsListProps) => {
   return (
     <>
@@ -28,11 +35,7 @@ const NewsList = ({ data }: NewsListProps) => {
                       "font-heading font-semibold text-sm text-primary bg-discount-price px-3 py-1 rounded-lg",
                     )}
                   >
-                    {new Date(item.publishedAt).toLocaleDateString(undefined, {
-                      month: "long",
-                      day: "numeric",
-                      year: "numeric",
-                    })}
+                    {publishedDateFormatter.format(new Date(item.publishedAt))}
                   </time>
                 )}
                 <div className="flex flex-col items-start gap-5 mt-5">
