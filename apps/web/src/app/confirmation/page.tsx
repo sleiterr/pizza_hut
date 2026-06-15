@@ -1,13 +1,12 @@
-"use client";
-
 import Link from "next/link";
-import { useSearchParams } from "next/navigation";
 
-export default function ConfirmationPage() {
-  const searchParams = useSearchParams();
-  const name = searchParams.get("name") || "Guest";
-  const date = searchParams.get("date") || "-";
-  const time = searchParams.get("time") || "-";
+export default async function ConfirmationPage({
+  searchParams,
+}: ConfirmationPageProps) {
+  const params = await searchParams;
+  const name = params.name || "Guest";
+  const date = params.date || "-";
+  const time = params.time || "-";
 
   return (
     <main className="px-4 py-20 md:py-24">
@@ -30,3 +29,11 @@ export default function ConfirmationPage() {
     </main>
   );
 }
+
+type ConfirmationPageProps = {
+  searchParams: Promise<{
+    name?: string;
+    date?: string;
+    time?: string;
+  }>;
+};
