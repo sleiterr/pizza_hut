@@ -51,7 +51,7 @@ const aboutLinks: AboutLinks[] = [
 
 const AboutLinks = () => {
   return (
-    <div className="self-center">
+    <div>
       <div className="mb-11">
         <h4 className="font-heading font-semibold text-2xl text-primary pb-1">
           About

@@ -1,4 +1,5 @@
 import React from "react";
+import NewsForm from "./NewsForm";
 
 const newsContent = [
   {
@@ -11,8 +12,9 @@ const newsContent = [
 
 const FooterNewsletter = () => {
   return (
-    <div>
+    <div className="flex w-full max-w-sm flex-col items-start justify-start">
       <NewsItem />
+      <NewsForm />
     </div>
   );
 };

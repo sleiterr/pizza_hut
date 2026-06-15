@@ -6,7 +6,8 @@ const BgVisualBox = () => {
     <div
       className={clsx(
         "relative z-0 md:w-229.25 md:h-98.75 bg-app-section rounded-l-full",
-        "lg:w-[955px] lg:h-[400px]",
+        "xl:w-212 xl:h-98.75",
+        "lg:w-238.75 lg:h-105",
       )}
     />
   );
