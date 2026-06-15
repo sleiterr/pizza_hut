@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
+import { formatISO } from "date-fns";
 import { Formik, Form, type FormikHelpers } from "formik";
 import * as Yup from "yup";
 import clsx from "clsx";
@@ -14,7 +15,7 @@ const BookingForm = () => {
 
   const initialValues: BookingFormValues = {
     name: "",
-    numberOfGuests: "",
+    numberOfGuests: 1,
     date: "",
     time: "",
     phone: "",
@@ -39,12 +40,12 @@ const BookingForm = () => {
     try {
       setSubmitError(null);
 
-      const dateTime = new Date(`${values.date}T${values.time}`);
+      const dateTime = formatISO(new Date(`${values.date}T${values.time}`));
       const payload = {
         name: values.name,
-        guestCount: Number(values.numberOfGuests),
+        guestCount: values.numberOfGuests,
         date: values.date,
-        time: dateTime.toISOString(),
+        time: dateTime,
         phone: values.phone,
       };
 
@@ -157,7 +158,7 @@ const SendButton = ({ children, className, ...rest }: SendButtonProps) => {
 // type for form values
 type BookingFormValues = {
   name: string;
-  numberOfGuests: string;
+  numberOfGuests: number;
   date: string;
   time: string;
   phone: string;

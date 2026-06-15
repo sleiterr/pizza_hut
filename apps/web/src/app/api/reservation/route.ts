@@ -59,12 +59,6 @@ export async function POST(req: Request) {
       );
     }
 
-    // Create a new Sanity client instance with write permissions using the API token
-    const writeClient = client.withConfig({
-      token: process.env.SANITY_API_WRITE_TOKEN,
-      useCdn: false,
-    });
-
     // Ensure the write client is properly configured with the API token before attempting to create a reservation
     if (!process.env.SANITY_API_WRITE_TOKEN) {
       return NextResponse.json(
@@ -75,6 +69,12 @@ export async function POST(req: Request) {
         { status: 500 },
       );
     }
+    
+    // Create a new Sanity client instance with write permissions using the API token
+    const writeClient = client.withConfig({
+      token: process.env.SANITY_API_WRITE_TOKEN,
+      useCdn: false,
+    });
 
     // Create a new reservation document in Sanity with the provided data
     const created = await writeClient.create({
