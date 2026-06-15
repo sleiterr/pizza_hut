@@ -12,9 +12,11 @@ const Footer = () => {
       <FooterItems />
       <div className="flex w-full flex-row items-start justify-start gap-12">
         <FooterInfoCard />
-        <AboutLinks />
-        <MenuLinks />
-        <FooterNewsletter />
+        <div className="flex w-full items-start justify-between gap-12 pt-12 self-start">
+          <AboutLinks />
+          <MenuLinks />
+          <FooterNewsletter />
+        </div>
       </div>
       <CopyrightFooter />
     </footer>

@@ -12,4 +12,9 @@ body {
   background: var(--color-background);
   color: var(--color-text-primary);
   font-family: var(--font-body), sans-serif;
+  
 }
+
+/* * {
+  outline: 1px solid red;
+} */

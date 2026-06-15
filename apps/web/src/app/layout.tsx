@@ -47,7 +47,7 @@ export default function RootLayout({
       lang="en"
       className={`${fredoka.variable} ${epilogue.variable} ${oswald.variable} ${fugaz.variable} h-full antialiased`}
     >
-      <body suppressHydrationWarning className="min-h-full flex flex-col">
+      <body suppressHydrationWarning className="overflow-x-hidden">
         <Header />
         {children}
         <SanityLive />
