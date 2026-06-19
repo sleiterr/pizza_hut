@@ -7,6 +7,9 @@ import { SanityLive } from "@/sanity/live";
 import { DisableDraftMode } from "@/components/DisableDraftMode/disable-draft-mode";
 import "../styles/globals.css";
 
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
 const fredoka = Fredoka({
   variable: "--font-fredoka",
   subsets: ["latin"],
@@ -53,6 +56,7 @@ export default function RootLayout({
         <SanityLive />
         <VisualEditing />
         <DisableDraftMode />
+        <ToastContainer position="top-right" autoClose={2500} />
       </body>
     </html>
   );
