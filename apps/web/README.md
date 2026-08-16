@@ -195,9 +195,3 @@ cd /Users/Oleg/Next/pizza_hut/pizza_hut/apps/web
 pnpm run build
 pnpm run start
 ```
-
-## Should studio be included in structure?
-
-Yes. This is the right approach for this project.
-
-Even if the current file is inside `apps/web`, the actual development flow depends on both `web` and `studio`, so documenting both now saves time and confusion later.
