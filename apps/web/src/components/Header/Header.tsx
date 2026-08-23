@@ -1,8 +1,7 @@
 "use client";
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useCart } from "@/hooks/useCart";
 import clsx from "clsx";
 import BurgerMenu from "./Burger";
 import NavMenu from "./NavMenu";
@@ -21,9 +20,6 @@ const Header = () => {
 
   // Handle link click to close the menu
   const handleLinkClick = () => setMenuOpen(false);
-
-  // Get cart count from custom hook
-  const { cartCount } = useCart();
 
   useEffect(() => {
     if (typeof window === "undefined") return;
@@ -119,7 +115,7 @@ const Header = () => {
 
         {/* Cart and Actions */}
         <div className="flex items-center justify-center gap-4">
-          <CartAndActions cartCount={cartCount} />
+          <CartAndActions />
         </div>
       </header>
     </>
