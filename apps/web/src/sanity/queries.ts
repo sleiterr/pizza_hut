@@ -92,9 +92,12 @@ export const RESERVATIONS_QUERY =
 export const FEATURED_DISHES_QUERY =
   defineQuery(`*[_type == "product" && "featured" in tags] | order(_createdAt desc, _id desc)[$start...$end]{
     _id,
+  "slug": slug.current,
   name,
+  description,
   discountPrice,
   price,
+  rating,
   productImage { asset->{ url } },
   tags,
 }`);

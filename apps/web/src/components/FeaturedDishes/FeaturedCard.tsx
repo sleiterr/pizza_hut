@@ -1,8 +1,9 @@
 import React from "react";
 import clsx from "clsx";
 import Image from "next/image";
-import { FaShoppingBag } from "react-icons/fa";
+
 import CardFeatured from "./CardFeatured";
+import AddToCartButton from "./AddToCartButton";
 
 import type { FEATURED_DISHES_QUERY_RESULT } from "@/sanity/types";
 
@@ -63,10 +64,17 @@ const FeaturedCard = ({ items }: FeaturedCardProps) => {
                   )}
                 </div>
               </div>
-              <div className="absolute bottom-0 right-0 z-10 translate-x-1/2 translate-y-[8px]">
-                <button className="flex items-center justify-center bg-discount-price rounded-[7px] w-12.5 h-12.5">
-                  <FaShoppingBag className="w-4 h-4.75" />
-                </button>
+              <div className="absolute bottom-0 right-0 z-10 translate-x-1/2 translate-y-2">
+                <AddToCartButton
+                  productId={item._id}
+                  slug={item.slug ?? ""}
+                  name={item.name ?? ""}
+                  description={item.description ?? undefined}
+                  imageUrl={item.productImage?.asset?.url ?? ""}
+                  price={item.price ?? 0}
+                  discountPrice={item.discountPrice ?? undefined}
+                  rating={item.rating ?? undefined}
+                />
               </div>
             </div>
           </CardFeatured>

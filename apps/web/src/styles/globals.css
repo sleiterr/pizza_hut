@@ -12,7 +12,33 @@ body {
   background: var(--color-background);
   color: var(--color-text-primary);
   font-family: var(--font-body), sans-serif;
-  
+
+}
+
+.cart-scrollbar {
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-discount-price) var(--color-close);
+  scrollbar-gutter: stable;
+}
+
+.cart-scrollbar::-webkit-scrollbar {
+  width: 10px;
+}
+
+.cart-scrollbar::-webkit-scrollbar-track {
+  background: var(--color-close);
+  border: 1px solid var(--color-cart-border);
+  border-radius: 9999px;
+}
+
+.cart-scrollbar::-webkit-scrollbar-thumb {
+  background: var(--color-discount-price);
+  border: 2px solid var(--color-close);
+  border-radius: 9999px;
+}
+
+.cart-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: #ffe070;
 }
 
 /* * {

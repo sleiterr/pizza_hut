@@ -3,6 +3,7 @@ import { draftMode } from "next/headers";
 import { Fredoka, Epilogue, Fugaz_One, Oswald } from "next/font/google";
 import { VisualEditing } from "next-sanity/visual-editing";
 import Header from "@/components/Header/Header";
+import Footer from "@/components/Footer/Footer";
 import { SanityLive } from "@/sanity/live";
 import { DisableDraftMode } from "@/components/DisableDraftMode/disable-draft-mode";
 import "../styles/globals.css";
@@ -48,11 +49,13 @@ export default function RootLayout({
   return (
     <html
       lang="en"
+      style={{ scrollbarGutter: "stable" }}
       className={`${fredoka.variable} ${epilogue.variable} ${oswald.variable} ${fugaz.variable} h-full antialiased`}
     >
       <body suppressHydrationWarning className="overflow-x-hidden">
         <Header />
         {children}
+        <Footer />
         <SanityLive />
         <VisualEditing />
         <DisableDraftMode />

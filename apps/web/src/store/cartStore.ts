@@ -3,13 +3,14 @@ import { persist } from "zustand/middleware";
 
 // form one array of cart items to an object with productId as key and quantity as value
 export type CartItem = {
-  id: string; // unique identifier for the cart item
   productId: string; // _id of the product from sanity
   slug: string;
   name: string;
+  description?: string;
   imageUrl: string;
   price: number;
-  discountedPrice?: number;
+  discountPrice?: number;
+  rating?: number;
   quantity: number;
 };
 
@@ -18,6 +19,9 @@ export type CartItem = {
 type CartState = {
   items: CartItem[];
   addItem: (item: Omit<CartItem, "quantity">) => void;
+  removeItem: (productId: string) => void;
+  updateQuantity: (productId: string, quantity: number) => void;
+  clearCart: () => void;
 };
 
 export const useCartStore = create<CartState>()(
@@ -38,16 +42,51 @@ export const useCartStore = create<CartState>()(
           set({
             items: items.map((i) =>
               i.productId === item.productId
-                ? { ...i, quantity: i.quantity + 1 }
+                ? {
+                    ...i,
+                    ...item,
+                    description: item.description ?? i.description,
+                    rating: item.rating ?? i.rating,
+                    quantity: i.quantity + 1,
+                  }
                 : i,
             ),
           });
         } else {
           set({
             // product does not exist in the cart, add it with quantity 1
-            items: [...items, { ...item, id: item.productId, quantity: 1 }],
+            items: [...items, { ...item, quantity: 1 }],
           });
         }
+      },
+
+      // remove an item from the cart by productId
+      removeItem: (productId) => {
+        set({
+          items: get().items.filter((i) => i.productId !== productId),
+        });
+      },
+
+      // update the quantity of an item in the cart by productId
+      updateQuantity: (productId, quantity) => {
+        if (quantity <= 0) {
+          set({
+            items: get().items.filter((i) => i.productId !== productId),
+          });
+          return;
+        }
+
+        // update the quantity of the item in the cart
+        set({
+          items: get().items.map((i) =>
+            i.productId === productId ? { ...i, quantity } : i,
+          ),
+        });
+      },
+
+      // clear the cart by setting items to an empty array
+      clearCart: () => {
+        set({ items: [] });
       },
     }),
     {
@@ -55,3 +94,16 @@ export const useCartStore = create<CartState>()(
     },
   ),
 );
+
+//! selectors for accessing the cart state
+
+// selectTotalItems: returns the total number of items in the cart
+export const selectTotalItems = (state: CartState) =>
+  state.items.reduce((sum, item) => sum + item.quantity, 0);
+
+// selectTotalPrice: returns the total price of items in the cart, considering discountPrice if available
+export const selectTotalPrice = (state: CartState) =>
+  state.items.reduce((sum, item) => {
+    const price = item.discountPrice ?? item.price;
+    return sum + price * item.quantity;
+  }, 0);

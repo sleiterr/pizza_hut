@@ -1,17 +1,19 @@
-import React from "react";
+"use client";
+
 import clsx from "clsx";
 import CtaModal from "@/components/Button/CtaModal";
 import Link from "next/link";
+import { useCartStore, selectTotalItems } from "@/store/cartStore";
 
-const CartAndActions = ({ cartCount }: { cartCount: number }) => {
+const CartAndActions = () => {
+  const cartCount = useCartStore(selectTotalItems);
+
   return (
     <>
       <Link href="/cart" className="relative flex items-center justify-center">
         <img src="/icons/cart/cart.svg" alt="Cart" className="w-8 h-10" />
-        {cartCount > 0 ? (
-          cartCount
-        ) : (
-          <span className="absolute -top-2 -right-1 w-[18px] h-[18px] flex items-center justify-center bg-count text-quaternary text-xs font-oswald font-medium rounded-full px-1">
+        {cartCount > 0 && (
+          <span className="absolute -top-2 -right-1 w-4.5 h-4.5 flex items-center justify-center bg-count text-quaternary text-xs font-oswald font-medium rounded-full px-1">
             {cartCount}
           </span>
         )}

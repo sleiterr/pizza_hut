@@ -9,6 +9,8 @@
     --color-secondary: #555;
     --color-tertiary: #F3274C;
     --color-quaternary: #fff;
+    --color-quinary: #999999;
+    --color-senary: #AAAAAA;
 
     --color-footer-icon: #616161;
     --color-footer-form: #616161;
@@ -50,4 +52,13 @@
     --color-primary-section: #F5F8FD;
     --color-app-section: #F3274C;
     --color-overlay-gallery: rgba(255, 255, 255, 0.70);
+
+    --color-bg-cart: #1a1a1a;
+    --color-cart-border: #333333;
+    --color-cart-bg: #242424;
+    --color-close: #333333;
+    --color-close-icon: #999999;
+    --color-border-btn: #444444;
+    --color-add-btn: #000000;
+    --color-total-price: #FFD40D;
 }
