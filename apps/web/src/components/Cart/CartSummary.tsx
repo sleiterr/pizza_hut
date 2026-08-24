@@ -1,14 +1,17 @@
 // src/components/Cart/CartSummary.tsx
 "use client";
 
+import { useState } from "react";
 import { useRouter } from "next/navigation";
 
 import { IoIosArrowRoundForward } from "react-icons/io";
 import PlaceOrderButton from "@/components/Button/OrderButton";
 import DeliveryBadge from "@/components/Cart/DeliveryBadge";
+import PromoInput from "./PromoInput";
 
 import { useCartStore } from "@/store/cartStore";
 import type { CartItem } from "@/store/cartStore";
+import { toast } from "react-toastify";
 
 const DELIVERY_FEE = 3.99;
 
@@ -18,20 +21,51 @@ type Props = {
 };
 
 const CartSummary = ({ items, totalPrice }: Props) => {
+  const [promoCode, setPromoCode] = useState("");
+  const [promoDiscount, setPromoDiscount] = useState(0);
+  const [promoApplied, setPromoApplied] = useState(false);
+
+  const subtotal = totalPrice; // Assuming totalPrice is the subtotal of items in the cart
+  const discount = subtotal * promoDiscount; // Calculate discount based on promo code
+  const total = subtotal - discount + DELIVERY_FEE;
+
   const router = useRouter();
   const clearCart = useCartStore((state) => state.clearCart);
 
-  const handlePlaceOrder = () => {
-    // TODO: here we will save the order in Supabase
-    clearCart();
-    router.push("/confirmation");
+  const handleAppPromo = () => {
+    if (promoCode.trim().toUpperCase() === "BURGER10") {
+      setPromoDiscount(0.1); // 10% discount
+      setPromoApplied(true);
+      setPromoCode(""); // Clear the promo code input
+      toast.success("Promo code applied! 10% discount on your order.");
+    } else {
+      toast.error("Invalid promo code. Please try again.");
+    }
   };
 
-  const subtotal = totalPrice;
-  const total = subtotal + DELIVERY_FEE;
+  const handlePlaceOrder = () => {
+    // TODO: here we will save the order in Supabase
+    // clearCart();
+    // router.push("/confirmation");
+
+    console.log({
+      items,
+      subtotal,
+      discount,
+      total,
+      promoApplied,
+    });
+  };
 
   return (
     <div className="flex flex-col gap-4">
+      <PromoInput
+        value={promoCode}
+        onChange={setPromoCode}
+        onApply={handleAppPromo}
+        isApplied={promoApplied}
+        isLoading={false}
+      />
       {/* Summary card */}
       <div className="bg-cart-bg rounded-[20px] border-[3px] border-border-card p-5">
         <h3 className="font-semibold font-heading text-2xl text-quaternary mb-4">
@@ -66,6 +100,14 @@ const CartSummary = ({ items, totalPrice }: Props) => {
               ${subtotal.toFixed(2)}
             </span>
           </div>
+          {promoApplied && (
+            <div className="flex justify-between">
+              <span className="text-green-500 text-sm">Promo (BURGER10)</span>
+              <span className="font-heading text-green-500 text-sm">
+                -${discount.toFixed(2)}
+              </span>
+            </div>
+          )}
           <div className="flex justify-between">
             <span className="text-quinary text-sm">Delivery</span>
             <span className="font-heading text-quinary text-sm">
