@@ -11,6 +11,7 @@
     --color-quaternary: #fff;
     --color-quinary: #999999;
     --color-senary: #AAAAAA;
+    --color-septenary: #888888;
 
     --color-footer-icon: #616161;
     --color-footer-form: #616161;
@@ -61,4 +62,10 @@
     --color-border-btn: #444444;
     --color-add-btn: #000000;
     --color-total-price: #FFD40D;
+
+
+    --color-checkout-border: #2A2A2A;
+    --color-checkout-input: #1A1A1A;
+    --color-delivery-fee: #1A1A1A;
+    --color-input-check: #444444;
 }

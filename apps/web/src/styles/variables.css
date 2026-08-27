@@ -1,3 +1,8 @@
+:root {
+    /* gradient for cart payment */
+    --gradient-accent-surface: linear-gradient(135deg, #111 0%, #222 55%, #f3274c 120%);
+}
+
 /* hover for CTA primary */
 .hover\:cta-primary:hover {
     background-color: var(--color-cta-primary-hover) !important;

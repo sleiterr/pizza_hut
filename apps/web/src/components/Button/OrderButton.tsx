@@ -4,9 +4,10 @@ import clsx from "clsx";
 
 type OrderButtonProps = {
   children: React.ReactNode;
-  onClick: () => void;
+  onClick?: () => void;
   className?: string;
   disabled?: boolean;
+  type?: "button" | "submit" | "reset";
 };
 
 const OrderButton = ({
@@ -14,9 +15,11 @@ const OrderButton = ({
   onClick,
   className,
   disabled = false,
+  type = "button",
 }: OrderButtonProps) => {
   return (
     <button
+      type={type}
       onClick={onClick}
       disabled={disabled}
       className={clsx(

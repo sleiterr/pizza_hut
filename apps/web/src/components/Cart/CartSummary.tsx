@@ -46,7 +46,7 @@ const CartSummary = ({ items, totalPrice }: Props) => {
   const handlePlaceOrder = () => {
     // TODO: here we will save the order in Supabase
     // clearCart();
-    // router.push("/confirmation");
+    router.push("/checkout");
 
     console.log({
       items,
