@@ -21,22 +21,23 @@ type Props = {
 };
 
 const CartSummary = ({ items, totalPrice }: Props) => {
-  const [promoCode, setPromoCode] = useState("");
-  const [promoDiscount, setPromoDiscount] = useState(0);
+  const [promoInputValue, setPromoInputValue] = useState(""); // локальний input
   const [promoApplied, setPromoApplied] = useState(false);
-
-  const subtotal = totalPrice; // Assuming totalPrice is the subtotal of items in the cart
-  const discount = subtotal * promoDiscount; // Calculate discount based on promo code
-  const total = subtotal - discount + DELIVERY_FEE;
 
   const router = useRouter();
   const clearCart = useCartStore((state) => state.clearCart);
+  const setPromo = useCartStore((state) => state.setPromo);
+  const promoDiscount = useCartStore((state) => state.promoDiscount);
+
+  const subtotal = totalPrice;
+  const discount = subtotal * promoDiscount;
+  const total = subtotal - discount + DELIVERY_FEE;
 
   const handleAppPromo = () => {
-    if (promoCode.trim().toUpperCase() === "BURGER10") {
-      setPromoDiscount(0.1); // 10% discount
+    if (promoInputValue.trim().toUpperCase() === "BURGER10") {
+      setPromo("BURGER10", 0.1); // зберігаємо в store
       setPromoApplied(true);
-      setPromoCode(""); // Clear the promo code input
+      setPromoInputValue(""); // очищуємо input
       toast.success("Promo code applied! 10% discount on your order.");
     } else {
       toast.error("Invalid promo code. Please try again.");
@@ -60,8 +61,8 @@ const CartSummary = ({ items, totalPrice }: Props) => {
   return (
     <div className="flex flex-col gap-4">
       <PromoInput
-        value={promoCode}
-        onChange={setPromoCode}
+        value={promoInputValue}
+        onChange={setPromoInputValue}
         onApply={handleAppPromo}
         isApplied={promoApplied}
         isLoading={false}

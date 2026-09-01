@@ -9,9 +9,13 @@ export async function createOrder(
   items: CartItem[],
   total: number,
   deliveryFee: number,
+  deliveryMethod: "courier" | "pickup",
+  promoCode?: string,
+  promoDiscount?: number,
 ) {
   // Calculate subtotal by subtracting delivery fee from total
   const subtotal = total - deliveryFee;
+  const discountAmount = promoDiscount ? subtotal * promoDiscount : 0;
 
   // Create the order in the "orders" table
   const { data: order, error: orderError } = await supabase
@@ -24,6 +28,9 @@ export async function createOrder(
         subtotal,
         delivery_fee: deliveryFee,
         total,
+        delivery_method: deliveryMethod,
+        promo_code: promoCode,
+        promo_discount: discountAmount,
         status: "pending",
       },
     ])
@@ -33,7 +40,12 @@ export async function createOrder(
   // If the order was created successfully, create the order items in the "order_items" table
   if (orderError || !order) {
     console.error("Error creating order:", orderError);
-    throw new Error("Failed to create order");
+    const details = orderError
+      ? [orderError.message, orderError.details, orderError.hint]
+          .filter(Boolean)
+          .join(" | ")
+      : "No row returned from orders insert";
+    throw new Error(`Failed to create order: ${details}`);
   }
 
   const orderItems: OrderItem[] = items.map((item) => ({

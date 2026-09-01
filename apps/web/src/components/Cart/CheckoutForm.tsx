@@ -14,12 +14,13 @@ import DeliveryMethodCard from "./DeliveryMethodCard";
 
 import { MdOutlinePlace } from "react-icons/md";
 
-const DELEVIRY_FEE = 3.99;
+const DELIVERY_FEE = 3.99;
 
 type CheckoutFormProps = {
   items: CartItem[];
   total: number;
   promoDiscount: number;
+  promoCode?: string;
   onClose?: () => void;
 };
 
@@ -27,6 +28,7 @@ const CheckoutForm = ({
   items,
   total,
   promoDiscount,
+  promoCode,
   onClose,
 }: CheckoutFormProps) => {
   const router = useRouter();
@@ -79,13 +81,21 @@ const CheckoutForm = ({
     try {
       setSubmitError(null);
 
+      const deliveryAddress =
+        values.deliveryMethod === "pickup"
+          ? "Pickup"
+          : `${values.address}, ${values.city}, ${values.postalCode}`;
+
       const order = await createOrder(
         values.email,
         values.phone,
-        `${values.firstName} ${values.lastName}`,
+        deliveryAddress,
         items,
         total,
-        DELEVIRY_FEE,
+        values.deliveryMethod === "pickup" ? 0 : DELIVERY_FEE,
+        values.deliveryMethod,
+        promoCode,
+        promoDiscount,
       );
       toast.success("Order placed successfully!");
       resetForm();

@@ -8,8 +8,11 @@ export type Order = {
   subtotal?: number;
   delivery_fee?: number;
   total?: number;
-  status?: "pending" | "preparing" | "delivery" | "completed";
   notes?: string;
+  delivery_method?: "courier" | "pickup";
+  promo_code?: string;
+  promo_discount?: number;
+  status?: "pending" | "preparing" | "delivery" | "completed";
 };
 
 // type for order item data

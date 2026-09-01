@@ -18,6 +18,9 @@ export type CartItem = {
 // items: [] - data of the cart items
 type CartState = {
   items: CartItem[];
+  promoDiscount: number;
+  promoCode?: string;
+  setPromo: (code: string, discount: number) => void;
   addItem: (item: Omit<CartItem, "quantity">) => void;
   removeItem: (productId: string) => void;
   updateQuantity: (productId: string, quantity: number) => void;
@@ -31,7 +34,10 @@ export const useCartStore = create<CartState>()(
     // get: tools of zustand to access the current state of the store
     (set, get) => ({
       items: [],
-
+      promoCode: undefined,
+      promoDiscount: 0,
+      setPromo: (code, discount) =>
+        set({ promoCode: code, promoDiscount: discount }),
       addItem: (item) => {
         // check if the item already exists in the cart
         const items = get().items;

@@ -9,6 +9,9 @@ const CheckoutPage = () => {
   const items = useCartStore((state) => state.items);
   const totalPrice = useCartStore(selectTotalPrice);
 
+  const promoCode = useCartStore((state) => state.promoCode); // Assuming no promo code is applied for now
+  const promoDiscount = useCartStore((state) => state.promoDiscount); // Assuming no promo code is applied for now
+
   if (items.length === 0) {
     return (
       <SectionPage>
@@ -34,7 +37,8 @@ const CheckoutPage = () => {
         <CheckoutForm
           items={items}
           total={totalPrice + 3.99}
-          promoDiscount={0}
+          promoDiscount={promoDiscount}
+          promoCode={promoCode}
         />
       </div>
     </SectionPage>
