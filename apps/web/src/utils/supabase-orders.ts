@@ -13,9 +13,9 @@ export async function createOrder(
   promoCode?: string,
   promoDiscount?: number,
 ) {
-  // Calculate subtotal by subtracting delivery fee from total
+  // `promoDiscount` is already the discount amount computed in checkout flow.
   const subtotal = total - deliveryFee;
-  const discountAmount = promoDiscount ? subtotal * promoDiscount : 0;
+  const discountAmount = promoDiscount ?? 0;
 
   // Create the order in the "orders" table
   const { data: order, error: orderError } = await supabase
@@ -52,6 +52,7 @@ export async function createOrder(
     order_id: order.id,
     product_id: item.productId,
     product_name: item.name,
+    image_url: item.imageUrl,
     price: item.price,
     discount_price: item.discountPrice,
     quantity: item.quantity,
@@ -64,6 +65,10 @@ export async function createOrder(
 
   if (itemsError) {
     console.error("Error creating order items:", itemsError);
+    const details = [itemsError.message, itemsError.details, itemsError.hint]
+      .filter(Boolean)
+      .join(" | ");
+    throw new Error(`Failed to create order items: ${details}`);
   }
 
   return order;

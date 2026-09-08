@@ -1,18 +1,18 @@
 "use client";
 
-import React, { useState } from "react";
+import { useState } from "react";
 import { Formik, Form, type FormikHelpers } from "formik";
 import * as Yup from "yup";
 import { useRouter } from "next/navigation";
 import { useCartStore } from "@/store/cartStore";
 import { createOrder } from "@/utils/supabase-orders";
 import { toast } from "react-toastify";
-import CheckoutInput from "./CheckoutInput";
-import PlaceOrderButton from "@/components/Button/OrderButton";
 import type { CartItem } from "@/store/cartStore";
-import DeliveryMethodCard from "./DeliveryMethodCard";
+import DeliveryStep from "./DeliveryStep";
+import PaymentStep from "./PaymentStep";
+import ConfirmStep from "./ConfirmStep";
 
-import { MdOutlinePlace } from "react-icons/md";
+export type CheckoutStep = "delivery" | "payment" | "confirm";
 
 const DELIVERY_FEE = 3.99;
 
@@ -22,6 +22,8 @@ type CheckoutFormProps = {
   promoDiscount: number;
   promoCode?: string;
   onClose?: () => void;
+  step: CheckoutStep;
+  setStep: (step: CheckoutStep) => void;
 };
 
 const CheckoutForm = ({
@@ -30,6 +32,8 @@ const CheckoutForm = ({
   promoDiscount,
   promoCode,
   onClose,
+  step,
+  setStep,
 }: CheckoutFormProps) => {
   const router = useRouter();
   const clearCart = useCartStore((state) => state.clearCart);
@@ -45,6 +49,11 @@ const CheckoutForm = ({
     city: "",
     postalCode: "",
     deliveryMethod: "courier",
+    paymentMethod: "card",
+    cardNumber: "",
+    cardName: "",
+    expiry: "",
+    cvv: "",
   };
 
   // Validation schema using Yup
@@ -71,6 +80,27 @@ const CheckoutForm = ({
       otherwise: (schema) => schema.notRequired(),
     }),
     deliveryMethod: Yup.string().required("Delivery method is required"),
+    paymentMethod: Yup.string().required("Payment method is required"),
+    cardNumber: Yup.string().when("paymentMethod", {
+      is: "card",
+      then: (schema) => schema.required("Card number is required"),
+      otherwise: (schema) => schema.notRequired(),
+    }),
+    cardName: Yup.string().when("paymentMethod", {
+      is: "card",
+      then: (schema) => schema.required("Card name is required"),
+      otherwise: (schema) => schema.notRequired(),
+    }),
+    expiry: Yup.string().when("paymentMethod", {
+      is: "card",
+      then: (schema) => schema.required("Expiry date is required"),
+      otherwise: (schema) => schema.notRequired(),
+    }),
+    cvv: Yup.string().when("paymentMethod", {
+      is: "card",
+      then: (schema) => schema.required("CVV is required"),
+      otherwise: (schema) => schema.notRequired(),
+    }),
   });
 
   // handle form submission
@@ -80,6 +110,9 @@ const CheckoutForm = ({
   ) => {
     try {
       setSubmitError(null);
+
+      const deliveryFee = values.deliveryMethod === "pickup" ? 0 : DELIVERY_FEE;
+      const discountAmount = promoDiscount * (total - deliveryFee);
 
       const deliveryAddress =
         values.deliveryMethod === "pickup"
@@ -91,11 +124,11 @@ const CheckoutForm = ({
         values.phone,
         deliveryAddress,
         items,
-        total,
-        values.deliveryMethod === "pickup" ? 0 : DELIVERY_FEE,
+        total - discountAmount + deliveryFee,
+        deliveryFee,
         values.deliveryMethod,
         promoCode,
-        promoDiscount,
+        discountAmount,
       );
       toast.success("Order placed successfully!");
       resetForm();
@@ -119,104 +152,37 @@ const CheckoutForm = ({
           validationSchema={validationSchema}
           onSubmit={handleSubmit}
         >
-          {({ isSubmitting, values, setFieldValue }) => (
+          {({ isSubmitting, submitForm }) => (
             <Form className="flex flex-col">
               {submitError && (
                 <div className="bg-red-500/10 border border-red-500 rounded-lg p-3">
                   <p className="text-red-500 text-sm">{submitError}</p>
                 </div>
               )}
-              <div className="grid grid-cols-2 gap-4">
-                <CheckoutInput
-                  label="First Name"
-                  name="firstName"
-                  placeholder="Olena"
-                />
-                <CheckoutInput
-                  label="Last Name"
-                  name="lastName"
-                  placeholder="Kovalenko"
-                />
-              </div>
-              <div className="grid grid-cols-2 gap-4">
-                <CheckoutInput
-                  label="Phone"
-                  name="phone"
-                  type="tel"
-                  placeholder="+380"
-                />
-                <CheckoutInput
-                  label="Email"
-                  name="email"
-                  type="email"
-                  placeholder="you@example.com"
-                />
-              </div>
-              <div className="flex flex-col gap-3 mb-6">
-                <div className="">
-                  <h4 className="text-xs font-semibold text-quinary uppercase">
-                    Delivery Method
-                  </h4>
-                </div>
-                <DeliveryMethodCard
-                  selected={values.deliveryMethod === "courier"}
-                  onSelect={() => setFieldValue("deliveryMethod", "courier")}
-                  icon="🛵"
-                  title="Courier Delivery"
-                  subtitle="Door-to-door · 25–35 min · $3.99"
-                />
-                <DeliveryMethodCard
-                  selected={values.deliveryMethod === "pickup"}
-                  onSelect={() => setFieldValue("deliveryMethod", "pickup")}
-                  icon="🏪"
-                  title="Pick Up"
-                  subtitle="Ready in 15 min · Free"
-                />
-              </div>
-
-              {values.deliveryMethod === "courier" && (
-                <div className="bg-delivery-fee p-4 rounded-[14px] mb-4 border-[3px] border-checkout-border">
-                  <div className="mb-4">
-                    <h4 className="font-semibold text-base text-quaternary flex items-center gap-2">
-                      <MdOutlinePlace className="text-tertiary text-xl" />
-                      Delivery Address
-                    </h4>
-                  </div>
-                  <CheckoutInput
-                    label="Street & Number"
-                    name="address"
-                    as="textarea"
-                    placeholder="123 Main St"
-                    rows={2}
-                  />
-                  <div className="grid grid-cols-2 gap-4">
-                    <CheckoutInput
-                      label="City"
-                      name="city"
-                      placeholder="Kyiv"
-                    />
-                    <CheckoutInput
-                      label="ZIP Code"
-                      name="postalCode"
-                      placeholder="01001"
-                    />
-                  </div>
-                </div>
+              {/* Step 1: Delivery */}
+              {step === "delivery" && (
+                <DeliveryStep onNext={() => setStep("payment")} />
               )}
-              <div className="flex gap-2 mt-4">
-                {onClose && (
-                  <button
-                    type="button"
-                    onClick={onClose}
-                    className="flex-1 border-2 border-border-btn text-quaternary rounded-lg py-2 hover:border-discount-price transition-colors font-semibold"
-                  >
-                    Cancel
-                  </button>
-                )}
-                <PlaceOrderButton type="submit" disabled={isSubmitting}>
-                  {isSubmitting ? "Processing..." : "Confirm Order"}
-                </PlaceOrderButton>
-              </div>
+
+              {/* Step 2: Payment */}
+              {step === "payment" && (
+                <PaymentStep
+                  onNext={() => setStep("confirm")}
+                  onBack={() => setStep("delivery")}
+                />
+              )}
+
+              {/* Step 3: Confirm */}
+              {step === "confirm" && (
+                <ConfirmStep
+                  items={items}
+                  total={total}
+                  promoDiscount={promoDiscount}
+                  onBack={() => setStep("payment")}
+                  onConfirm={submitForm}
+                  isSubmitting={isSubmitting}
+                />
+              )}
             </Form>
           )}
         </Formik>
@@ -236,4 +202,9 @@ type CheckoutFormValues = {
   city: string;
   postalCode: string;
   deliveryMethod: "courier" | "pickup";
+  paymentMethod: "card" | "cash" | "apple";
+  cardNumber: string;
+  cardName: string;
+  expiry: string;
+  cvv: string;
 };

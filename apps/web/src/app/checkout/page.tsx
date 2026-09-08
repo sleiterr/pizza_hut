@@ -1,16 +1,20 @@
-// src/app/checkout/page.tsx — НОВИЙ ФАЙЛ!
+// src/app/checkout/page.tsx
 "use client";
 
+import { useState } from "react";
 import { useCartStore, selectTotalPrice } from "@/store/cartStore";
 import SectionPage from "@/components/Section/SectionPage";
-import CheckoutForm from "@/components/Cart/CheckoutForm";
+import CheckoutForm, {
+  type CheckoutStep,
+} from "@/components/Cart/CheckoutForm";
+import StepBar from "@/components/Cart/StepBar";
 
 const CheckoutPage = () => {
+  const [step, setStep] = useState<CheckoutStep>("delivery");
   const items = useCartStore((state) => state.items);
   const totalPrice = useCartStore(selectTotalPrice);
-
-  const promoCode = useCartStore((state) => state.promoCode); // Assuming no promo code is applied for now
-  const promoDiscount = useCartStore((state) => state.promoDiscount); // Assuming no promo code is applied for now
+  const promoCode = useCartStore((state) => state.promoCode);
+  const promoDiscount = useCartStore((state) => state.promoDiscount);
 
   if (items.length === 0) {
     return (
@@ -27,19 +31,25 @@ const CheckoutPage = () => {
   return (
     <SectionPage classSection="bg-bg-cart min-h-screen">
       <div className="w-full">
-        <div className="flex flex-col items-center">
+        <div className="flex flex-col items-center mb-8">
           <h1 className="font-semibold font-heading text-6xl text-quaternary mb-2">
             Checkout
           </h1>
           <span className="block w-62.5 border-t-10 rounded-[30px] border-border-card mb-10" />
         </div>
 
-        <CheckoutForm
-          items={items}
-          total={totalPrice + 3.99}
-          promoDiscount={promoDiscount}
-          promoCode={promoCode}
-        />
+        <StepBar current={step} />
+
+        <div className="max-w-2xl mx-auto">
+          <CheckoutForm
+            items={items}
+            total={totalPrice}
+            promoDiscount={promoDiscount}
+            promoCode={promoCode}
+            step={step}
+            setStep={setStep}
+          />
+        </div>
       </div>
     </SectionPage>
   );

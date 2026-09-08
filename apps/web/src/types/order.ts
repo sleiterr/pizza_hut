@@ -21,6 +21,7 @@ export type OrderItem = {
   order_id?: string;
   product_id?: string;
   product_name?: string;
+  image_url?: string;
   price?: number;
   discount_price?: number;
   quantity?: number;
