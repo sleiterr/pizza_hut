@@ -130,15 +130,23 @@ const CheckoutForm = ({
         promoCode,
         discountAmount,
       );
+
+      if (!order?.id) {
+        throw new Error("Order was created without id");
+      }
+
+      const confirmationUrl = `/confirmation?orderId=${order.id}`;
+      console.info("Redirecting to confirmation:", confirmationUrl);
+
       toast.success("Order placed successfully!");
       resetForm();
       clearCart();
-      router.push(`/confirmation?orderId=${order.id}`);
+      router.push(confirmationUrl);
     } catch (error) {
       console.error(error);
 
       const errorMsg =
-        error instanceof Error ? error.message : "Failde to place order.";
+        error instanceof Error ? error.message : "Failed to place order.";
       setSubmitError(errorMsg);
       toast.error(errorMsg);
     }
@@ -152,7 +160,7 @@ const CheckoutForm = ({
           validationSchema={validationSchema}
           onSubmit={handleSubmit}
         >
-          {({ isSubmitting, submitForm }) => (
+          {({ isSubmitting, submitForm, validateForm }) => (
             <Form className="flex flex-col">
               {submitError && (
                 <div className="bg-red-500/10 border border-red-500 rounded-lg p-3">
@@ -179,7 +187,18 @@ const CheckoutForm = ({
                   total={total}
                   promoDiscount={promoDiscount}
                   onBack={() => setStep("payment")}
-                  onConfirm={submitForm}
+                  onConfirm={async () => {
+                    const errors = await validateForm();
+
+                    if (Object.keys(errors).length > 0) {
+                      toast.error(
+                        "Please complete required fields in Delivery or Payment.",
+                      );
+                      return;
+                    }
+
+                    await submitForm();
+                  }}
                   isSubmitting={isSubmitting}
                 />
               )}

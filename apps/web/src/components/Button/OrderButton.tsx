@@ -8,6 +8,7 @@ type OrderButtonProps = {
   className?: string;
   disabled?: boolean;
   type?: "button" | "submit" | "reset";
+  variant?: "primary" | "secondary";
 };
 
 const OrderButton = ({
@@ -16,7 +17,14 @@ const OrderButton = ({
   className,
   disabled = false,
   type = "button",
+  variant = "primary",
 }: OrderButtonProps) => {
+  const variantClasses = {
+    primary: "text-white bg-tertiary hover:bg-secondary",
+    secondary:
+      "text-quaternary bg-transparent border-2 border-border-btn hover:border-discount-price",
+  };
+
   return (
     <button
       type={type}
@@ -24,10 +32,11 @@ const OrderButton = ({
       disabled={disabled}
       className={clsx(
         "w-full py-4 cursor-pointer rounded-xl",
-        "text-white text-lg font-heading font-semibold",
-        "bg-tertiary hover:bg-secondary active:scale-95",
+        "text-lg font-heading font-semibold",
+        "active:scale-95",
         "transition-all duration-300 ease-in-out",
         "disabled:opacity-50 disabled:cursor-not-allowed",
+        variantClasses[variant],
         className,
       )}
     >

@@ -12,7 +12,57 @@ type DeliveryStepProps = {
 };
 
 const DeliveryStep = ({ onNext }: DeliveryStepProps) => {
-  const { values, setFieldValue } = useFormikContext<DeliveryStepFormValues>();
+  const { values, setFieldValue, validateForm, setTouched } =
+    useFormikContext<DeliveryStepFormValues>();
+
+  const baseFieldsFilled =
+    values.firstName.trim() !== "" &&
+    values.lastName.trim() !== "" &&
+    values.phone.trim() !== "" &&
+    values.email.trim() !== "";
+
+  const courierFieldsFilled =
+    values.deliveryMethod !== "courier" ||
+    (values.address.trim() !== "" &&
+      values.city.trim() !== "" &&
+      values.postalCode.trim() !== "");
+
+  const canContinue = baseFieldsFilled && courierFieldsFilled;
+
+  const handleContinue = async () => {
+    const errors = await validateForm();
+
+    const hasDeliveryErrors = [
+      "firstName",
+      "lastName",
+      "phone",
+      "email",
+      "address",
+      "city",
+      "postalCode",
+      "deliveryMethod",
+    ].some((field) => field in errors);
+
+    if (hasDeliveryErrors) {
+      setTouched(
+        {
+          firstName: true,
+          lastName: true,
+          phone: true,
+          email: true,
+          address: values.deliveryMethod === "courier",
+          city: values.deliveryMethod === "courier",
+          postalCode: values.deliveryMethod === "courier",
+          deliveryMethod: true,
+          paymentMethod: false,
+        },
+        true,
+      );
+      return;
+    }
+
+    onNext();
+  };
 
   return (
     <div className="bg-cart-bg rounded-[20px] border-[3px] border-checkout-border p-6 flex flex-col gap-4">
@@ -93,16 +143,20 @@ const DeliveryStep = ({ onNext }: DeliveryStepProps) => {
         </div>
       )}
 
-      {/* Кнопки */}
-      <div className="flex gap-2 mt-4">
+      {/* Action Buttons */}
+      <div className="flex items-center justify-between gap-5 mt-4">
         <button
           type="button"
           onClick={() => window.history.back()}
-          className="flex-1 border-2 border-border-btn text-quaternary rounded-lg py-2 hover:border-discount-price transition-colors font-semibold"
+          className="w-[42%] border-2 border-border-btn text-quaternary rounded-lg py-4 hover:border-discount-price transition-colors font-semibold cursor-pointer"
         >
           ← Back
         </button>
-        <PlaceOrderButton onClick={onNext}>
+        <PlaceOrderButton
+          onClick={handleContinue}
+          disabled={!canContinue}
+          className="w-[60%]"
+        >
           Continue to Payment →
         </PlaceOrderButton>
       </div>

@@ -4,7 +4,7 @@ import CartPageHeader from "@/components/Cart/CartPageHeader";
 
 const Page = () => {
   return (
-    <SectionPage classSection="bg-bg-cart min-h-screen" className="w-full">
+    <SectionPage classSection="bg-bg-cart" className="w-full">
       <div className="mb-20">
         <CartPageHeader />
       </div>

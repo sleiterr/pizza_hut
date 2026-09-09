@@ -26,22 +26,18 @@ const ConfirmStep = ({
 }: ConfirmStepProps) => {
   const { values } = useFormikContext<ConfirmStepFormValues>();
 
-  const handleConfirmClick = async () => {
-    await onConfirm();
-  };
-
   const deliveryFee = values.deliveryMethod === "pickup" ? 0 : DELIVERY_FEE;
   const discountAmount = promoDiscount * total;
   const finalTotal = total - discountAmount + deliveryFee;
-  const orderNum = Math.floor(100000 + Math.random() * 900000);
 
   return (
     <div className="flex flex-col items-center gap-6 py-4">
-      {/* Анімація 🎉 */}
+      {/* Animation */}
       <div
         className="w-24 h-24 rounded-full bg-discount-price flex items-center justify-center text-5xl"
         style={{
-          animation: "confirm-pop 0.5s cubic-bezier(0.36,0.07,0.19,0.97) both",
+          animation:
+            "confirm-pop 1.8s cubic-bezier(0.36,0.07,0.19,0.97) 2 both",
         }}
       >
         🎉
@@ -53,24 +49,24 @@ const ConfirmStep = ({
           Order Placed !
         </h2>
         <p className="text-quinary text-base mt-2">
-          Thank you,{" "}
+          Thank you,
           <strong className="text-quaternary">{values.firstName}</strong>! We
           are preparing your food 🍔
         </p>
       </div>
 
       {/* Order Number */}
-      <div className="bg-primary border-2 border-border-btn text-center rounded-[16px] px-8 py-4 w-full max-w-sm">
+      <div className="bg-primary border-2 border-border-btn text-center rounded-2xl px-8 py-4 w-full max-w-sm">
         <p className="text-quinary text-xs uppercase tracking-widest">
           Order Number
         </p>
-        <p className="font-heading text-discount-price text-4xl mt-2">
-          #{orderNum}
+        <p className="font-heading text-discount-price text-sm mt-2">
+          Will be generated after confirmation
         </p>
       </div>
 
       {/* Products */}
-      <div className="w-full max-w-sm bg-cart-bg border-[3px] border-discount-price rounded-[16px] overflow-hidden">
+      <div className="w-full max-w-sm bg-cart-bg border-[3px] border-discount-price rounded-2xl overflow-hidden">
         <div className="px-5 py-3 border-b border-border-btn">
           <p className="font-heading text-lg text-quaternary">Your Order</p>
         </div>
@@ -86,7 +82,7 @@ const ConfirmStep = ({
                 <img
                   src={item.imageUrl}
                   alt={item.name}
-                  className="w-10 h-10 rounded-[8px] object-cover"
+                  className="w-10 h-10 rounded-lg object-cover"
                 />
               )}
               <span className="flex-1 text-sm text-quinary">
@@ -156,16 +152,22 @@ const ConfirmStep = ({
         </div>
       )}
 
-      {/* Кнопки */}
-      <div className="flex gap-2 w-full max-w-sm">
-        <button
+      {/* Action Buttons */}
+      <div className="flex items-center justify-between gap-3 w-full max-w-sm">
+        <PlaceOrderButton
           type="button"
           onClick={onBack}
-          className="flex-1 border-2 border-border-btn text-quaternary rounded-lg py-3 hover:border-discount-price transition-colors font-semibold"
+          variant="secondary"
+          className="w-[42%] py-3"
         >
           ← Back
-        </button>
-        <PlaceOrderButton onClick={handleConfirmClick} disabled={isSubmitting}>
+        </PlaceOrderButton>
+        <PlaceOrderButton
+          type="button"
+          onClick={onConfirm}
+          disabled={isSubmitting}
+          className="w-[58%] py-3"
+        >
           {isSubmitting ? "Processing..." : "Confirm Order →"}
         </PlaceOrderButton>
       </div>

@@ -32,9 +32,9 @@ const CheckoutPage = () => {
     <SectionPage classSection="bg-bg-cart min-h-screen">
       <div className="w-full">
         <div className="flex flex-col items-center mb-8">
-          <h1 className="font-semibold font-heading text-6xl text-quaternary mb-2">
+          <h4 className="font-semibold font-heading text-6xl text-quaternary mb-2">
             Checkout
-          </h1>
+          </h4>
           <span className="block w-62.5 border-t-10 rounded-[30px] border-border-card mb-10" />
         </div>
 

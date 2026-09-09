@@ -34,11 +34,9 @@ export default function ConfirmationClient() {
   const [orderItems, setOrderItems] = useState<OrderItem[]>([]);
   const [loading, setLoading] = useState(true);
 
-  const [orderNum] = useState(() =>
-    Math.floor(100000 + Math.random() * 900000)
-      .toString(16)
-      .toUpperCase(),
-  );
+  const orderNum = order?.id
+    ? order.id.replace(/-/g, "").slice(0, 8).toUpperCase()
+    : "------";
 
   useEffect(() => {
     if (!orderId) {
@@ -48,18 +46,15 @@ export default function ConfirmationClient() {
 
     const fetchOrder = async () => {
       try {
-        const { data: orderData, error: orderError } = await supabase
-          .from("orders")
-          .select("*")
-          .eq("id", orderId)
-          .single();
+        const [orderResponse, itemsResponse] = await Promise.all([
+          supabase.from("orders").select("*").eq("id", orderId).single(),
+          supabase.from("order_items").select("*").eq("order_id", orderId),
+        ]);
+
+        const { data: orderData, error: orderError } = orderResponse;
+        const { data: itemsData, error: itemsError } = itemsResponse;
 
         if (orderError) throw orderError;
-
-        const { data: itemsData, error: itemsError } = await supabase
-          .from("order_items")
-          .select("*")
-          .eq("order_id", orderId);
 
         if (itemsError) throw itemsError;
 
