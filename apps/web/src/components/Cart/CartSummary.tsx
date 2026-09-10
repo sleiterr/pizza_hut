@@ -22,12 +22,12 @@ type Props = {
 
 const CartSummary = ({ items, totalPrice }: Props) => {
   const [promoInputValue, setPromoInputValue] = useState(""); // локальний input
-  const [promoApplied, setPromoApplied] = useState(false);
 
   const router = useRouter();
-  const clearCart = useCartStore((state) => state.clearCart);
   const setPromo = useCartStore((state) => state.setPromo);
+  const promoCode = useCartStore((state) => state.promoCode);
   const promoDiscount = useCartStore((state) => state.promoDiscount);
+  const promoApplied = Boolean(promoCode && promoDiscount > 0);
 
   const subtotal = totalPrice;
   const discount = subtotal * promoDiscount;
@@ -36,7 +36,6 @@ const CartSummary = ({ items, totalPrice }: Props) => {
   const handleAppPromo = () => {
     if (promoInputValue.trim().toUpperCase() === "BURGER10") {
       setPromo("BURGER10", 0.1); // зберігаємо в store
-      setPromoApplied(true);
       setPromoInputValue(""); // очищуємо input
       toast.success("Promo code applied! 10% discount on your order.");
     } else {
@@ -55,6 +54,7 @@ const CartSummary = ({ items, totalPrice }: Props) => {
       discount,
       total,
       promoApplied,
+      promoCode,
     });
   };
 
@@ -103,7 +103,9 @@ const CartSummary = ({ items, totalPrice }: Props) => {
           </div>
           {promoApplied && (
             <div className="flex justify-between">
-              <span className="text-green-500 text-sm">Promo (BURGER10)</span>
+              <span className="text-green-500 text-sm">
+                Promo ({promoCode})
+              </span>
               <span className="font-heading text-green-500 text-sm">
                 -${discount.toFixed(2)}
               </span>

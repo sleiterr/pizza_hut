@@ -21,6 +21,7 @@ type CartState = {
   promoDiscount: number;
   promoCode?: string;
   setPromo: (code: string, discount: number) => void;
+  resetPromo: () => void;
   addItem: (item: Omit<CartItem, "quantity">) => void;
   removeItem: (productId: string) => void;
   updateQuantity: (productId: string, quantity: number) => void;
@@ -38,6 +39,7 @@ export const useCartStore = create<CartState>()(
       promoDiscount: 0,
       setPromo: (code, discount) =>
         set({ promoCode: code, promoDiscount: discount }),
+      resetPromo: () => set({ promoCode: undefined, promoDiscount: 0 }),
       addItem: (item) => {
         // check if the item already exists in the cart
         const items = get().items;
@@ -92,11 +94,22 @@ export const useCartStore = create<CartState>()(
 
       // clear the cart by setting items to an empty array
       clearCart: () => {
-        set({ items: [] });
+        set({ items: [], promoCode: undefined, promoDiscount: 0 });
       },
     }),
     {
       name: "cart-storage", // key for local storage
+      version: 2,
+      // Persist only items. Promo state should be session-scoped to avoid stale auto-applied codes.
+      partialize: (state) => ({ items: state.items }),
+      migrate: (persistedState) => {
+        const state = persistedState as Partial<CartState>;
+        return {
+          items: state.items ?? [],
+          promoCode: undefined,
+          promoDiscount: 0,
+        };
+      },
     },
   ),
 );

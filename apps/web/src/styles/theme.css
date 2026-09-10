@@ -16,6 +16,7 @@
     --color-footer-icon: #616161;
     --color-footer-form: #616161;
     --color-footer-form-border: #DEDEDE;
+    --color-input-holder: #444444;
 
 
     --color-hover-secondary: #555;
@@ -66,6 +67,7 @@
 
     --color-checkout-border: #2A2A2A;
     --color-checkout-input: #1A1A1A;
+    --color-form-bg: #1A1A1A;
     --color-delivery-fee: #1A1A1A;
     --color-input-check: #444444;
 }

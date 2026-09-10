@@ -114,9 +114,9 @@ export default function ConfirmationClient() {
         </div>
 
         <div className="text-center">
-          <h1 className="font-heading text-5xl text-quaternary mb-2">
+          <h4 className="font-heading text-5xl text-quaternary mb-2">
             Order Placed!
-          </h1>
+          </h4>
           <p className="text-quinary text-base font-normal">
             Thank you! We are preparing your food 🍔
           </p>
@@ -137,7 +137,7 @@ export default function ConfirmationClient() {
               <p className="font-heading text-lg text-quaternary">Your Order</p>
             </div>
 
-            <div className="max-h-48 overflow-y-auto">
+            <div className="max-h-48 overflow-y-auto cart-scrollbar ">
               {orderItems.map((item, idx) => (
                 <div
                   key={idx}

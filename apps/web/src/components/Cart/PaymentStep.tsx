@@ -6,6 +6,8 @@ import CheckoutInput from "./CheckoutInput";
 import DeliveryMethodCard from "./DeliveryMethodCard";
 import PlaceOrderButton from "@/components/Button/OrderButton";
 
+import { HiMiniArrowLongLeft } from "react-icons/hi2";
+
 type PaymentStepProps = {
   onNext: () => void;
   onBack: () => void;
@@ -73,9 +75,12 @@ const PaymentStep = ({ onNext, onBack }: PaymentStepProps) => {
 
       {/* fields for */}
       {values.paymentMethod === "card" && (
-        <div className="flex flex-col gap-4 p-5 bg-white rounded-[14px] border-2 border-border-btn">
+        <div className="flex flex-col gap-4 p-5 bg-form-bg rounded-[14px] border-2 border-border-btn">
           {/* Card Preview */}
-          <div className="relative w-full h-[140px] rounded-[16px] overflow-hidden flex flex-col justify-between p-5 bg-gradient-to-br from-gray-900 via-gray-800 to-red-600">
+          <div
+            className="relative w-full h-35 rounded-2xl overflow-hidden flex flex-col justify-between p-5"
+            style={{ background: "var(--gradient-accent-surface)" }}
+          >
             <div className="flex justify-between items-start">
               <span className="text-white text-xs opacity-60">Your Card</span>
               <span className="text-2xl">💳</span>
@@ -141,9 +146,9 @@ const PaymentStep = ({ onNext, onBack }: PaymentStepProps) => {
 
       {/* Apple Pay info */}
       {values.paymentMethod === "apple" && (
-        <div className="text-center py-6 bg-gray-100 rounded-lg">
+        <div className="text-center p-6 bg-form-bg rounded-lg">
           <p className="text-4xl mb-2">📱</p>
-          <p className="text-gray-600 text-sm">
+          <p className="font-normal text-quinary text-sm">
             You will be redirected to complete payment securely
           </p>
         </div>
@@ -153,7 +158,7 @@ const PaymentStep = ({ onNext, onBack }: PaymentStepProps) => {
       {values.paymentMethod === "cash" && (
         <div className="flex gap-4 p-4 bg-yellow-50 rounded-lg border-2 border-yellow-200">
           <span className="text-3xl">💵</span>
-          <p className="text-sm text-gray-700">
+          <p className="text-sm text-quinary">
             Please have the exact amount ready. Our courier carries limited
             change.
           </p>
@@ -161,16 +166,17 @@ const PaymentStep = ({ onNext, onBack }: PaymentStepProps) => {
       )}
 
       {/* Buttons */}
-      <div className="flex gap-2 mt-4">
-        <button
+      <div className="grid grid-cols-[42%_55%] gap-4 mt-4">
+        <PlaceOrderButton
           type="button"
           onClick={onBack}
-          className="flex-1 border-2 border-border-btn text-quaternary rounded-lg py-3 hover:border-discount-price transition-colors font-semibold"
+          variant="secondary"
+          className="py-3 flex items-center justify-center"
         >
-          ← Back
-        </button>
+          <HiMiniArrowLongLeft className="text-xl mr-2" /> Back
+        </PlaceOrderButton>
         <PlaceOrderButton onClick={onNext} disabled={!validate()}>
-          Continue to Confirm →
+          Continue to Confirm
         </PlaceOrderButton>
       </div>
     </div>

@@ -6,6 +6,7 @@ import CheckoutInput from "./CheckoutInput";
 import DeliveryMethodCard from "./DeliveryMethodCard";
 import PlaceOrderButton from "@/components/Button/OrderButton";
 import { MdOutlinePlace } from "react-icons/md";
+import { HiMiniArrowLongLeft } from "react-icons/hi2";
 
 type DeliveryStepProps = {
   onNext: () => void;
@@ -144,20 +145,22 @@ const DeliveryStep = ({ onNext }: DeliveryStepProps) => {
       )}
 
       {/* Action Buttons */}
-      <div className="flex items-center justify-between gap-5 mt-4">
-        <button
+      <div className="grid grid-cols-[42%_58%] gap-4 mt-4">
+        <PlaceOrderButton
           type="button"
           onClick={() => window.history.back()}
-          className="w-[42%] border-2 border-border-btn text-quaternary rounded-lg py-4 hover:border-discount-price transition-colors font-semibold cursor-pointer"
+          variant="secondary"
+          className="py-3 flex items-center justify-center"
         >
-          ← Back
-        </button>
+          <HiMiniArrowLongLeft className="text-2xl mr-2 transition-colors" />
+          Back
+        </PlaceOrderButton>
         <PlaceOrderButton
           onClick={handleContinue}
           disabled={!canContinue}
-          className="w-[60%]"
+          className="py-3"
         >
-          Continue to Payment →
+          Continue to Payment
         </PlaceOrderButton>
       </div>
     </div>

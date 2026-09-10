@@ -22,7 +22,7 @@ const OrderButton = ({
   const variantClasses = {
     primary: "text-white bg-tertiary hover:bg-secondary",
     secondary:
-      "text-quaternary bg-transparent border-2 border-border-btn hover:border-discount-price",
+      "font-semibold text-quinary bg-transparent border-2 border-border-btn hover:border-discount-price hover:text-quaternary transition-colors",
   };
 
   return (

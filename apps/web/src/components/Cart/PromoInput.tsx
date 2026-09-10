@@ -11,9 +11,9 @@ const PromoInput = ({
 }: PromoInputProps) => {
   return (
     <div className="bg-cart-bg rounded-[20px] border-[3px] border-border-card p-5">
-      <h3 className="font-semibold font-heading text-lg text-quaternary mb-3">
+      <h4 className="font-semibold font-heading text-lg text-quaternary mb-3">
         Promo Code
-      </h3>
+      </h4>
       <div className="flex gap-2">
         <input
           type="text"
@@ -23,7 +23,7 @@ const PromoInput = ({
           disabled={isApplied}
           className={clsx(
             "flex border-2 rounded-lg px-3 py-2 text-sm focus:outline-none transition-colors",
-            "bg-white font-semibold text-secondary",
+            "bg-checkout-input font-semibold text-quaternary",
             isApplied
               ? "border-green-500 focus:border-green-500 cursor-not-allowed"
               : "border-border-btn focus:border-discount-price",
@@ -33,7 +33,7 @@ const PromoInput = ({
           onClick={onApply}
           disabled={isApplied || isLoading}
           className={clsx(
-            "bg-discount-price text-black text-sm rounded-lg px-4 py-2 font-semibold hover:bg-tertiary hover:text-white transition-colors disabled:opacity-50 disabled:cursor-not-allowed",
+            "bg-discount-price text-add-btn text-sm rounded-lg px-4 py-2 font-semibold hover:bg-tertiary hover:text-white transition-colors disabled:opacity-50 disabled:cursor-not-allowed",
             {
               "bg-gray-400 cursor-not-allowed": isApplied || isLoading,
             },

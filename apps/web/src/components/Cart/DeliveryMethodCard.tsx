@@ -12,7 +12,7 @@ const DeliveryMethodCard = ({
       className={`flex items-center gap-4 p-4 rounded-[14px] border-2 text-left transition-all duration-200 w-full ${
         selected
           ? "border-tertiary bg-tertiary/10"
-          : "border-border-btn bg-cart-bg"
+          : "border-border-btn bg-form-bg"
       }`}
     >
       <div

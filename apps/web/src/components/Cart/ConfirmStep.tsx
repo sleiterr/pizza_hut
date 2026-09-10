@@ -4,6 +4,7 @@
 import { useFormikContext } from "formik";
 import PlaceOrderButton from "@/components/Button/OrderButton";
 import type { CartItem } from "@/store/cartStore";
+import { HiMiniArrowLongLeft } from "react-icons/hi2";
 
 type ConfirmStepProps = {
   items: CartItem[];
@@ -31,7 +32,7 @@ const ConfirmStep = ({
   const finalTotal = total - discountAmount + deliveryFee;
 
   return (
-    <div className="flex flex-col items-center gap-6 py-4">
+    <div className="flex flex-col items-center gap-6 p-6">
       {/* Animation */}
       <div
         className="w-24 h-24 rounded-full bg-discount-price flex items-center justify-center text-5xl"
@@ -50,8 +51,10 @@ const ConfirmStep = ({
         </h2>
         <p className="text-quinary text-base mt-2">
           Thank you,
-          <strong className="text-quaternary">{values.firstName}</strong>! We
-          are preparing your food 🍔
+          <span className="font-semibold text-quaternary px-1">
+            {values.firstName}
+          </span>
+          ! We are preparing your food 🍔
         </p>
       </div>
 
@@ -71,7 +74,7 @@ const ConfirmStep = ({
           <p className="font-heading text-lg text-quaternary">Your Order</p>
         </div>
 
-        <div className="max-h-48 overflow-y-auto">
+        <div className="max-h-48 overflow-y-auto cart-scrollbar pr-1">
           {items.map((item) => (
             <div
               key={item.productId}
@@ -153,22 +156,23 @@ const ConfirmStep = ({
       )}
 
       {/* Action Buttons */}
-      <div className="flex items-center justify-between gap-3 w-full max-w-sm">
+      <div className="grid grid-cols-[42%_58%] gap-4 mt-4 w-full max-w-sm">
         <PlaceOrderButton
           type="button"
           onClick={onBack}
           variant="secondary"
-          className="w-[42%] py-3"
+          className="py-3 flex items-center justify-center"
         >
-          ← Back
+          <HiMiniArrowLongLeft className="text-2xl mr-2 transition-colors" />
+          Back
         </PlaceOrderButton>
         <PlaceOrderButton
           type="button"
           onClick={onConfirm}
           disabled={isSubmitting}
-          className="w-[58%] py-3"
+          className="py-3"
         >
-          {isSubmitting ? "Processing..." : "Confirm Order →"}
+          {isSubmitting ? "Processing..." : "Confirm Order"}
         </PlaceOrderButton>
       </div>
 
