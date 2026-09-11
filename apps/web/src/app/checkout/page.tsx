@@ -40,7 +40,7 @@ const CheckoutPage = () => {
 
         <StepBar current={step} />
 
-        <div className="max-w-2xl mx-auto">
+        <div className="max-w-2xl mx-auto min-h-190 md:min-h-205">
           <CheckoutForm
             items={items}
             total={totalPrice}

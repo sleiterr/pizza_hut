@@ -67,7 +67,7 @@ const DeliveryStep = ({ onNext }: DeliveryStepProps) => {
 
   return (
     <div className="bg-cart-bg rounded-[20px] border-[3px] border-checkout-border p-6 flex flex-col gap-4">
-      {/* Інпути */}
+      {/* Inputs */}
       <div className="grid grid-cols-2 gap-4">
         <CheckoutInput
           label="First Name"
@@ -117,7 +117,7 @@ const DeliveryStep = ({ onNext }: DeliveryStepProps) => {
         />
       </div>
 
-      {/* Адреса (показується тільки для courier) */}
+      {/* Address (shown only for courier) */}
       {values.deliveryMethod === "courier" && (
         <div className="bg-delivery-fee p-4 rounded-[14px] border-[3px] border-checkout-border">
           <div className="mb-4">

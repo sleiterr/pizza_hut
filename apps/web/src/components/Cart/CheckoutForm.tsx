@@ -127,6 +127,7 @@ const CheckoutForm = ({
         total - discountAmount + deliveryFee,
         deliveryFee,
         values.deliveryMethod,
+        values.paymentMethod,
         promoCode,
         discountAmount,
       );

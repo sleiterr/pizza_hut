@@ -10,6 +10,7 @@ export type Order = {
   total?: number;
   notes?: string;
   delivery_method?: "courier" | "pickup";
+  payment_method?: "card" | "cash" | "apple";
   promo_code?: string;
   promo_discount?: number;
   status?: "pending" | "preparing" | "delivery" | "completed";

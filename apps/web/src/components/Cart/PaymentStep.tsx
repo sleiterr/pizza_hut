@@ -29,7 +29,7 @@ const PaymentStep = ({ onNext, onBack }: PaymentStepProps) => {
     const d = v.replace(/\D/g, "").slice(0, 4);
     return d.length >= 3 ? d.slice(0, 2) + "/" + d.slice(2) : d;
   };
-
+  // Validate payment fields based on the selected payment method
   const validate = () => {
     if (values.paymentMethod === "card") {
       return (

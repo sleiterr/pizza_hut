@@ -10,6 +10,7 @@ export async function createOrder(
   total: number,
   deliveryFee: number,
   deliveryMethod: "courier" | "pickup",
+  paymentMethod: "card" | "cash" | "apple",
   promoCode?: string,
   promoDiscount?: number,
 ) {
@@ -29,6 +30,7 @@ export async function createOrder(
         delivery_fee: deliveryFee,
         total,
         delivery_method: deliveryMethod,
+        payment_method: paymentMethod,
         promo_code: promoCode,
         promo_discount: discountAmount,
         status: "pending",
