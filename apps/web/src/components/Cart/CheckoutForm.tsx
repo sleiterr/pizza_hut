@@ -12,6 +12,8 @@ import DeliveryStep from "./DeliveryStep";
 import PaymentStep from "./PaymentStep";
 import ConfirmStep from "./ConfirmStep";
 
+import { sendOrderEmail } from "@/utils/send-order-email";
+
 export type CheckoutStep = "delivery" | "payment" | "confirm";
 
 const DELIVERY_FEE = 3.99;
@@ -31,7 +33,6 @@ const CheckoutForm = ({
   total,
   promoDiscount,
   promoCode,
-  onClose,
   step,
   setStep,
 }: CheckoutFormProps) => {
@@ -112,7 +113,9 @@ const CheckoutForm = ({
       setSubmitError(null);
 
       const deliveryFee = values.deliveryMethod === "pickup" ? 0 : DELIVERY_FEE;
-      const discountAmount = promoDiscount * (total - deliveryFee);
+      const subtotal = total - DELIVERY_FEE;
+      const discountAmount = promoDiscount * subtotal;
+      const finalTotal = subtotal - discountAmount + deliveryFee;
 
       const deliveryAddress =
         values.deliveryMethod === "pickup"
@@ -124,7 +127,7 @@ const CheckoutForm = ({
         values.phone,
         deliveryAddress,
         items,
-        total - discountAmount + deliveryFee,
+        finalTotal,
         deliveryFee,
         values.deliveryMethod,
         values.paymentMethod,
@@ -136,10 +139,24 @@ const CheckoutForm = ({
         throw new Error("Order was created without id");
       }
 
+      try {
+        await sendOrderEmail(
+          values.email,
+          order.id,
+          finalTotal,
+          items,
+          values.deliveryMethod,
+          deliveryAddress,
+        );
+      } catch (emailError) {
+        console.error("Order email failed:", emailError);
+        toast.warn("Order placed, but confirmation email was not sent.");
+      }
+
       const confirmationUrl = `/confirmation?orderId=${order.id}`;
       console.info("Redirecting to confirmation:", confirmationUrl);
 
-      toast.success("Order placed successfully!");
+      toast.success("Order placed successfully.");
       resetForm();
       clearCart();
       router.push(confirmationUrl);
