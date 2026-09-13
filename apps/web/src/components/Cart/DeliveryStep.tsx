@@ -85,8 +85,8 @@ const DeliveryStep = ({ onNext }: DeliveryStepProps) => {
         <CheckoutInput
           label="Phone"
           name="phone"
-          type="tel"
-          placeholder="+380"
+          type="Phone"
+          placeholder="Phone Number"
         />
         <CheckoutInput
           label="Email"

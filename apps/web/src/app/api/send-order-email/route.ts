@@ -31,12 +31,6 @@ export async function POST(req: Request) {
     } = await req.json();
     const typedItems: OrderItem[] = items;
 
-    console.log("🔍 API Key exists:", !!process.env.RESEND_API_KEY);
-    console.log(
-      "🔍 API Key starts with:",
-      process.env.RESEND_API_KEY?.slice(0, 5),
-    );
-
     if (!email || !orderId || typeof orderTotal !== "number") {
       return Response.json(
         { success: false, error: "Invalid request payload" },
