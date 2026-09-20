@@ -66,7 +66,7 @@ export async function POST(req: Request) {
       );
     }
 
-    await resend.emails.send({
+    const { error: confirmationEmailError } = await resend.emails.send({
       from: "orders@resend.dev",
       to: email,
       subject: "We received your message",
@@ -84,7 +84,14 @@ export async function POST(req: Request) {
         `,
     });
 
-    await resend.emails.send({
+    if (confirmationEmailError) {
+      console.error(
+        "Contact confirmation email error:",
+        confirmationEmailError,
+      );
+    }
+
+    const { error: notificationEmailError } = await resend.emails.send({
       from: "orders@resend.dev",
       to: "oleg4troian@gmail.com",
       subject: `New contact message from ${name}`,
@@ -98,8 +105,19 @@ export async function POST(req: Request) {
       `,
     });
 
+    if (notificationEmailError) {
+      console.error(
+        "Contact notification email error:",
+        notificationEmailError,
+      );
+    }
+
     // return a success response to the client
-    return Response.json({ success: true, id: data.id });
+    return Response.json({
+      success: true,
+      id: data.id,
+      emailSent: !confirmationEmailError,
+    });
     // catch block handles any errors that occur during the processing of the contact message
   } catch (error) {
     console.error("Contact message error:", error);

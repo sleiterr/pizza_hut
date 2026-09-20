@@ -59,6 +59,11 @@ const FormSuport = ({ onClose }: FormSuportProps) => {
       }
 
       toast.success("Message sent successfully! We'll get back to you soon.");
+      if (!result.emailSent) {
+        toast.warn(
+          "Your message was received, but the confirmation email was not sent.",
+        );
+      }
       resetForm();
       onClose();
     } catch (error) {
