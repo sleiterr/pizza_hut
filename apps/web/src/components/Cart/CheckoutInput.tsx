@@ -13,6 +13,7 @@ const CheckoutInput = ({
   className,
   as,
   type,
+  onChange,
   ...rest
 }: CheckoutInputProps) => {
   const { values, setFieldValue } = useFormikContext<CheckoutValues>();
@@ -84,6 +85,7 @@ const CheckoutInput = ({
       <Field
         id={name}
         name={name}
+        onChange={onChange}
         {...rest}
         className={clsx(
           "text-quaternary text-base px-3 py-2 border-2 border-border-btn bg-checkout-input rounded-lg",
@@ -115,7 +117,7 @@ type CheckoutInputProps = {
   rows?: number;
 } & Omit<
   React.InputHTMLAttributes<HTMLInputElement>,
-  "name" | "type" | "value" | "defaultValue" | "onChange"
+  "name" | "type" | "value" | "defaultValue"
 >;
 
 // Omit, use for excluding specific attributes from the input element that are handled by Formik.

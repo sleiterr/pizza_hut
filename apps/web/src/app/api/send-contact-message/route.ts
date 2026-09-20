@@ -98,7 +98,9 @@ export async function POST(req: Request) {
       `,
     });
 
+    // return a success response to the client
     return Response.json({ success: true, id: data.id });
+    // catch block handles any errors that occur during the processing of the contact message
   } catch (error) {
     console.error("Contact message error:", error);
     return Response.json(
