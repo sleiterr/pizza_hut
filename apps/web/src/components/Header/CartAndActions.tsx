@@ -1,11 +1,15 @@
 "use client";
 
+import { useState } from "react";
 import clsx from "clsx";
-import CtaModal from "@/components/Button/CtaModal";
 import Link from "next/link";
 import { useCartStore, selectTotalItems } from "@/store/cartStore";
+import CtaContact from "@/components/Button/CtaContact";
+import SuportModal from "@/components/ModalSupport/SuportModal";
 
 const CartAndActions = () => {
+  const [isOpen, setIsOpen] = useState(false);
+
   const cartCount = useCartStore(selectTotalItems);
 
   return (
@@ -18,11 +22,13 @@ const CartAndActions = () => {
           </span>
         )}
       </Link>
-      <CtaModal
+      <CtaContact
         className={clsx("bg-cta-secondary", "hover:bg-cta-secondary-hover")}
+        onClick={() => setIsOpen(true)}
       >
         Contact Us
-      </CtaModal>
+      </CtaContact>
+      {isOpen && <SuportModal onClose={() => setIsOpen(false)} />}
     </>
   );
 };

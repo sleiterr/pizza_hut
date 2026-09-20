@@ -70,4 +70,7 @@
     --color-form-bg: #1A1A1A;
     --color-delivery-fee: #1A1A1A;
     --color-input-check: #444444;
+
+    /** Modal Styles */
+    --color-modal-event-bg: #fff;
 }

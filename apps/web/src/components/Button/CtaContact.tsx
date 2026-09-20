@@ -2,9 +2,11 @@ import React from "react";
 import clsx from "clsx";
 // import { CtaProps } from "@/sanity/types";
 
-const CtaModal = ({ children, className, ...rest }: CtaProps) => {
+const CtaContact = ({ children, onClick, className, ...rest }: CtaProps) => {
   return (
     <button
+      type="button"
+      onClick={onClick}
       className={clsx(
         "py-4 px-8 md:py-4 md:px-12 cursor-pointer rounded-xl",
         "font-oswald font-semibold text-quaternary text-base md:text-lg",
@@ -18,9 +20,10 @@ const CtaModal = ({ children, className, ...rest }: CtaProps) => {
   );
 };
 
-export default CtaModal;
+export default CtaContact;
 
 type CtaProps = {
   children: React.ReactNode;
   className?: string;
-};
+  onClick?: () => void;
+} & React.ButtonHTMLAttributes<HTMLButtonElement>;
