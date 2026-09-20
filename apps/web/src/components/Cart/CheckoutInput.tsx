@@ -85,7 +85,7 @@ const CheckoutInput = ({
       <Field
         id={name}
         name={name}
-        onChange={onChange}
+        {...(onChange ? { onChange } : {})}
         {...rest}
         className={clsx(
           "text-quaternary text-base px-3 py-2 border-2 border-border-btn bg-checkout-input rounded-lg",
