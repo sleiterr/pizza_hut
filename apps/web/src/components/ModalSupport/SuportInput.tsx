@@ -13,6 +13,8 @@ const SuportInput = ({
   className,
   as,
   type,
+  placeholder,
+  rows = 4,
   ...rest
 }: SuportInputProps) => {
   const { values, setFieldValue } = useFormikContext<CheckoutValues>();
@@ -40,27 +42,40 @@ const SuportInput = ({
         {label && (
           <label
             htmlFor={name}
-            className="font-normal md:text-xs text-septenary uppercase pb-1"
+            className="font-oswald font-medium text-xs text-senary uppercase tracking-[2.5px] pb-1"
           >
             {label}
           </label>
         )}
-        <PhoneInput
-          countries={["UA", "DK"]}
-          defaultCountry="UA"
-          onCountryChange={handleCountryChange}
-          value={values[name] || ""}
-          onChange={(value) => {
-            void setFieldValue(name, value || "");
-          }}
-          {...rest}
-          className={clsx(
-            "text-quaternary text-base px-3 py-2 border-2 border-border-btn bg-checkout-input rounded-lg",
-            "focus:outline-none focus:border-discount-price transition-colors",
-            "placeholder:text-input-check placeholder:font-normal placeholder:text-base",
-            className,
-          )}
-        />
+        <div className="border-b-2 border-border-suport focus-within:border-discount-price transition-colors">
+          <PhoneInput
+            countries={["UA", "DK"]}
+            defaultCountry="UA"
+            placeholder={placeholder}
+            onCountryChange={handleCountryChange}
+            value={values[name] || ""}
+            onChange={(value) => {
+              void setFieldValue(name, value || "");
+            }}
+            {...rest}
+            style={{
+              border: "none",
+              backgroundColor: "transparent",
+              padding: "0.5rem 0",
+              fontSize: "16px",
+            }}
+            className={clsx(
+              "text-input-suport",
+              "[&_.PhoneInputInput]:focus:outline-none",
+              "[&_.PhoneInputInput]:focus:ring-0",
+              "[&_.PhoneInputInput]:border-0",
+              "[&_.PhoneInputInput]:placeholder:text-placeholder-suport",
+              "[&_.PhoneInputInput]:placeholder:font-normal",
+              "[&_.PhoneInputInput]:placeholder:text-base",
+              className,
+            )}
+          />
+        </div>
         <div className="h-5 mt-0.5">
           <ErrorMessage
             name={name}
@@ -76,7 +91,7 @@ const SuportInput = ({
       {label && (
         <label
           htmlFor={name}
-          className="font-normal md:text-xs text-septenary uppercase pb-1"
+          className="font-oswald font-medium text-xs text-senary uppercase tracking-[2.5px] pb-1"
         >
           {label}
         </label>
@@ -84,12 +99,16 @@ const SuportInput = ({
       <Field
         id={name}
         name={name}
+        type={type === "textarea" ? undefined : type}
+        as={type === "textarea" ? "textarea" : undefined}
+        placeholder={placeholder}
+        rows={type === "textarea" ? rows : undefined}
         {...rest}
         className={clsx(
-          "text-quaternary text-base px-3 py-2 border-2 border-border-btn bg-checkout-input rounded-lg",
+          "text-input-suport text-base px-0 py-2 border-b-2 border-border-suport bg-transparent",
           "focus:outline-none focus:border-discount-price transition-colors",
-          as === "textarea" && "resize-none",
-          "placeholder:text-input-check placeholder:font-normal placeholder:text-base",
+          type === "textarea" && "resize-none",
+          "placeholder:font-normal placeholder:text-base placeholder:text-placeholder-suport",
           className,
         )}
       />
@@ -110,6 +129,7 @@ type SuportInputProps = {
   label?: string;
   name: string;
   type?: React.HTMLInputTypeAttribute | "Phone";
+  placeholder?: string;
   as?: string;
   className?: string;
   rows?: number;

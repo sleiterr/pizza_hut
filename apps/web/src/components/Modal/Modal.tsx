@@ -38,7 +38,7 @@ export function Modal({
 
         <DialogPanel
           className={clsx(
-            "relative transform overflow-hidden rounded-lg bg-modal-event-bg shadow-xl transition-all p-6 mx-auto sm:my-10 sm:w-full sm:max-w-96.25",
+            "relative transform overflow-hidden rounded-lg bg-modal-event-bg shadow-xl transition-all p-6 mx-auto sm:my-10 w-full max-w-135",
             classDialogPanel,
           )}
         >

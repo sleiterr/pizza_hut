@@ -71,6 +71,13 @@
     --color-delivery-fee: #1A1A1A;
     --color-input-check: #444444;
 
+    /** Suport Form */
+    --color-border-suport: #e5e5e5;
+    --color-input-suport: #111;
+
+    /** placeholder for support input */
+    --color-placeholder-suport: #ccc;
+
     /** Modal Styles */
     --color-modal-event-bg: #fff;
 }

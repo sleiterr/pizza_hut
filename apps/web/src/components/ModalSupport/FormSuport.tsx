@@ -82,28 +82,53 @@ const FormSuport = ({ onClose }: FormSuportProps) => {
       onSubmit={handleSubmit}
     >
       {({ isSubmitting }) => (
-        <Form>
-          <SuportInput id="name" name="name" type="text" label="Name" />
+        <Form className="flex flex-col gap-5">
+          <div className="grid grid-cols-2 gap-5">
+            <SuportInput
+              id="name"
+              name="name"
+              type="text"
+              label="Name"
+              placeholder="Enter your name"
+            />
 
-          <SuportInput id="phone" name="phone" type="Phone" label="Phone" />
+            <SuportInput
+              id="phone"
+              name="phone"
+              type="Phone"
+              label="Phone"
+              placeholder="Enter phone nr."
+            />
+          </div>
 
-          <SuportInput id="email" name="email" type="email" label="Email" />
+          <div className="flex flex-col gap-1.5">
+            <SuportInput
+              id="email"
+              name="email"
+              type="email"
+              label="Email"
+              placeholder="you@example.com"
+            />
 
-          <SuportInput
-            id="message"
-            name="message"
-            type="textarea"
-            label="Message"
-          />
+            <SuportInput
+              id="message"
+              name="message"
+              type="textarea"
+              label="Message"
+              rows={4}
+              placeholder="How can we help you ?"
+            />
+          </div>
           <CtaContact
             className={clsx(
-              "py-4 px-8 md:py-4 md:px-12 cursor-pointer rounded-xl bg-cta-submit",
-              "font-oswald font-semibold text-secondary",
+              "md:py-3.5! md:px-12! cursor-pointer rounded-full! bg-cta-submit",
+              "font-oswald font-semibold text-cta-tertiary! text-base uppercase",
+              "hover:bg-[#f3274c] hover:text-white! active:scale-[0.98] transition-all",
             )}
             type="submit"
             disabled={isSubmitting}
           >
-            {isSubmitting ? "Sending..." : "Send message..."}
+            {isSubmitting ? "Sending..." : "Send message"}
           </CtaContact>
         </Form>
       )}
