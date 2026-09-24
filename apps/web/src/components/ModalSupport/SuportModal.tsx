@@ -4,11 +4,16 @@ import FormSuport from "./FormSuport";
 const SuportModal = ({ onClose, task }: ModalNewEventProps) => {
   return (
     <Modal show={true} onClose={onClose}>
-      <div className="flex items-center justify-between mb-5">
-        <div className="">
-          <h4 className="font-medium text-lg text-modal-title">
-            {task ? "Edit Event" : "Add New Event"}
-          </h4>
+      <div className="flex items-center justify-between mb-4">
+        <div className="shrink-0 flex items-center justify-start -ml-4">
+          <img
+            src="/logo/logo_pizza.svg"
+            alt="logo"
+            className="object-contain w-19.75 h-16.75"
+          />
+          <span className="font-fugaz font-medium text-2xl text-logo">
+            pizza hut
+          </span>
         </div>
         <div className="self-center">
           <button onClick={onClose} className="font-bold cursor-pointer">
@@ -29,6 +34,15 @@ const SuportModal = ({ onClose, task }: ModalNewEventProps) => {
             </svg>
           </button>
         </div>
+      </div>
+      <div className="mb-6">
+        <p className="font-oswald font-medium text-tertiary text-[11px] uppercase tracking-[3px] mb-1">
+          We'd love to hear from you
+        </p>
+        <h2 className="font-fugaz text-[34px] text-gray-900 leading-tight">
+          Get In Touch
+        </h2>
+        <div className="w-20 h-1 bg-border-card rounded-full mt-2" />
       </div>
       <div className="flex flex-col">
         <FormSuport onClose={onClose} />

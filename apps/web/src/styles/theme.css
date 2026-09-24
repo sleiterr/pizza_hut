@@ -80,4 +80,5 @@
 
     /** Modal Styles */
     --color-modal-event-bg: #fff;
+    --color-modal-icon-close: #bbbbbb;
 }
