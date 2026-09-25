@@ -1,0 +1,44 @@
+---
+title: Web Development
+description: Local development, environment variables, scripts, and deployment for apps/web.
+---
+
+## Commands
+
+Run these commands from `apps/web`:
+
+```bash
+pnpm run dev
+pnpm run lint
+pnpm run build
+pnpm run start
+```
+
+The development server runs at `http://localhost:3000`.
+
+## Environment Variables
+
+Configure these variable groups in `apps/web/.env.local`:
+
+| Group                                  | Purpose                                              |
+| -------------------------------------- | ---------------------------------------------------- |
+| `NEXT_PUBLIC_SANITY_*`                 | Sanity project, dataset, and API configuration.      |
+| `NEXT_PUBLIC_SUPABASE_URL`             | Supabase project URL.                                |
+| `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY` | Public Supabase client key.                          |
+| `SUPABASE_SERVICE_ROLE_KEY`            | Server-only key for protected API inserts.           |
+| `RESEND_API_KEY`                       | Transactional email from API routes.                 |
+| `MAILCHIMP_*`                          | Newsletter audience and API configuration.           |
+| Draft mode variables                   | Sanity Presentation Tool and draft mode integration. |
+
+Never expose `SUPABASE_SERVICE_ROLE_KEY` or `RESEND_API_KEY` with the `NEXT_PUBLIC_` prefix.
+
+## Production
+
+Build the application before starting it in production:
+
+```bash
+pnpm run build
+pnpm run start
+```
+
+When deploying to Vercel, use `apps/web` as the project root and add the required environment variables to the project settings.

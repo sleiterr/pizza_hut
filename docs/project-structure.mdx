@@ -1,0 +1,88 @@
+---
+title: Project Structure
+description: Repository layout and responsibilities of each workspace package.
+---
+
+```text
+pizza_hut/
+├── README.md
+├── docs.json
+├── docs/
+│   ├── web/                 # Web application documentation
+│   └── studio/              # Sanity Studio documentation
+├── pnpm-lock.yaml
+├── pnpm-workspace.yaml
+└── apps/
+    ├── package.json         # Workspace dev and build scripts
+    ├── web/                 # Next.js customer-facing application
+    └── studio/              # Sanity content management application
+```
+
+## `apps/web`
+
+The web application contains the customer-facing website, checkout flows, API routes, and service integrations.
+
+```text
+apps/web/
+├── public/                  # Images, icons, logos, and other static assets
+├── src/
+│   ├── app/                 # App Router pages, layouts, and API routes
+│   ├── components/          # Reusable UI and feature components
+│   ├── hooks/               # Client-side React hooks
+│   ├── sanity/              # Sanity client, queries, images, and types
+│   ├── store/               # Zustand application state, including the cart
+│   ├── styles/              # Global CSS, fonts, theme, and design tokens
+│   ├── types/               # Shared TypeScript declarations
+│   └── utils/               # Supabase, Resend, Mailchimp, and shared helpers
+├── eslint.config.mjs        # ESLint configuration
+├── next.config.ts           # Next.js configuration
+├── package.json             # Web scripts and dependencies
+├── postcss.config.mjs       # PostCSS and Tailwind configuration
+└── tsconfig.json            # TypeScript configuration
+```
+
+### Web Responsibilities
+
+- `src/app` defines routes such as the homepage, cart, checkout, confirmation, and API handlers.
+- `src/components` groups UI by feature, including menu, cart, booking, header, modal, and support areas.
+- `src/sanity` is the read layer for editorial content managed in Studio.
+- `src/store` keeps client-side state that must survive navigation, such as cart items.
+- `src/utils` contains integrations and server or client helpers for external services.
+
+## `apps/studio`
+
+The Studio is the Sanity content management application used to manage the content consumed by the web application.
+
+```text
+apps/studio/
+├── config/                  # Studio structure and Presentation Tool config
+├── presentation/            # Preview URL resolution
+├── schemaTypes/             # Sanity document and object schemas
+├── static/                  # Studio static assets
+├── eslint.config.mjs        # Studio lint configuration
+├── package.json             # Studio scripts and dependencies
+├── sanity.cli.ts            # Sanity CLI project configuration
+├── sanity.config.ts         # Studio configuration and plugins
+├── schema.json              # Extracted Sanity schema
+└── tsconfig.json            # TypeScript configuration
+```
+
+### Studio Responsibilities
+
+- `schemaTypes` defines documents such as products, categories, menu content, homepage content, and reservations.
+- `config` defines the Studio navigation structure and presentation settings.
+- `presentation` connects Studio previews to routes in the web application.
+- `sanity.config.ts` registers schemas, plugins, and the Studio project configuration.
+
+## Repository Root
+
+The repository root contains the workspace configuration, lockfile, shared README, and documentation site configuration.
+
+## Root Configuration
+
+- `pnpm-workspace.yaml` defines workspace packages.
+- `pnpm-lock.yaml` locks dependencies for the workspace.
+- `apps/package.json` runs both applications in parallel.
+- `docs.json` configures the docs.page site.
+- `README.md` provides the repository-level overview and workspace setup.
+- `docs/` contains this documentation, grouped by application.

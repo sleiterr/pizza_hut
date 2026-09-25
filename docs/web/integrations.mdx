@@ -1,0 +1,24 @@
+---
+title: Web Integrations
+description: External services used by the Pizza Hut web application.
+---
+
+## Sanity
+
+Sanity provides menu, category, homepage, news, team, and other editorial content. Queries and image helpers live in `apps/web/src/sanity`.
+
+The Studio project is the source of truth for content editors. Draft mode allows previewing unpublished content from the Presentation Tool.
+
+## Supabase
+
+Supabase stores operational data such as orders, order items, reservations, and contact messages. The web application uses the public client for browser-safe operations and a server-only service-role client inside protected API routes.
+
+Keep the service-role key server-side and never expose it through client components.
+
+## Resend
+
+Resend is used for order and support email notifications. Email delivery depends on a verified sending domain in production. A successful order or support message can still be stored even when email delivery fails; the UI reports that condition separately.
+
+## Mailchimp
+
+Mailchimp handles newsletter subscriptions through the newsletter API route. Its credentials must remain server-side.

@@ -1,0 +1,40 @@
+{
+  "$schema": "https://docs.page/schema.json",
+  "name": "Pizza Hut Documentation",
+  "description": "Project documentation for the Pizza Hut web application and Sanity Studio.",
+  "theme": {
+    "primary": "#F3274C",
+    "primaryLight": "#F3274C",
+    "primaryDark": "#FFD40D"
+  },
+  "sidebar": [
+    {
+      "group": "Overview",
+      "pages": [
+        { "title": "Introduction", "href": "/" },
+        { "title": "Getting Started", "href": "/getting-started" },
+        { "title": "Project Structure", "href": "/project-structure" }
+      ]
+    },
+    {
+      "group": "Web Application",
+      "pages": [
+        { "title": "Overview", "href": "/web/overview" },
+        { "title": "Development", "href": "/web/development" },
+        { "title": "Integrations", "href": "/web/integrations" }
+      ]
+    },
+    {
+      "group": "Sanity Studio",
+      "pages": [
+        { "title": "Overview", "href": "/studio/overview" },
+        { "title": "Development", "href": "/studio/development" },
+        { "title": "Content Model", "href": "/studio/content-model" }
+      ]
+    }
+  ],
+  "content": {
+    "automaticallyInferNextPrevious": true,
+    "headerDepth": 3
+  }
+}

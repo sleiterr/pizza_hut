@@ -1,0 +1,31 @@
+---
+title: Studio Development
+description: Local development, type generation, builds, and deployment for apps/studio.
+---
+
+Run commands from `apps/studio`.
+
+## Commands
+
+```bash
+pnpm run dev
+pnpm run typegen
+pnpm run build
+pnpm run start
+pnpm run deploy
+pnpm run deploy-graphql
+```
+
+The local Studio is available at `http://localhost:3333`.
+
+The `predev` script runs schema extraction and type generation before development starts.
+
+## Environment
+
+Configure the Sanity project and dataset values required by `sanity.cli.ts` and `sanity.config.ts` in `apps/studio/.env`.
+
+Do not commit tokens or other private credentials.
+
+## Deployment
+
+Use `pnpm run deploy` to deploy the Studio through Sanity CLI. GraphQL deployment is separate and uses `pnpm run deploy-graphql`.

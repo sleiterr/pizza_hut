@@ -1,0 +1,16 @@
+---
+title: Content Model
+description: Sanity document types currently used by the Pizza Hut Studio.
+---
+
+The Studio schemas are located in `apps/studio/schemaTypes`.
+
+## Document Types
+
+- `homePage` — homepage content and configurable sections.
+- `menu` — menu-level content and menu presentation data.
+- `category` — product grouping and category metadata.
+- `product` — product name, description, price, image, rating, and related menu data.
+- `reservations` — reservation-related content and configuration.
+
+The schema registry is assembled in `schemaTypes/index.ts`. When the schemas change, update generated types and verify the web queries that consume the affected documents.

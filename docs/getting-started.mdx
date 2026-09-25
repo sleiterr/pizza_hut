@@ -1,0 +1,53 @@
+---
+title: Getting Started
+description: Install dependencies and run the Pizza Hut workspace locally.
+---
+
+## Requirements
+
+- Node.js `>=20`
+- pnpm `>=10`
+- Access to the required Sanity, Supabase, Resend, and Mailchimp projects
+
+## Installation
+
+Install dependencies from the repository root:
+
+```bash
+pnpm install
+```
+
+The workspace scripts live in `apps/package.json`, while each application has its own package and scripts.
+
+## Run the Applications
+
+Run both applications in parallel:
+
+```bash
+cd apps
+pnpm run dev
+```
+
+- Web: `http://localhost:3000`
+- Studio: `http://localhost:3333`
+
+Run an individual application:
+
+```bash
+cd apps/web
+pnpm run dev
+```
+
+```bash
+cd apps/studio
+pnpm run dev
+```
+
+## Environment Files
+
+Create local environment files inside the application that uses them. Never commit secrets.
+
+- `apps/web/.env.local` — web and API integrations.
+- `apps/studio/.env` — Sanity Studio configuration.
+
+See [Web Development](/web/development) and [Studio Development](/studio/development) for the variables used by each application.

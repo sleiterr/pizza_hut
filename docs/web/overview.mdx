@@ -1,0 +1,26 @@
+---
+title: Web Application Overview
+description: Features and architecture of the Pizza Hut customer-facing website.
+---
+
+The web application is built with Next.js App Router and React. It combines Sanity-managed content with Supabase-backed ordering and contact workflows.
+
+## Main Features
+
+- Homepage sections, hero content, news, team, and feedback sections.
+- Menu categories, product details, favorites, and pagination.
+- Persistent cart with delivery, pickup, and checkout flows.
+- Payment method selection for card, cash, and Apple Pay or Google Pay presentation flows.
+- Reservation form and newsletter signup.
+- Support modal with contact message storage and email notifications.
+- Order confirmation page and transactional email handling.
+- Sanity draft mode and Presentation Tool support.
+
+## Application Areas
+
+- `src/app` — routes, pages, layouts, and API handlers.
+- `src/components` — feature-oriented UI components.
+- `src/sanity` — Sanity client, queries, image helpers, and types.
+- `src/store` — Zustand cart state.
+- `src/utils` — Supabase, Resend, Mailchimp, and local storage helpers.
+- `src/styles` — global styles, fonts, theme tokens, and variables.
