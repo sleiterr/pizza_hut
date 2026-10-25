@@ -13,6 +13,7 @@ import {
   KITCHEN_TEAM_QUERY,
   APP_SECTION_QUERY,
   RECENT_NEWS_QUERY,
+  PRODUCTS_QUERY,
 } from "@/sanity/queries";
 import type {
   HOME_PAGE_QUERY_RESULT,
@@ -27,6 +28,7 @@ import type {
   KITCHEN_TEAM_QUERY_RESULT,
   APP_SECTION_QUERY_RESULT,
   RECENT_NEWS_QUERY_RESULT,
+  PRODUCTS_QUERY_RESULT,
 } from "@/sanity/types";
 
 export async function getHomePageData() {
@@ -120,4 +122,11 @@ export async function getRecentNewsData() {
   });
 
   return recentNewsData as RECENT_NEWS_QUERY_RESULT;
+}
+
+export async function getProductsData() {
+  const { data: productData } = await sanityFetch({
+    query: PRODUCTS_QUERY,
+  });
+  return productData as PRODUCTS_QUERY_RESULT;
 }

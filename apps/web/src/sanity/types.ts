@@ -593,6 +593,19 @@ export type RECENT_NEWS_QUERY_RESULT = {
     | Array<never>;
 } | null;
 
+// Source: ../web/src/sanity/queries.ts
+// Variable: PRODUCTS_QUERY
+// Query: *[_type == "product"] | order(name asc){  _id,  name,   description,  price,  discountPrice,  rating,  tags}
+export type PRODUCTS_QUERY_RESULT = Array<{
+  _id: string;
+  name: string | null;
+  description: string | null;
+  price: number | null;
+  discountPrice: number | null;
+  rating: number | null;
+  tags: Array<string> | null;
+}>;
+
 // Query TypeMap
 import "@sanity/client";
 declare module "@sanity/client" {
@@ -610,5 +623,6 @@ declare module "@sanity/client" {
     '*[_type == "homePage"][0]{\n  ourTeamTitle,\n  ourTeamMembers [] {\n    _key,\n   image { asset->{url} },\n   role,\n   fullName,\n   signatureImage { asset->{url} },\n  }\n}': KITCHEN_TEAM_QUERY_RESULT;
     '*[_type == "homePage"][0]{\n  appSectionSubtitle,\n  appSectionTitle,\n  appSection[] {\n    _key,\n    benefit,\n    googlePlayLink,\n    appStoreLink\n  }\n}': APP_SECTION_QUERY_RESULT;
     '*[_type == "homePage"][0]{\n  recentNewsTitle,\n  "recentNewsItems": coalesce(recentNewsItems, []) | order(publishedAt desc){\n    _key,\n    publishedAt,\n    image { asset->{url} },\n    authorTitle,\n    authorName,\n    authorAvatar { asset->{url} }\n  }\n}': RECENT_NEWS_QUERY_RESULT;
+    '*[_type == "product"] | order(name asc){\n  _id,\n  name, \n  description,\n  price,\n  discountPrice,\n  rating,\n  tags\n}': PRODUCTS_QUERY_RESULT;
   }
 }

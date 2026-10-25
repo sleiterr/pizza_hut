@@ -84,6 +84,7 @@ export const productType = defineType({
           {title: 'Weekly Special', value: 'weekly-special'},
           {title: 'Top Offer', value: 'top-offer'},
           {title: 'New', value: 'new'},
+          {title: 'Sale', value: 'sale'},
         ],
       },
     }),

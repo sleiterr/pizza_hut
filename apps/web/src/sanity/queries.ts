@@ -153,3 +153,15 @@ export const RECENT_NEWS_QUERY = defineQuery(`*[_type == "homePage"][0]{
     authorAvatar { asset->{url} }
   }
 }`);
+
+// All products for the chatbot (no pagination)
+export const PRODUCTS_QUERY =
+  defineQuery(`*[_type == "product"] | order(name asc){
+  _id,
+  name, 
+  description,
+  price,
+  discountPrice,
+  rating,
+  tags
+}`);
