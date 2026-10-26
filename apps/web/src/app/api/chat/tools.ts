@@ -11,9 +11,9 @@ export const chatTools = {
     inputSchema: z.object({}),
     // Async function to fetch and return menu categories with their items
     execute: async () => {
-      console.log("TOOL getMenu called");
+      // console.log("TOOL getMenu called");
       const categories = await getMenuData();
-      console.log("TOOL getMenu categories:", categories.length);
+      // console.log("TOOL getMenu categories:", categories.length);
 
       // return the mapped categories with their items
       return categories.map((c) => ({
@@ -56,7 +56,7 @@ export const chatTools = {
 
     // Async function to search and return products based on query, tag, and maxPrice
     execute: async ({ query, tag, maxPrice }) => {
-      console.log("TOOL searchProducts", { query, tag, maxPrice });
+      // console.log("TOOL searchProducts", { query, tag, maxPrice });
       const products = await getProductsData();
 
       // has function checks if a text contains a part (case-insensitive)
@@ -86,7 +86,7 @@ export const chatTools = {
         }));
 
       // Log the number of products found after filtering and mapping
-      console.log("TOOL searchProducts result:", result.length);
+      // console.log("TOOL searchProducts result:", result.length);
       // return the filtered and mapped products
       return result;
     },
