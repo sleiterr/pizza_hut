@@ -3,6 +3,7 @@ import { draftMode } from "next/headers";
 import { Fredoka, Epilogue, Fugaz_One, Oswald } from "next/font/google";
 import { VisualEditing } from "next-sanity/visual-editing";
 import Header from "@/components/Header/Header";
+import ChatWidget from "@/components/chatbot/ChatWidget";
 import Footer from "@/components/Footer/Footer";
 import { SanityLive } from "@/sanity/live";
 import { DisableDraftMode } from "@/components/DisableDraftMode/disable-draft-mode";
@@ -60,6 +61,7 @@ export default function RootLayout({
         <VisualEditing />
         <DisableDraftMode />
         <ToastContainer position="top-right" autoClose={2500} />
+        <ChatWidget />
       </body>
     </html>
   );
