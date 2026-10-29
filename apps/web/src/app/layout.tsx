@@ -6,7 +6,7 @@ import Header from "@/components/Header/Header";
 import ChatWidget from "@/components/chatbot/ChatWidget";
 import Footer from "@/components/Footer/Footer";
 import { SanityLive } from "@/sanity/live";
-import { DisableDraftMode } from "@/components/DisableDraftMode/disable-draft-mode";
+// import { DisableDraftMode } from "@/components/DisableDraftMode/disable-draft-mode";
 import "../styles/globals.css";
 
 import { ToastContainer } from "react-toastify";
@@ -59,7 +59,7 @@ export default function RootLayout({
         <Footer />
         <SanityLive />
         <VisualEditing />
-        <DisableDraftMode />
+        {/* <DisableDraftMode /> */}
         <ToastContainer position="top-right" autoClose={2500} />
         <ChatWidget />
       </body>
