@@ -1,60 +1,14 @@
 "use client";
 
 import { useChat } from "@ai-sdk/react";
-import { useEffect, useRef, useState, type ReactNode } from "react";
-import type { UIMessage } from "ai";
+import { useEffect, useRef, useState } from "react";
 import clsx from "clsx";
-import { MdClose, MdLocalPizza, MdSend } from "react-icons/md";
+import { MdClose, MdLocalPizza } from "react-icons/md";
 import ChatMessageText from "./ChatMessageText";
-
-// Keep track of the maximum number of characters allowed in the input
-const MAX_CHARS = 500;
-
-// Predefined suggestions for the user to quickly ask common questions
-const SUGGESTIONS = [
-  "What pizzas do you have?",
-  "Any discounts?",
-  "What's new on the menu?",
-];
-
-// Extracts the text content from a chat message
-const getText = (m: UIMessage) =>
-  m.parts.map((p) => (p.type === "text" ? p.text : "")).join("");
-
-// Function to get a user-friendly error message based on the error type
-function getErrorText(error: Error) {
-  const msg = error.message.toLocaleLowerCase();
-  if (msg.includes("to many"))
-    return "Too many requests. Please wait a minute and try again.";
-  if (msg.includes("too long"))
-    return "Something went wrong. Please try again.";
-}
-
-// function to render a chat bubble for user or assistant messages
-function Bubble({
-  role,
-  children,
-}: {
-  role: "user" | "assistant";
-  children: ReactNode;
-}) {
-  const isUser = role === "user";
-
-  return (
-    <div className={clsx("flex", isUser ? "justify-end" : "justify-start")}>
-      <div
-        className={clsx(
-          "max-w-[85%] wrap-break-word rounded-2xl px-4 py-2.5 text-sm leading-relaxed",
-          isUser
-            ? "rounded-br-md bg-cta-primary text-quaternary"
-            : "rounded-bl-md border border-cart-border bg-cart-bg text-quaternary",
-        )}
-      >
-        {children}
-      </div>
-    </div>
-  );
-}
+import { TypingIndicator } from "./TypingIndicator";
+import { Bubble } from "./ChatBubble";
+import { ChatInput } from "./ChatInput";
+import { SUGGESTIONS, getText, getErrorText } from "../../hooks/chatUtils";
 
 export default function ChatWidget() {
   const { messages, sendMessage, status, error } = useChat();
@@ -161,21 +115,10 @@ export default function ChatWidget() {
               </div>
             )}
 
+            {/* Typing indicator for assistant */}
             {isThinking && (
               <Bubble role="assistant">
-                <span
-                  role="status"
-                  aria-label="Assistant is thinking"
-                  className="flex items-center gap-1.5 py-1"
-                >
-                  {[0, 150, 300].map((delay) => (
-                    <span
-                      key={delay}
-                      className="h-2 w-2 animate-bounce rounded-fill bg-discount-price"
-                      style={{ animationDelay: `${delay}ms` }}
-                    />
-                  ))}
-                </span>
+                <TypingIndicator />
               </Bubble>
             )}
 
@@ -191,30 +134,13 @@ export default function ChatWidget() {
             <div ref={endRef} />
           </div>
 
-          <form
-            onSubmit={(e) => {
-              e.preventDefault();
-              send(input);
-            }}
-            className="flex items-center gap-2 border-t border-cart-border bg-cart-bg p-3"
-          >
-            <input
-              ref={inputRef}
-              value={input}
-              onChange={(e) => setInput(e.target.value)}
-              maxLength={MAX_CHARS}
-              placeholder="Type your question..."
-              className="min-w-0 flex-1 rounded-xl border border-border-btn bg-bg-cart px-4 py-3 text-base text-quaternary placeholder:text-quinary focus:border-discount-price focus:outline-none sm:text-sm"
-            />
-            <button
-              type="submit"
-              disabled={busy || !input.trim()}
-              aria-label="Send message"
-              className="flex h-11 w-11 shrink-0 cursor-pointer items-center justify-center rounded-xl bg-cta-submit text-add-btn transition-all duration-300 hover:brightness-95 active:scale-95 disabled:cursor-not-allowed disabled:opacity-50"
-            >
-              <MdSend size={20} />
-            </button>
-          </form>
+          <ChatInput
+            value={input}
+            onChange={setInput}
+            onSubmit={() => send(input)}
+            disabled={busy}
+            inputRef={inputRef}
+          />
         </section>
       )}
       {/* Floating button */}
