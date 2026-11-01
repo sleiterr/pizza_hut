@@ -17,7 +17,9 @@ export default function ChatWidget() {
   const endRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
 
+  // determine if the chat is busy (sending or streaming a message)
   const busy = status === "submitted" || status === "streaming";
+  // get the last message in the chat
   const last = messages[messages.length - 1];
 
   // "thinking" = request sent, or the model is calling a tool and has no text yet
@@ -85,10 +87,11 @@ export default function ChatWidget() {
 
           {/* Messages */}
           <div className="cart-scrollbar flex-1 space-y-3 overflow-y-auto px-4 py-4">
+            {/* Bubble for assistant's initial message */}
             <Bubble role="assistant">
               Hi! I can help you with our menu, price and discounts.
             </Bubble>
-
+            {/* Messages from user and assistant */}
             {messages.map((m) => {
               if (m.role === "system") return null;
               const text = getText(m);
@@ -133,7 +136,7 @@ export default function ChatWidget() {
 
             <div ref={endRef} />
           </div>
-
+          {/* Chat input for user to type messages */}
           <ChatInput
             value={input}
             onChange={setInput}

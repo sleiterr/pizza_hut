@@ -1,0 +1,45 @@
+---
+title: Menu Chatbot
+description: Architecture, data sources, and configuration for the customer-facing menu assistant.
+---
+
+The Pizza Assistant is a menu-information chatbot available throughout the web application. It can answer questions about dishes, prices, new menu items, and offers. It does not place orders.
+
+## Request Flow
+
+1. `src/components/chatbot/ChatWidget.tsx` renders the floating chat window and sends user messages with the AI SDK React `useChat` hook.
+2. Requests go to the `POST /api/chat` route in `src/app/api/chat/route.ts`. The route removes client-supplied system messages, checks that the latest message is from the user, limits user messages to 500 characters, and keeps only the last 10 messages as model context.
+3. The route streams responses from Google's Gemini model. The Google provider reads `GOOGLE_GENERATIVE_AI_API_KEY` from the server environment.
+4. The model can call the tools in `src/app/api/chat/tools.ts`:
+   - `searchProducts` searches Sanity product documents by name or description, tag, or maximum price.
+   - `getMenu` returns menu categories and their items, including names, descriptions, prices, and the `isNew` flag.
+5. These tools read through `src/sanity/fetchers.ts` and the queries in `src/sanity/queries.ts`. The model is instructed to answer only from returned menu data and to respond in the language of the user's latest message.
+
+The model may make up to five tool steps per request and returns a streamed response. The interface shows suggested questions before the first message, displays a typing indicator while the response is pending, and reports request errors to the user.
+
+## Sanity Content
+
+The chatbot uses two Sanity document types:
+
+- `product` documents supply the main catalog, including name, description, regular and discounted prices, rating, and tags.
+- `menuCategories` documents supply category titles and menu item names, descriptions, string-formatted prices, and new-item flags.
+
+The assistant combines both sources for broad menu, category, price, and new-item questions. Questions specifically about pizzas can use the product catalog. Since the data comes from Studio, editors should keep product prices and descriptions, menu item prices, and product tags current. See [Studio Content Model](../studio/content-model).
+
+## Limits and Configuration
+
+Set `GOOGLE_GENERATIVE_AI_API_KEY` in `apps/web/.env.local` for local development and in the web deployment environment for production. This key is server-side only; do not expose it through a `NEXT_PUBLIC_` variable or commit it.
+
+The input is capped at 500 characters in both the interface and API. If both `UPSTASH_REDIS_REST_URL` and `UPSTASH_REDIS_REST_TOKEN` are configured, the API applies a sliding-window limit of 10 requests per minute per client IP. Without both variables, this rate limiter is not initialized.
+
+The conversation is held by the client-side chat session; this implementation does not persist chat history. Keep answers grounded in the Sanity tool results: the assistant must not invent menu items or prices, answer unrelated questions, or take orders.
+
+## Relevant Files
+
+- `src/components/chatbot/ChatWidget.tsx` — floating chat UI and client-side message flow.
+- `src/components/chatbot/ChatInput.tsx` — message input and character limit.
+- `src/components/chatbot/ChatMessageText.tsx` — formatting for assistant text and lists.
+- `src/hooks/chatUtils.ts` — character limit, suggested questions, message extraction, and error text.
+- `src/app/api/chat/route.ts` — validation, optional rate limiting, model configuration, and streaming.
+- `src/app/api/chat/tools.ts` — Sanity-backed tools available to the model.
+- `src/sanity/queries.ts` and `src/sanity/fetchers.ts` — chatbot content queries and data access.

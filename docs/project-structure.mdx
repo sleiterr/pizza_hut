@@ -27,8 +27,8 @@ apps/web/
 ├── public/                  # Images, icons, logos, and other static assets
 ├── src/
 │   ├── app/                 # App Router pages, layouts, and API routes
-│   ├── components/          # Reusable UI and feature components
-│   ├── hooks/               # Client-side React hooks
+│   ├── components/          # Reusable UI and feature components, including chatbot/
+│   ├── hooks/               # Client-side React hooks and chatbot utilities
 │   ├── sanity/              # Sanity client, queries, images, and types
 │   ├── store/               # Zustand application state, including the cart
 │   ├── styles/              # Global CSS, fonts, theme, and design tokens
@@ -45,6 +45,8 @@ apps/web/
 
 - `src/app` defines routes such as the homepage, cart, checkout, confirmation, and API handlers.
 - `src/components` groups UI by feature, including menu, cart, booking, header, modal, and support areas.
+- `src/components/chatbot` contains the floating menu assistant UI; `src/app/api/chat` implements its server endpoint and Sanity-backed tools.
+- `src/hooks/chatUtils.ts` contains the chatbot's shared character limit, suggested questions, and message helpers.
 - `src/sanity` is the read layer for editorial content managed in Studio.
 - `src/store` keeps client-side state that must survive navigation, such as cart items.
 - `src/utils` contains integrations and server or client helpers for external services.

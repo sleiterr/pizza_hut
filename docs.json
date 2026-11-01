@@ -21,7 +21,8 @@
       "pages": [
         { "title": "Overview", "href": "/web/overview" },
         { "title": "Development", "href": "/web/development" },
-        { "title": "Integrations", "href": "/web/integrations" }
+        { "title": "Integrations", "href": "/web/integrations" },
+        { "title": "Menu Chatbot", "href": "/web/chatbot" }
       ]
     },
     {

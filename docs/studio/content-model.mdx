@@ -14,3 +14,12 @@ The Studio schemas are located in `apps/studio/schemaTypes`.
 - `reservations` — reservation-related content and configuration.
 
 The schema registry is assembled in `schemaTypes/index.ts`. When the schemas change, update generated types and verify the web queries that consume the affected documents.
+
+## Chatbot Data
+
+The web menu chatbot reads content from two Studio document types; there is no chatbot-specific schema or chatbot runtime in Studio:
+
+- `product` documents feed the product search tool. The chatbot uses name, description, regular and discounted price, rating, and tags. Product tags such as `new`, `popular`, and `weekly-special` can be used to filter results.
+- `menuCategories` documents feed the menu tool. The chatbot uses each category's title and subtitle and each menu item's name, description, price, and `isNew` value.
+
+Keep these fields accurate when editing content because the assistant uses the Sanity data available to the web application to answer questions about menu items, prices, and offers. The chatbot's query and response flow is documented in [Menu Chatbot](../web/chatbot).

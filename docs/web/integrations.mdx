@@ -22,3 +22,9 @@ Resend is used for order and support email notifications. Email delivery depends
 ## Mailchimp
 
 Mailchimp handles newsletter subscriptions through the newsletter API route. Its credentials must remain server-side.
+
+## Menu Chatbot
+
+The menu chatbot uses the AI SDK with Google's Gemini provider to stream answers from the web app's `/api/chat` route. Set `GOOGLE_GENERATIVE_AI_API_KEY` as a server-side environment variable. The chatbot's tools query Sanity product and menu data; see [Menu Chatbot](./chatbot) for details.
+
+Optional Upstash Redis REST credentials (`UPSTASH_REDIS_REST_URL` and `UPSTASH_REDIS_REST_TOKEN`) enable the chatbot route's rate limiter. Configure both variables together; without them, that limiter is disabled.
