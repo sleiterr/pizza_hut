@@ -18,6 +18,7 @@ const FeaturedDishes = ({
 }: FeaturedDishesProps) => {
   return (
     <SectionPage
+      id="shop"
       classSection="relative bg-primary-section"
       className="py-0! pb-24!"
     >

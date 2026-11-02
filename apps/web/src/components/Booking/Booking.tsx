@@ -8,7 +8,7 @@ const Booking = () => {
     <>
       <CardBooking>
         <BookingContent />
-        <div className="">
+        <div>
           <BookingForm />
         </div>
       </CardBooking>

@@ -6,6 +6,7 @@ import SectionPage from "../Section/SectionPage";
 const HeroGallery = () => {
   return (
     <SectionPage
+      id="blog"
       classSection="before:pointer-events-none before:absolute before:inset-0 before:z-10 before:content-[''] before:bg-[var(--color-overlay-gallery)]"
       className="relative py-0! pb-24!"
     >

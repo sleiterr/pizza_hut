@@ -15,13 +15,14 @@ export function Hero({ data, weeklySpecial }: HeroSectionProps) {
   const imageUrl = data?.heroImage?.asset?.url;
 
   return (
-    <section className="relative h-177.5 w-full overflow-hidden">
+    <section id="hero" className="relative h-177.5 w-full overflow-hidden">
       {imageUrl && (
         <Image
           src={imageUrl}
           alt="Hero background"
           fill
           priority
+          id="home"
           className="object-cover object-center"
         />
       )}
@@ -44,7 +45,7 @@ export function Hero({ data, weeklySpecial }: HeroSectionProps) {
               }}
             />
             {data?.heroButtonText && (
-              <CtaPrimary href={data.heroButtonLink ?? "#"}>
+              <CtaPrimary href={data.heroButtonLink ?? "/#shop"}>
                 {data.heroButtonText}
               </CtaPrimary>
             )}

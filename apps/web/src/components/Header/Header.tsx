@@ -21,17 +21,29 @@ const Header = () => {
   // Handle link click to close the menu
   const handleLinkClick = () => setMenuOpen(false);
 
+  // On the home page the logo scrolls smoothly to the top and clears the hash from the URL
+  const handleLogoClick = (event: React.MouseEvent<HTMLAnchorElement>) => {
+    if (!isHome) return;
+    event.preventDefault();
+    window.scrollTo({ top: 0, behavior: "smooth" });
+    window.history.replaceState(
+      null,
+      "",
+      window.location.pathname + window.location.search,
+    );
+  };
+
+  // On the home page track the scroll position, on other pages the header is always in the "scrolled" state
   useEffect(() => {
-    if (typeof window === "undefined") return;
-    if (pathname !== "/") {
-      const handleScroll = () => setScrolled(window.scrollY > 0);
-      setScrolled(window.scrollY > 0);
-      window.addEventListener("scroll", handleScroll);
-      return () => window.removeEventListener("scroll", handleScroll);
-    } else {
+    if (!isHome) {
       setScrolled(true);
+      return;
     }
-  }, [pathname]);
+    const handleScroll = () => setScrolled(window.scrollY > 0);
+    handleScroll();
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, [isHome]);
 
   // Disable body scroll when menu is open
   useEffect(() => {
@@ -52,10 +64,12 @@ const Header = () => {
     <>
       <header
         className={clsx(
-          "relative w-full z-999",
+          // sticky keeps the header in the document flow, so the content is not shifted under it
+          "sticky top-0 w-full z-999",
           "flex justify-between items-center",
           "px-4 md:px-6",
-          "bg-white",
+          "bg-white transition-shadow duration-300",
+          scrolled && "shadow-md",
         )}
       >
         {/* Overlay */}
@@ -67,7 +81,7 @@ const Header = () => {
           onClick={() => setMenuOpen(false)}
         ></div>
         <div className="relative py-4 shrink-0 cursor-pointer flex items-center">
-          <Link href="/">
+          <Link href="/" onClick={handleLogoClick}>
             <img
               src="/logo/logo_pizza.svg"
               alt="logo"

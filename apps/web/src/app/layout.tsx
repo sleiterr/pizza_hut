@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
-import { draftMode } from "next/headers";
+import { Suspense } from "react";
+// import { draftMode } from "next/headers";
 import { Fredoka, Epilogue, Fugaz_One, Oswald } from "next/font/google";
 import { VisualEditing } from "next-sanity/visual-editing";
 import Header from "@/components/Header/Header";
@@ -50,6 +51,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
+      data-scroll-behavior="smooth"
       style={{ scrollbarGutter: "stable" }}
       className={`${fredoka.variable} ${epilogue.variable} ${oswald.variable} ${fugaz.variable} h-full antialiased`}
     >

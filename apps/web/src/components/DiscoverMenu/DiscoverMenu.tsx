@@ -11,7 +11,7 @@ type DiscoverMenuProps = {
 const DiscoverMenu = ({ data }: DiscoverMenuProps) => {
   console.log(data);
   return (
-    <Section className="py-0! pt-24! pb-72!">
+    <Section id="reservation" className="py-0! pt-24! pb-72!">
       <div className=" mb-32">
         <h2 className="font-semibold font-heading text-6xl text-black text-center">
           Discover Menu

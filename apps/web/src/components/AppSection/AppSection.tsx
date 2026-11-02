@@ -8,6 +8,7 @@ import { APP_SECTION_QUERY_RESULT } from "@/sanity/types";
 const AppSection = ({ data }: AppSectionProps) => {
   return (
     <SectionPage
+      id="app"
       classSection="relative bg-primary-section"
       className="grid grid-cols-2 items-center py-28!"
     >

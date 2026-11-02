@@ -8,6 +8,11 @@
   --text-primary: #000;
 }
 
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: -6em;
+}
+
 body {
   background: var(--color-background);
   color: var(--color-text-primary);
