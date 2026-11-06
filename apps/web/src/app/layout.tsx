@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import { Suspense } from "react";
 // import { draftMode } from "next/headers";
 import { Fredoka, Epilogue, Fugaz_One, Oswald } from "next/font/google";
 import { VisualEditing } from "next-sanity/visual-editing";
@@ -47,7 +46,6 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  // draftMode не можна використовувати як await у функціональному компоненті, тому прибираємо цю логіку для клієнтського рендеру
   return (
     <html
       lang="en"

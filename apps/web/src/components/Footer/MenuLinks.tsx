@@ -6,7 +6,7 @@ import { IoIosArrowForward } from "react-icons/io";
 const menuLinks: MenuLinks[] = [
   {
     title: "Steaks",
-    href: "#steaks",
+    href: "/steaks",
     className: clsx(
       "flex items-center gap-2",
       "font-normal text-base text-primary hover:text-hover-secondary transition-colors duration-300",
@@ -16,7 +16,7 @@ const menuLinks: MenuLinks[] = [
   },
   {
     title: "Burgers",
-    href: "#burgers",
+    href: "/burgers",
     className: clsx(
       "flex items-center gap-2",
       "font-normal text-base text-primary",
@@ -27,7 +27,7 @@ const menuLinks: MenuLinks[] = [
   },
   {
     title: "Coctails",
-    href: "#coctails",
+    href: "/coctails",
     className: clsx(
       "flex items-center gap-2",
       "font-normal text-base text-primary",
@@ -44,7 +44,7 @@ const menuLinks: MenuLinks[] = [
       "hover:text-hover-secondary transition-colors duration-300",
     ),
     iconClassName: "text-footer-icon text-sm",
-    href: "#bar",
+    href: "/bar",
     type: "#",
   },
   {
@@ -55,7 +55,7 @@ const menuLinks: MenuLinks[] = [
       "hover:text-hover-secondary transition-colors duration-300",
     ),
     iconClassName: "text-footer-icon text-sm",
-    href: "#desserts",
+    href: "/desserts",
     type: "#",
   },
 ];
