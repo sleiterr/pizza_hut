@@ -4,6 +4,7 @@ import Image from "next/image";
 
 import CardFeatured from "./CardFeatured";
 import AddToCartButton from "./AddToCartButton";
+import SaleBadge from "./SaleBadge";
 
 import type { FEATURED_DISHES_QUERY_RESULT } from "@/sanity/types";
 
@@ -18,14 +19,10 @@ const FeaturedCard = ({ items }: FeaturedCardProps) => {
         <li key={item._id} className="flex h-full justify-center">
           <CardFeatured>
             <div className="relative flex h-full w-full flex-col justify-between">
-              <span
-                className={clsx(
-                  "absolute -left-8 -top-3 z-10 flex h-17.5 w-17.5 rounded-full bg-discount-price items-center justify-center",
-                  "font-heading text-lg font-semibold uppercase leading-none text-black",
-                )}
-              >
-                sale
-              </span>
+              
+              {/* Sale badge for items on sale */}
+              {item.tags?.includes("sale") && <SaleBadge />}
+
               <div className="relative mt-6 flex h-72.5 items-center justify-center">
                 <span className="absolute h-37.25 w-83.25 rounded-full bg-cta-primary-hover" />
                 {item.productImage?.asset?.url && (

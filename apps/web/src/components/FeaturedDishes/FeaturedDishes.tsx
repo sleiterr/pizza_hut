@@ -1,4 +1,3 @@
-import React from "react";
 import FeaturedCard from "./FeaturedCard";
 import Booking from "../Booking/Booking";
 import SectionPage from "../Section/SectionPage";

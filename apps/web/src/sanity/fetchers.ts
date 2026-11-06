@@ -64,6 +64,7 @@ export async function getMenuData() {
   return menuData as MENU_QUERY_RESULT;
 }
 
+//! Fetch discover menu data for the discover menu section
 export async function getDiscoverMenuData() {
   const { data: discoverMenuData } = await sanityFetch({
     query: DISCOVER_MENU_QUERY,
@@ -80,6 +81,7 @@ export async function getFeaturedDishesData(start: number, end: number) {
   });
   return featuredDishesData as FEATURED_DISHES_QUERY_RESULT;
 }
+
 //! Fetch total count of featured dishes for pagination
 export async function getFeaturedDishesCount() {
   const { data: featuredDishesCount } = await sanityFetch({

@@ -85,7 +85,7 @@ const PageItem = () => {
   return (
     <>
       {pageContent.map((i) => (
-        <>
+        <div key={i.id}>
           <h2 className={i.titleClass}>
             {i.title}
             <span className={i.captionClass}>
@@ -95,7 +95,7 @@ const PageItem = () => {
           </h2>
 
           <p className={i.textClass}>{i.text}</p>
-        </>
+        </div>
       ))}
     </>
   );

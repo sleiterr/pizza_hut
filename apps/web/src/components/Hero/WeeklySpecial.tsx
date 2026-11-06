@@ -2,6 +2,7 @@ import React from "react";
 import clsx from "clsx";
 import Image from "next/image";
 import WeeklyCard from "@/components/Hero/WeeklyCard";
+import WeeklyBadge from "@/components/FeaturedDishes/WeeklyBadge";
 import Rating from "@/components/Hero/Rating";
 import type { WEEKLY_SPECIAL_QUERY_RESULT } from "@/sanity/types";
 
@@ -10,7 +11,8 @@ type WeeklySpecialProps = {
 };
 const WeeklySpecial = ({ data }: WeeklySpecialProps) => {
   return (
-    <WeeklyCard>
+    <WeeklyCard className="relative">
+      <WeeklyBadge />
       <div className="flex items-center justify-between h-full">
         <div className="flex flex-col items-start justify-start gap-1">
           {data?.price && (
